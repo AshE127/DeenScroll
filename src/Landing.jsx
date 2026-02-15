@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react'
+import UserButton from './UserButton.jsx'
+import { useAuth } from './AuthContext.jsx'
 
 export default function Landing({ onNavigate }) {
   const [visible, setVisible] = useState(false)
+  const { getRemainingPlays, isPremium } = useAuth()
   useEffect(() => { setVisible(true) }, [])
 
   return (
@@ -20,8 +23,8 @@ export default function Landing({ onNavigate }) {
           <button style={styles.navLink} onClick={() => onNavigate('stories')}>Stories</button>
           <button style={styles.navLink} onClick={() => onNavigate('mood')}>Mood</button>
           <button style={styles.navLink} onClick={() => onNavigate('bingo')}>Bingo</button>
-          <button style={styles.navLink} onClick={() => onNavigate('bingo')}>Bingo</button>
         </div>
+        <UserButton />
       </nav>
 
       {/* Hero */}
