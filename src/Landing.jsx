@@ -19,6 +19,8 @@ export default function Landing({ onNavigate }) {
           <button style={styles.navLink} onClick={() => onNavigate('facts')}>Fun Facts</button>
           <button style={styles.navLink} onClick={() => onNavigate('stories')}>Stories</button>
           <button style={styles.navLink} onClick={() => onNavigate('mood')}>Mood</button>
+          <button style={styles.navLink} onClick={() => onNavigate('bingo')}>Bingo</button>
+          <button style={styles.navLink} onClick={() => onNavigate('bingo')}>Bingo</button>
         </div>
       </nav>
 
@@ -55,6 +57,12 @@ export default function Landing({ onNavigate }) {
           </button>
           <button style={styles.heroSecondary} onClick={() => onNavigate('mood')}>
             Mood Reminders
+          </button>
+          <button style={styles.heroSecondary} onClick={() => onNavigate('bingo')}>
+            Islamic Bingo
+          </button>
+          <button style={styles.heroSecondary} onClick={() => onNavigate('bingo')}>
+            Islamic Bingo
           </button>
         </div>
         <p style={styles.heroNote}>Free. No sign-up required.</p>
@@ -123,11 +131,14 @@ export default function Landing({ onNavigate }) {
           </div>
           <div style={styles.featureCard}>
             <span style={styles.featureIcon}>🔥</span>
-            <h3 style={styles.featureTitle}>Daily Streaks</h3>
+            <h3 style={styles.featureTitle}>Islamic Bingo</h3>
             <p style={styles.featureDesc}>
-              Build a learning habit with daily streak tracking.
-              Come back every day and watch your knowledge grow.
+              Daily and weekly bingo cards with real Islamic deeds.
+              Check off what you've done, get 3 in a row, track your streak.
             </p>
+            <button style={styles.featureBtn} onClick={() => onNavigate('bingo')}>
+              Play Now →
+            </button>
           </div>
           <div style={styles.featureCard}>
             <span style={styles.featureIcon}>💡</span>
@@ -160,6 +171,17 @@ export default function Landing({ onNavigate }) {
             </p>
             <button style={styles.featureBtn} onClick={() => onNavigate('mood')}>
               Try Now →
+            </button>
+          </div>
+          <div style={styles.featureCard}>
+            <span style={styles.featureIcon}>🎯</span>
+            <h3 style={styles.featureTitle}>Islamic Bingo</h3>
+            <p style={styles.featureDesc}>
+              Daily and weekly bingo cards filled with real Islamic deeds.
+              Check them off as you go, earn bingos, and build streaks.
+            </p>
+            <button style={styles.featureBtn} onClick={() => onNavigate('bingo')}>
+              Play Now →
             </button>
           </div>
           <div style={styles.featureCard}>
@@ -204,6 +226,12 @@ export default function Landing({ onNavigate }) {
             </button>
             <button style={styles.heroSecondary} onClick={() => onNavigate('mood')}>
               Mood Reminders
+            </button>
+            <button style={styles.heroSecondary} onClick={() => onNavigate('bingo')}>
+              Islamic Bingo
+            </button>
+            <button style={styles.heroSecondary} onClick={() => onNavigate('bingo')}>
+              Islamic Bingo
             </button>
           </div>
         </div>

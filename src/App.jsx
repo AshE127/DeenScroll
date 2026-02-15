@@ -7,6 +7,7 @@ import HadithTF from './HadithTF.jsx'
 import FunFacts from './FunFacts.jsx'
 import ProphetStories from './ProphetStories.jsx'
 import MoodReminders from './MoodReminders.jsx'
+import IslamicBingo from './IslamicBingo.jsx'
 
 export default function App() {
   const [page, setPage] = useState('landing')
@@ -36,5 +37,6 @@ export default function App() {
   if (page === 'facts') return <FunFacts onBack={() => navigate('landing')} />
   if (page === 'stories') return <ProphetStories onBack={() => navigate('landing')} />
   if (page === 'mood') return <MoodReminders onBack={() => navigate('landing')} />
+  if (page === 'bingo') return <IslamicBingo onBack={() => navigate('landing')} />
   return <Landing onNavigate={navigate} />
 }
