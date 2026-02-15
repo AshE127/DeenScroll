@@ -15,6 +15,10 @@ export default function Landing({ onNavigate }) {
           <button style={styles.navLink} onClick={() => onNavigate('trivia')}>Trivia</button>
           <button style={styles.navLink} onClick={() => onNavigate('surah-match')}>Surah Match</button>
           <button style={styles.navLink} onClick={() => onNavigate('emoji')}>Emoji Quiz</button>
+          <button style={styles.navLink} onClick={() => onNavigate('hadith')}>True or False</button>
+          <button style={styles.navLink} onClick={() => onNavigate('facts')}>Fun Facts</button>
+          <button style={styles.navLink} onClick={() => onNavigate('stories')}>Stories</button>
+          <button style={styles.navLink} onClick={() => onNavigate('mood')}>Mood</button>
         </div>
       </nav>
 
@@ -35,7 +39,22 @@ export default function Landing({ onNavigate }) {
             Play Islamic Trivia
           </button>
           <button style={styles.heroSecondary} onClick={() => onNavigate('surah-match')}>
-            Try Surah Match
+            Surah Match
+          </button>
+          <button style={styles.heroSecondary} onClick={() => onNavigate('emoji')}>
+            Guess the Emoji
+          </button>
+          <button style={styles.heroSecondary} onClick={() => onNavigate('hadith')}>
+            True or False
+          </button>
+          <button style={styles.heroSecondary} onClick={() => onNavigate('facts')}>
+            Fun Facts
+          </button>
+          <button style={styles.heroSecondary} onClick={() => onNavigate('stories')}>
+            Prophet Stories
+          </button>
+          <button style={styles.heroSecondary} onClick={() => onNavigate('mood')}>
+            Mood Reminders
           </button>
         </div>
         <p style={styles.heroNote}>Free. No sign-up required.</p>
@@ -92,12 +111,56 @@ export default function Landing({ onNavigate }) {
             </button>
           </div>
           <div style={styles.featureCard}>
+            <span style={styles.featureIcon}>⚖️</span>
+            <h3 style={styles.featureTitle}>True or False</h3>
+            <p style={styles.featureDesc}>
+              Can you tell authentic hadith from fabricated ones?
+              80+ statements with sources and explanations. Fast-paced and streak-based.
+            </p>
+            <button style={styles.featureBtn} onClick={() => onNavigate('hadith')}>
+              Play Now →
+            </button>
+          </div>
+          <div style={styles.featureCard}>
             <span style={styles.featureIcon}>🔥</span>
             <h3 style={styles.featureTitle}>Daily Streaks</h3>
             <p style={styles.featureDesc}>
               Build a learning habit with daily streak tracking.
               Come back every day and watch your knowledge grow.
             </p>
+          </div>
+          <div style={styles.featureCard}>
+            <span style={styles.featureIcon}>💡</span>
+            <h3 style={styles.featureTitle}>Fun Islamic Facts</h3>
+            <p style={styles.featureDesc}>
+              90+ surprising facts about Islam, science, history, and daily Sunnah.
+              Swipe through, bookmark favorites, and share the best ones.
+            </p>
+            <button style={styles.featureBtn} onClick={() => onNavigate('facts')}>
+              Explore Now →
+            </button>
+          </div>
+          <div style={styles.featureCard}>
+            <span style={styles.featureIcon}>📜</span>
+            <h3 style={styles.featureTitle}>Prophet Stories</h3>
+            <p style={styles.featureDesc}>
+              Short, powerful moments from the lives of the prophets.
+              Swipeable story cards with reflection prompts. 20 stories from Adam to Muhammad ﷺ.
+            </p>
+            <button style={styles.featureBtn} onClick={() => onNavigate('stories')}>
+              Read Now →
+            </button>
+          </div>
+          <div style={styles.featureCard}>
+            <span style={styles.featureIcon}>🤲</span>
+            <h3 style={styles.featureTitle}>Mood Reminders</h3>
+            <p style={styles.featureDesc}>
+              Pick your mood — anxious, sad, grateful, motivated — and receive
+              a personalized ayah, hadith, or dua that speaks to your heart.
+            </p>
+            <button style={styles.featureBtn} onClick={() => onNavigate('mood')}>
+              Try Now →
+            </button>
           </div>
           <div style={styles.featureCard}>
             <span style={styles.featureIcon}>🌙</span>
@@ -125,10 +188,22 @@ export default function Landing({ onNavigate }) {
               Start Islamic Trivia
             </button>
             <button style={styles.heroSecondary} onClick={() => onNavigate('surah-match')}>
-              Try Surah Match
+              Surah Match
             </button>
             <button style={styles.heroSecondary} onClick={() => onNavigate('emoji')}>
               Guess the Emoji
+            </button>
+            <button style={styles.heroSecondary} onClick={() => onNavigate('hadith')}>
+              True or False
+            </button>
+            <button style={styles.heroSecondary} onClick={() => onNavigate('facts')}>
+              Fun Facts
+            </button>
+            <button style={styles.heroSecondary} onClick={() => onNavigate('stories')}>
+              Prophet Stories
+            </button>
+            <button style={styles.heroSecondary} onClick={() => onNavigate('mood')}>
+              Mood Reminders
             </button>
           </div>
         </div>

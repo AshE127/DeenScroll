@@ -3,11 +3,14 @@ import Landing from './Landing.jsx'
 import Trivia from './Trivia.jsx'
 import SurahMatch from './SurahMatch.jsx'
 import EmojiGame from './EmojiGame.jsx'
+import HadithTF from './HadithTF.jsx'
+import FunFacts from './FunFacts.jsx'
+import ProphetStories from './ProphetStories.jsx'
+import MoodReminders from './MoodReminders.jsx'
 
 export default function App() {
   const [page, setPage] = useState('landing')
 
-  // Handle browser back button
   useEffect(() => {
     const handlePop = () => {
       setPage('landing')
@@ -29,5 +32,9 @@ export default function App() {
   if (page === 'trivia') return <Trivia onBack={() => navigate('landing')} />
   if (page === 'surah-match') return <SurahMatch onBack={() => navigate('landing')} />
   if (page === 'emoji') return <EmojiGame onBack={() => navigate('landing')} />
+  if (page === 'hadith') return <HadithTF onBack={() => navigate('landing')} />
+  if (page === 'facts') return <FunFacts onBack={() => navigate('landing')} />
+  if (page === 'stories') return <ProphetStories onBack={() => navigate('landing')} />
+  if (page === 'mood') return <MoodReminders onBack={() => navigate('landing')} />
   return <Landing onNavigate={navigate} />
 }
