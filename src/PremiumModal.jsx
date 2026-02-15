@@ -22,7 +22,7 @@ export default function PremiumModal() {
     }
     // Redirect to Stripe checkout
     window.open(
-      `https://buy.stripe.com/test_placeholder?client_reference_id=${user?.uid || "guest"}`,
+      `https://buy.stripe.com/aFaeVe2jt6Wb9IG3pi28800?client_reference_id=${user?.uid || "guest"}`,
       "_blank"
     );
   };
