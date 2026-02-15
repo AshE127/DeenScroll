@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
+import { useAuth } from "./AuthContext.jsx";
 
 // ============================================
 // HADITH TRUE/FALSE DATABASE - 80+ statements
@@ -106,6 +107,7 @@ function saveData(d) { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(d)
 function getDefault() { return { seen: [], correct: [], wrong: [], streak: 0, bestStreak: 0, total: 0, totalCorrect: 0 }; }
 
 export default function HadithTF({ onBack }) {
+  const { checkPlayLimit, recordPlay } = useAuth();
   const [screen, setScreen] = useState("home");
   const [progress, setProgress] = useState(getDefault());
   const [queue, setQueue] = useState([]);
@@ -125,6 +127,8 @@ export default function HadithTF({ onBack }) {
   }, [progress]);
 
   const startGame = () => {
+    if (!checkPlayLimit('hadith')) return;
+    recordPlay('hadith');
     setQueue(buildQueue());
     setIdx(0);
     setSelected(null);

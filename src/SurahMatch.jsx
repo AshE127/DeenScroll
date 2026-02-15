@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from "react";
+import { useAuth } from "./AuthContext.jsx";
 
 // ============================================
 // SURAH DATABASE - 114 Surahs
@@ -133,6 +134,7 @@ function shuffle(arr) {
 // MAIN COMPONENT
 // ============================================
 export default function SurahMatch({ onBack }) {
+  const { checkPlayLimit, recordPlay } = useAuth();
   const [round, setRound] = useState(0);
   const [score, setScore] = useState(0);
   const [totalMatched, setTotalMatched] = useState(0);
@@ -167,6 +169,8 @@ export default function SurahMatch({ onBack }) {
   }, []);
 
   const startGame = () => {
+    if (!checkPlayLimit('surah-match')) return;
+    recordPlay('surah-match');
     setStarted(true);
     setScore(0);
     setTotalMatched(0);

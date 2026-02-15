@@ -4,251 +4,235 @@ import { useAuth } from './AuthContext.jsx'
 
 export default function Landing({ onNavigate }) {
   const [visible, setVisible] = useState(false)
-  const { getRemainingPlays, isPremium } = useAuth()
+  const [menuOpen, setMenuOpen] = useState(false)
+  const { getRemainingPlays, isPremium, user, signInWithGoogle } = useAuth()
   useEffect(() => { setVisible(true) }, [])
 
+  const freeGames = [
+    { id: 'trivia', name: 'Islamic Trivia', emoji: '🧠', limit: 10, desc: '150+ questions, 6 categories' },
+    { id: 'surah-match', name: 'Surah Match', emoji: '📖', limit: 5, desc: 'Match 114 surahs' },
+    { id: 'emoji', name: 'Guess the Emoji', emoji: '🤔', limit: 5, desc: '64 Islamic puzzles' },
+    { id: 'hadith', name: 'True or False', emoji: '⚖️', limit: 10, desc: '80 hadith statements' },
+    { id: 'bingo', name: 'Islamic Bingo', emoji: '🎯', limit: null, desc: 'Daily & weekly deeds' },
+  ]
+
+  const premiumContent = [
+    { id: 'facts', name: 'Fun Islamic Facts', emoji: '💡', desc: '90+ swipeable facts, 9 categories' },
+    { id: 'stories', name: 'Prophet Stories', emoji: '📜', desc: '20 powerful stories with reflections' },
+    { id: 'mood', name: 'Mood Reminders', emoji: '🤲', desc: '12 moods, personalized ayahs & duas' },
+  ]
+
+  const nav = (id) => { setMenuOpen(false); onNavigate(id) }
+
   return (
-    <div style={styles.container}>
+    <div style={s.container}>
       <style>{css}</style>
 
-      {/* Nav */}
-      <nav style={styles.nav}>
-        <span style={styles.navLogo}>DeenScroll</span>
-        <div style={styles.navLinks}>
-          <button style={styles.navLink} onClick={() => onNavigate('trivia')}>Trivia</button>
-          <button style={styles.navLink} onClick={() => onNavigate('surah-match')}>Surah Match</button>
-          <button style={styles.navLink} onClick={() => onNavigate('emoji')}>Emoji Quiz</button>
-          <button style={styles.navLink} onClick={() => onNavigate('hadith')}>True or False</button>
-          <button style={styles.navLink} onClick={() => onNavigate('facts')}>Fun Facts</button>
-          <button style={styles.navLink} onClick={() => onNavigate('stories')}>Stories</button>
-          <button style={styles.navLink} onClick={() => onNavigate('mood')}>Mood</button>
-          <button style={styles.navLink} onClick={() => onNavigate('bingo')}>Bingo</button>
+      {/* NAV */}
+      <nav style={s.nav}>
+        <span style={s.logo}>DeenScroll</span>
+        <div style={s.navRight}>
+          <UserButton />
+          <button style={s.burger} onClick={() => setMenuOpen(!menuOpen)}>
+            {menuOpen ? '✕' : '☰'}
+          </button>
         </div>
-        <UserButton />
       </nav>
 
-      {/* Hero */}
+      {/* MENU OVERLAY */}
+      {menuOpen && (
+        <div style={s.menuOverlay} onClick={() => setMenuOpen(false)}>
+          <div style={s.menu} onClick={e => e.stopPropagation()}>
+            <div style={s.menuSection}>
+              <span style={s.menuLabel}>Games</span>
+              {freeGames.map(g => (
+                <button key={g.id} style={s.menuItem} onClick={() => nav(g.id)}>
+                  <span>{g.emoji} {g.name}</span>
+                  {!isPremium && g.limit && <span style={s.menuBadge}>{getRemainingPlays(g.id)} left</span>}
+                </button>
+              ))}
+            </div>
+            <div style={s.menuSection}>
+              <span style={s.menuLabel}>{isPremium ? 'Content' : 'Premium Content 🔒'}</span>
+              {premiumContent.map(g => (
+                <button key={g.id} style={s.menuItem} onClick={() => nav(g.id)}>
+                  <span>{g.emoji} {g.name}</span>
+                  {!isPremium && <span style={s.menuLock}>⭐</span>}
+                </button>
+              ))}
+            </div>
+            <div style={s.menuSection}>
+              <span style={s.menuLabel}>Account</span>
+              {user ? (
+                <div style={s.menuAccount}>
+                  <span style={s.menuAccountName}>{user.displayName || user.email}</span>
+                  <span style={s.menuAccountStatus}>
+                    {isPremium ? '⭐ Premium Member' : '🆓 Free Plan'}
+                  </span>
+                </div>
+              ) : (
+                <button style={s.menuSignIn} onClick={signInWithGoogle}>
+                  Sign in with Google
+                </button>
+              )}
+              {!isPremium && (
+                <button style={s.menuUpgrade} onClick={() => {
+                  setMenuOpen(false)
+                  if (!user) signInWithGoogle()
+                  window.open(`https://buy.stripe.com/aFaeVe2jt6Wb9IG3pi28800?client_reference_id=${user?.uid || 'guest'}`, '_blank')
+                }}>
+                  ⭐ Upgrade to Premium — $5/mo
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* HERO */}
       <section style={{
-        ...styles.hero,
+        ...s.hero,
         opacity: visible ? 1 : 0,
         transform: visible ? 'translateY(0)' : 'translateY(30px)',
       }}>
-        <div style={styles.heroMoon}>🌙</div>
-        <h1 style={styles.heroTitle}>Scroll Less,<br/>Deen More.</h1>
-        <p style={styles.heroSub}>
+        <div style={s.heroMoon}>🌙</div>
+        <h1 style={s.heroTitle}>Scroll Less,<br/>Deen More.</h1>
+        <p style={s.heroSub}>
           Bite-sized Islamic knowledge that replaces your doomscroll.
           Learn your deen one swipe at a time.
         </p>
-        <div style={styles.heroBtns}>
-          <button style={styles.heroPrimary} onClick={() => onNavigate('trivia')}>
-            Play Islamic Trivia
-          </button>
-          <button style={styles.heroSecondary} onClick={() => onNavigate('surah-match')}>
-            Surah Match
-          </button>
-          <button style={styles.heroSecondary} onClick={() => onNavigate('emoji')}>
-            Guess the Emoji
-          </button>
-          <button style={styles.heroSecondary} onClick={() => onNavigate('hadith')}>
-            True or False
-          </button>
-          <button style={styles.heroSecondary} onClick={() => onNavigate('facts')}>
-            Fun Facts
-          </button>
-          <button style={styles.heroSecondary} onClick={() => onNavigate('stories')}>
-            Prophet Stories
-          </button>
-          <button style={styles.heroSecondary} onClick={() => onNavigate('mood')}>
-            Mood Reminders
-          </button>
-          <button style={styles.heroSecondary} onClick={() => onNavigate('bingo')}>
-            Islamic Bingo
-          </button>
-          <button style={styles.heroSecondary} onClick={() => onNavigate('bingo')}>
-            Islamic Bingo
-          </button>
-        </div>
-        <p style={styles.heroNote}>Free. No sign-up required.</p>
+        {!isPremium && (
+          <div style={s.freeBanner}>
+            <span style={s.freeLabel}>🆓 FREE PLAN</span>
+            <span style={s.freeText}>Limited daily plays • Upgrade for unlimited access</span>
+          </div>
+        )}
+        {isPremium && (
+          <div style={s.premBanner}>
+            <span style={s.premLabel}>⭐ PREMIUM</span>
+            <span style={s.premText}>Unlimited access to all games & content</span>
+          </div>
+        )}
       </section>
 
-      {/* What is DeenScroll */}
-      <section style={styles.section}>
-        <div style={styles.sectionInner}>
-          <span style={styles.sectionLabel}>What is DeenScroll?</span>
-          <h2 style={styles.sectionTitle}>Your doomscroll replacement</h2>
-          <p style={styles.sectionText}>
-            We spend hours scrolling through content that doesn't benefit us.
-            DeenScroll replaces that habit with engaging Islamic knowledge —
-            trivia, surah matching, and more — designed to feel just as
-            addictive, but actually good for your akhirah.
-          </p>
+      {/* FREE GAMES */}
+      <section style={s.section}>
+        <div style={s.sectionHeader}>
+          <span style={s.sectionIcon}>🎮</span>
+          <div>
+            <h2 style={s.sectionTitle}>{isPremium ? 'All Games' : 'Free Games'}</h2>
+            <p style={s.sectionSub}>{isPremium ? 'Unlimited access' : 'Daily limits apply'}</p>
+          </div>
         </div>
-      </section>
-
-      {/* Features */}
-      <section style={styles.featuresSection}>
-        <div style={styles.featuresGrid}>
-          <div style={styles.featureCard}>
-            <span style={styles.featureIcon}>🧠</span>
-            <h3 style={styles.featureTitle}>Islamic Trivia</h3>
-            <p style={styles.featureDesc}>
-              150+ questions across Quran, Seerah, Prophets, Fiqh, History, and Ramadan.
-              Smart spaced repetition so you actually retain what you learn.
-            </p>
-            <button style={styles.featureBtn} onClick={() => onNavigate('trivia')}>
-              Play Now →
-            </button>
-          </div>
-          <div style={styles.featureCard}>
-            <span style={styles.featureIcon}>📖</span>
-            <h3 style={styles.featureTitle}>Surah Match</h3>
-            <p style={styles.featureDesc}>
-              Match Arabic surah names to their English meanings.
-              All 114 surahs with transliteration to help you learn pronunciation.
-            </p>
-            <button style={styles.featureBtn} onClick={() => onNavigate('surah-match')}>
-              Play Now →
-            </button>
-          </div>
-          <div style={styles.featureCard}>
-            <span style={styles.featureIcon}>🤔</span>
-            <h3 style={styles.featureTitle}>Guess the Emoji</h3>
-            <p style={styles.featureDesc}>
-              Can you guess the Islamic story from emojis alone?
-              60+ puzzles across Prophets, Events, Quran, and more. Shareable results.
-            </p>
-            <button style={styles.featureBtn} onClick={() => onNavigate('emoji')}>
-              Play Now →
-            </button>
-          </div>
-          <div style={styles.featureCard}>
-            <span style={styles.featureIcon}>⚖️</span>
-            <h3 style={styles.featureTitle}>True or False</h3>
-            <p style={styles.featureDesc}>
-              Can you tell authentic hadith from fabricated ones?
-              80+ statements with sources and explanations. Fast-paced and streak-based.
-            </p>
-            <button style={styles.featureBtn} onClick={() => onNavigate('hadith')}>
-              Play Now →
-            </button>
-          </div>
-          <div style={styles.featureCard}>
-            <span style={styles.featureIcon}>🔥</span>
-            <h3 style={styles.featureTitle}>Islamic Bingo</h3>
-            <p style={styles.featureDesc}>
-              Daily and weekly bingo cards with real Islamic deeds.
-              Check off what you've done, get 3 in a row, track your streak.
-            </p>
-            <button style={styles.featureBtn} onClick={() => onNavigate('bingo')}>
-              Play Now →
-            </button>
-          </div>
-          <div style={styles.featureCard}>
-            <span style={styles.featureIcon}>💡</span>
-            <h3 style={styles.featureTitle}>Fun Islamic Facts</h3>
-            <p style={styles.featureDesc}>
-              90+ surprising facts about Islam, science, history, and daily Sunnah.
-              Swipe through, bookmark favorites, and share the best ones.
-            </p>
-            <button style={styles.featureBtn} onClick={() => onNavigate('facts')}>
-              Explore Now →
-            </button>
-          </div>
-          <div style={styles.featureCard}>
-            <span style={styles.featureIcon}>📜</span>
-            <h3 style={styles.featureTitle}>Prophet Stories</h3>
-            <p style={styles.featureDesc}>
-              Short, powerful moments from the lives of the prophets.
-              Swipeable story cards with reflection prompts. 20 stories from Adam to Muhammad ﷺ.
-            </p>
-            <button style={styles.featureBtn} onClick={() => onNavigate('stories')}>
-              Read Now →
-            </button>
-          </div>
-          <div style={styles.featureCard}>
-            <span style={styles.featureIcon}>🤲</span>
-            <h3 style={styles.featureTitle}>Mood Reminders</h3>
-            <p style={styles.featureDesc}>
-              Pick your mood — anxious, sad, grateful, motivated — and receive
-              a personalized ayah, hadith, or dua that speaks to your heart.
-            </p>
-            <button style={styles.featureBtn} onClick={() => onNavigate('mood')}>
-              Try Now →
-            </button>
-          </div>
-          <div style={styles.featureCard}>
-            <span style={styles.featureIcon}>🎯</span>
-            <h3 style={styles.featureTitle}>Islamic Bingo</h3>
-            <p style={styles.featureDesc}>
-              Daily and weekly bingo cards filled with real Islamic deeds.
-              Check them off as you go, earn bingos, and build streaks.
-            </p>
-            <button style={styles.featureBtn} onClick={() => onNavigate('bingo')}>
-              Play Now →
-            </button>
-          </div>
-          <div style={styles.featureCard}>
-            <span style={styles.featureIcon}>🌙</span>
-            <h3 style={styles.featureTitle}>Ramadan Ready</h3>
-            <p style={styles.featureDesc}>
-              Perfect for Ramadan — dedicate just 10 minutes of your screen time
-              to learning instead of scrolling.
-            </p>
-          </div>
+        <div style={s.gameGrid}>
+          {freeGames.map(g => {
+            const remaining = getRemainingPlays(g.id)
+            const atLimit = !isPremium && g.limit && remaining <= 0
+            return (
+              <button key={g.id} style={{ ...s.gameCard, opacity: atLimit ? 0.5 : 1 }} onClick={() => onNavigate(g.id)}>
+                <span style={s.gameEmoji}>{g.emoji}</span>
+                <span style={s.gameName}>{g.name}</span>
+                <span style={s.gameDesc}>{g.desc}</span>
+                {!isPremium && g.limit ? (
+                  <span style={{
+                    ...s.gameLimit,
+                    color: remaining <= 2 ? '#FF6B6B' : remaining <= 5 ? '#FFD93D' : '#34D399',
+                  }}>
+                    {atLimit ? '🔒 Limit reached' : `${remaining}/${g.limit} plays left`}
+                  </span>
+                ) : (
+                  <span style={{ ...s.gameLimit, color: '#34D399' }}>
+                    {isPremium ? '∞ Unlimited' : '✓ Free'}
+                  </span>
+                )}
+              </button>
+            )
+          })}
         </div>
       </section>
 
-      {/* Social Proof / CTA */}
-      <section style={styles.ctaSection}>
-        <div style={styles.ctaInner}>
-          <span style={styles.ctaVerse}>
-            "Read in the name of your Lord who created." — 96:1
-          </span>
-          <h2 style={styles.ctaTitle}>Ready to scroll with purpose?</h2>
-          <p style={styles.ctaText}>
-            Start learning right now. No account needed. No downloads. Just tap and go.
-          </p>
-          <div style={styles.ctaBtns}>
-            <button style={styles.heroPrimary} onClick={() => onNavigate('trivia')}>
-              Start Islamic Trivia
-            </button>
-            <button style={styles.heroSecondary} onClick={() => onNavigate('surah-match')}>
-              Surah Match
-            </button>
-            <button style={styles.heroSecondary} onClick={() => onNavigate('emoji')}>
-              Guess the Emoji
-            </button>
-            <button style={styles.heroSecondary} onClick={() => onNavigate('hadith')}>
-              True or False
-            </button>
-            <button style={styles.heroSecondary} onClick={() => onNavigate('facts')}>
-              Fun Facts
-            </button>
-            <button style={styles.heroSecondary} onClick={() => onNavigate('stories')}>
-              Prophet Stories
-            </button>
-            <button style={styles.heroSecondary} onClick={() => onNavigate('mood')}>
-              Mood Reminders
-            </button>
-            <button style={styles.heroSecondary} onClick={() => onNavigate('bingo')}>
-              Islamic Bingo
-            </button>
-            <button style={styles.heroSecondary} onClick={() => onNavigate('bingo')}>
-              Islamic Bingo
-            </button>
+      {/* PREMIUM CONTENT */}
+      <section style={s.section}>
+        <div style={s.sectionHeader}>
+          <span style={s.sectionIcon}>{isPremium ? '📚' : '🔒'}</span>
+          <div>
+            <h2 style={s.sectionTitle}>{isPremium ? 'Premium Content' : 'Premium Content'}</h2>
+            <p style={s.sectionSub}>{isPremium ? 'Your exclusive content' : 'Upgrade to unlock'}</p>
           </div>
+        </div>
+        <div style={s.gameGrid}>
+          {premiumContent.map(g => (
+            <button key={g.id} style={s.gameCard} onClick={() => {
+              if (isPremium) { onNavigate(g.id) }
+              else {
+                if (!user) signInWithGoogle()
+                window.open(`https://buy.stripe.com/aFaeVe2jt6Wb9IG3pi28800?client_reference_id=${user?.uid || 'guest'}`, '_blank')
+              }
+            }}>
+              <span style={s.gameEmoji}>{g.emoji}</span>
+              <span style={s.gameName}>{g.name}</span>
+              <span style={s.gameDesc}>{g.desc}</span>
+              {isPremium ? (
+                <span style={{ ...s.gameLimit, color: '#FFD93D' }}>⭐ Premium</span>
+              ) : (
+                <span style={{ ...s.gameLimit, color: '#A78BFA' }}>🔒 Premium Only</span>
+              )}
+            </button>
+          ))}
         </div>
       </section>
 
-      {/* Footer */}
-      <footer style={styles.footer}>
-        <span style={styles.footerLogo}>DeenScroll</span>
-        <span style={styles.footerTagline}>Scroll Less, Deen More.</span>
-        <span style={styles.footerCopy}>© 2025 DeenScroll. All rights reserved.</span>
+      {/* PREMIUM UPSELL (free users only) */}
+      {!isPremium && (
+        <section style={s.upsell}>
+          <div style={s.upsellInner}>
+            <span style={s.upsellIcon}>⭐</span>
+            <h2 style={s.upsellTitle}>Go Premium</h2>
+            <p style={s.upsellText}>
+              Unlimited plays on all games, full access to Fun Facts,
+              Prophet Stories, Mood Reminders, ad-free experience, and early access to new content.
+            </p>
+            <div style={s.upsellPrice}>
+              <span style={s.priceAmount}>$5</span>
+              <span style={s.pricePer}>/month</span>
+            </div>
+            <div style={s.upsellPerks}>
+              <span style={s.perk}>✓ Unlimited game plays</span>
+              <span style={s.perk}>✓ 3 exclusive content sections</span>
+              <span style={s.perk}>✓ Ad-free experience</span>
+              <span style={s.perk}>✓ Full stats dashboard</span>
+              <span style={s.perk}>✓ Cancel anytime</span>
+            </div>
+            <button style={s.upsellBtn} onClick={() => {
+              if (!user) signInWithGoogle()
+              window.open(`https://buy.stripe.com/aFaeVe2jt6Wb9IG3pi28800?client_reference_id=${user?.uid || 'guest'}`, '_blank')
+            }}>
+              {user ? 'Upgrade Now ⭐' : 'Sign In & Upgrade ⭐'}
+            </button>
+          </div>
+        </section>
+      )}
+
+      {/* WHAT IS DEENSCROLL */}
+      <section style={s.aboutSection}>
+        <span style={s.aboutLabel}>What is DeenScroll?</span>
+        <h2 style={s.aboutTitle}>Your doomscroll replacement</h2>
+        <p style={s.aboutText}>
+          We spend hours scrolling through content that doesn't benefit us.
+          DeenScroll replaces that habit with engaging Islamic knowledge —
+          trivia, stories, and more — designed to feel just as
+          addictive, but actually good for your akhirah.
+        </p>
+      </section>
+
+      {/* FOOTER */}
+      <footer style={s.footer}>
+        <span style={s.footerLogo}>DeenScroll</span>
+        <span style={s.footerTagline}>Scroll Less, Deen More.</span>
+        <span style={s.footerCopy}>© 2026 DeenScroll. All rights reserved.</span>
       </footer>
 
-      {/* BG */}
-      <div style={styles.bgPattern} />
+      <div style={s.bgPattern} />
     </div>
   )
 }
@@ -259,10 +243,12 @@ const css = `
   body { background: #0A0F1C; }
   button { cursor: pointer; font-family: 'Outfit', sans-serif; }
   @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes slideIn { from { opacity: 0; transform: translateX(100%); } to { opacity: 1; transform: translateX(0); } }
   html { scroll-behavior: smooth; }
 `
 
-const styles = {
+const s = {
   container: {
     minHeight: '100vh',
     background: 'linear-gradient(170deg, #0A0F1C 0%, #0B1A2E 30%, #0D2818 60%, #0A0F1C 100%)',
@@ -274,122 +260,153 @@ const styles = {
   // NAV
   nav: {
     display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-    padding: '1.25rem 1.5rem', maxWidth: '900px', margin: '0 auto',
+    padding: '1rem 1.25rem', maxWidth: '600px', margin: '0 auto',
   },
-  navLogo: {
-    fontFamily: "'Amiri', serif", fontSize: '1.4rem', color: '#F0E6D3', fontWeight: 700,
+  logo: { fontFamily: "'Amiri', serif", fontSize: '1.4rem', color: '#F0E6D3', fontWeight: 700 },
+  navRight: { display: 'flex', alignItems: 'center', gap: '0.6rem' },
+  burger: {
+    background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)',
+    color: '#F0E6D3', width: '38px', height: '38px', borderRadius: '10px',
+    fontSize: '1.1rem', display: 'flex', alignItems: 'center', justifyContent: 'center',
   },
-  navLinks: { display: 'flex', gap: '0.5rem' },
-  navLink: {
-    background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)',
-    color: 'rgba(240,230,211,0.6)', padding: '0.45rem 1rem', borderRadius: '25px',
-    fontSize: '0.8rem', fontWeight: 500,
+
+  // MENU
+  menuOverlay: {
+    position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+    background: 'rgba(0,0,0,0.7)', zIndex: 100,
+  },
+  menu: {
+    position: 'fixed', top: 0, right: 0, bottom: 0, width: '85%', maxWidth: '340px',
+    background: 'linear-gradient(180deg, #141A2E 0%, #0F1522 100%)',
+    padding: '1.5rem', overflowY: 'auto', animation: 'slideIn 0.25s ease-out',
+    borderLeft: '1px solid rgba(255,255,255,0.06)',
+  },
+  menuSection: { marginBottom: '1.5rem' },
+  menuLabel: {
+    fontSize: '0.65rem', color: 'rgba(255,255,255,0.25)', textTransform: 'uppercase',
+    letterSpacing: '0.15em', fontWeight: 700, display: 'block', marginBottom: '0.6rem',
+    paddingBottom: '0.4rem', borderBottom: '1px solid rgba(255,255,255,0.04)',
+  },
+  menuItem: {
+    display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+    width: '100%', padding: '0.7rem 0.5rem', background: 'none', border: 'none',
+    color: '#F0E6D3', fontSize: '0.9rem', fontWeight: 500, textAlign: 'left',
+    borderRadius: '8px',
+  },
+  menuBadge: {
+    fontSize: '0.65rem', color: '#34D399', background: 'rgba(52,211,153,0.1)',
+    padding: '0.15rem 0.5rem', borderRadius: '8px', fontWeight: 600,
+  },
+  menuLock: { fontSize: '0.7rem' },
+  menuAccount: {
+    padding: '0.6rem 0.5rem', display: 'flex', flexDirection: 'column', gap: '0.2rem',
+  },
+  menuAccountName: { fontSize: '0.9rem', color: '#F0E6D3', fontWeight: 600 },
+  menuAccountStatus: { fontSize: '0.75rem', color: 'rgba(255,255,255,0.4)' },
+  menuSignIn: {
+    width: '100%', padding: '0.7rem', background: 'rgba(255,255,255,0.05)',
+    border: '1px solid rgba(255,255,255,0.1)', borderRadius: '10px',
+    color: '#F0E6D3', fontSize: '0.85rem', fontWeight: 600,
+  },
+  menuUpgrade: {
+    width: '100%', padding: '0.75rem', marginTop: '0.5rem', borderRadius: '10px', border: 'none',
+    background: 'linear-gradient(135deg, #FFD93D, #F97316)', color: '#0A0F1C',
+    fontSize: '0.85rem', fontWeight: 700,
   },
 
   // HERO
   hero: {
-    textAlign: 'center', padding: '4rem 1.5rem 3rem', maxWidth: '700px', margin: '0 auto',
+    textAlign: 'center', padding: '2.5rem 1.25rem 1.5rem', maxWidth: '600px', margin: '0 auto',
     transition: 'all 0.8s ease-out',
   },
-  heroMoon: { fontSize: '4rem', marginBottom: '1.25rem', animation: 'float 3s ease-in-out infinite' },
+  heroMoon: { fontSize: '3.5rem', marginBottom: '1rem', animation: 'float 3s ease-in-out infinite' },
   heroTitle: {
-    fontFamily: "'Amiri', serif", fontSize: 'clamp(2.5rem, 8vw, 4rem)',
-    color: '#F0E6D3', fontWeight: 700, lineHeight: 1.1, letterSpacing: '-0.01em',
+    fontFamily: "'Amiri', serif", fontSize: 'clamp(2.2rem, 8vw, 3.5rem)',
+    color: '#F0E6D3', fontWeight: 700, lineHeight: 1.1,
   },
   heroSub: {
-    fontSize: '1.1rem', color: 'rgba(240,230,211,0.5)', lineHeight: 1.6,
-    maxWidth: '480px', margin: '1.25rem auto 2rem',
+    fontSize: '1rem', color: 'rgba(240,230,211,0.45)', lineHeight: 1.6,
+    maxWidth: '420px', margin: '1rem auto 1.25rem',
   },
-  heroBtns: {
-    display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap',
+  freeBanner: {
+    display: 'inline-flex', flexDirection: 'column', gap: '0.2rem',
+    padding: '0.6rem 1.25rem', borderRadius: '14px',
+    background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)',
   },
-  heroPrimary: {
-    background: 'linear-gradient(135deg, #34D399, #059669)', color: '#0A0F1C',
-    border: 'none', padding: '0.9rem 2rem', borderRadius: '50px',
-    fontSize: '1rem', fontWeight: 700, boxShadow: '0 0 30px rgba(52,211,153,0.25)',
+  freeLabel: { fontSize: '0.7rem', fontWeight: 700, color: '#34D399', letterSpacing: '0.1em' },
+  freeText: { fontSize: '0.65rem', color: 'rgba(255,255,255,0.3)' },
+  premBanner: {
+    display: 'inline-flex', flexDirection: 'column', gap: '0.2rem',
+    padding: '0.6rem 1.25rem', borderRadius: '14px',
+    background: 'rgba(255,217,61,0.06)', border: '1px solid rgba(255,217,61,0.15)',
   },
-  heroSecondary: {
-    background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)',
-    color: '#F0E6D3', padding: '0.9rem 2rem', borderRadius: '50px',
-    fontSize: '1rem', fontWeight: 500,
+  premLabel: { fontSize: '0.7rem', fontWeight: 700, color: '#FFD93D', letterSpacing: '0.1em' },
+  premText: { fontSize: '0.65rem', color: 'rgba(255,217,61,0.4)' },
+
+  // SECTIONS
+  section: { padding: '1.5rem 1.25rem', maxWidth: '600px', margin: '0 auto' },
+  sectionHeader: { display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' },
+  sectionIcon: { fontSize: '1.5rem' },
+  sectionTitle: { fontFamily: "'Amiri', serif", fontSize: '1.4rem', color: '#F0E6D3', fontWeight: 700 },
+  sectionSub: { fontSize: '0.7rem', color: 'rgba(255,255,255,0.25)' },
+
+  // GAME GRID
+  gameGrid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))', gap: '0.6rem' },
+  gameCard: {
+    display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.3rem',
+    padding: '1.1rem 0.75rem', borderRadius: '16px',
+    background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.06)',
+    textAlign: 'center', transition: 'all 0.2s',
   },
-  heroNote: {
-    fontSize: '0.75rem', color: 'rgba(255,255,255,0.25)', marginTop: '1rem',
+  gameEmoji: { fontSize: '1.8rem' },
+  gameName: { fontSize: '0.85rem', fontWeight: 700, color: '#F0E6D3' },
+  gameDesc: { fontSize: '0.6rem', color: 'rgba(255,255,255,0.25)', lineHeight: 1.3 },
+  gameLimit: { fontSize: '0.6rem', fontWeight: 600, marginTop: '0.2rem' },
+
+  // UPSELL
+  upsell: { padding: '2rem 1.25rem', maxWidth: '600px', margin: '0 auto' },
+  upsellInner: {
+    background: 'linear-gradient(135deg, rgba(255,217,61,0.04), rgba(249,115,22,0.04))',
+    border: '1px solid rgba(255,217,61,0.12)', borderRadius: '24px',
+    padding: '2rem 1.5rem', textAlign: 'center',
+  },
+  upsellIcon: { fontSize: '2.5rem', display: 'block', marginBottom: '0.5rem' },
+  upsellTitle: { fontFamily: "'Amiri', serif", fontSize: '1.8rem', color: '#F0E6D3', marginBottom: '0.5rem' },
+  upsellText: { fontSize: '0.85rem', color: 'rgba(240,230,211,0.4)', lineHeight: 1.6, maxWidth: '350px', margin: '0 auto 1rem' },
+  upsellPrice: { marginBottom: '1rem' },
+  priceAmount: { fontSize: '2.5rem', fontWeight: 800, color: '#F0E6D3' },
+  pricePer: { fontSize: '1rem', color: 'rgba(240,230,211,0.4)' },
+  upsellPerks: { display: 'flex', flexDirection: 'column', gap: '0.35rem', marginBottom: '1.5rem' },
+  perk: { fontSize: '0.8rem', color: 'rgba(240,230,211,0.5)' },
+  upsellBtn: {
+    width: '100%', padding: '0.9rem', borderRadius: '14px', border: 'none',
+    background: 'linear-gradient(135deg, #FFD93D, #F97316)', color: '#0A0F1C',
+    fontSize: '1rem', fontWeight: 700, boxShadow: '0 0 30px rgba(255,217,61,0.15)',
   },
 
-  // SECTION
-  section: {
-    padding: '3rem 1.5rem', maxWidth: '700px', margin: '0 auto',
-  },
-  sectionInner: { textAlign: 'center' },
-  sectionLabel: {
-    fontSize: '0.7rem', color: '#34D399', textTransform: 'uppercase',
+  // ABOUT
+  aboutSection: { padding: '2rem 1.25rem', maxWidth: '600px', margin: '0 auto', textAlign: 'center' },
+  aboutLabel: {
+    fontSize: '0.65rem', color: '#34D399', textTransform: 'uppercase',
     letterSpacing: '0.2em', fontWeight: 600,
   },
-  sectionTitle: {
-    fontFamily: "'Amiri', serif", fontSize: '2rem', color: '#F0E6D3',
-    marginTop: '0.5rem', marginBottom: '1rem',
+  aboutTitle: {
+    fontFamily: "'Amiri', serif", fontSize: '1.6rem', color: '#F0E6D3',
+    marginTop: '0.4rem', marginBottom: '0.75rem',
   },
-  sectionText: {
-    fontSize: '1rem', color: 'rgba(240,230,211,0.45)', lineHeight: 1.7,
-    maxWidth: '520px', margin: '0 auto',
-  },
-
-  // FEATURES
-  featuresSection: {
-    padding: '2rem 1.5rem 4rem', maxWidth: '900px', margin: '0 auto',
-  },
-  featuresGrid: {
-    display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-    gap: '1rem',
-  },
-  featureCard: {
-    background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)',
-    borderRadius: '20px', padding: '1.75rem 1.25rem',
-    display: 'flex', flexDirection: 'column', gap: '0.5rem',
-  },
-  featureIcon: { fontSize: '2rem' },
-  featureTitle: { fontSize: '1.1rem', fontWeight: 700, color: '#F0E6D3' },
-  featureDesc: { fontSize: '0.85rem', color: 'rgba(240,230,211,0.4)', lineHeight: 1.6, flex: 1 },
-  featureBtn: {
-    background: 'none', border: 'none', color: '#34D399', fontSize: '0.85rem',
-    fontWeight: 600, textAlign: 'left', padding: '0.5rem 0 0', marginTop: 'auto',
-  },
-
-  // CTA
-  ctaSection: {
-    padding: '4rem 1.5rem', maxWidth: '700px', margin: '0 auto', textAlign: 'center',
-  },
-  ctaInner: {},
-  ctaVerse: {
-    fontFamily: "'Amiri', serif", fontSize: '0.95rem', color: 'rgba(240,230,211,0.25)',
-    fontStyle: 'italic', display: 'block', marginBottom: '1.5rem',
-  },
-  ctaTitle: {
-    fontFamily: "'Amiri', serif", fontSize: '2rem', color: '#F0E6D3', marginBottom: '0.75rem',
-  },
-  ctaText: {
-    fontSize: '1rem', color: 'rgba(240,230,211,0.4)', lineHeight: 1.6,
-    maxWidth: '450px', margin: '0 auto 2rem',
-  },
-  ctaBtns: {
-    display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap',
+  aboutText: {
+    fontSize: '0.9rem', color: 'rgba(240,230,211,0.4)', lineHeight: 1.7,
+    maxWidth: '450px', margin: '0 auto',
   },
 
   // FOOTER
   footer: {
     display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.3rem',
-    padding: '3rem 1.5rem 2rem', borderTop: '1px solid rgba(255,255,255,0.04)',
+    padding: '2.5rem 1.5rem 1.5rem', borderTop: '1px solid rgba(255,255,255,0.04)',
   },
-  footerLogo: {
-    fontFamily: "'Amiri', serif", fontSize: '1.2rem', color: 'rgba(240,230,211,0.3)', fontWeight: 700,
-  },
-  footerTagline: {
-    fontSize: '0.65rem', color: 'rgba(52,211,153,0.3)', textTransform: 'uppercase', letterSpacing: '0.2em',
-  },
-  footerCopy: {
-    fontSize: '0.7rem', color: 'rgba(255,255,255,0.15)', marginTop: '0.5rem',
-  },
+  footerLogo: { fontFamily: "'Amiri', serif", fontSize: '1.1rem', color: 'rgba(240,230,211,0.25)', fontWeight: 700 },
+  footerTagline: { fontSize: '0.6rem', color: 'rgba(52,211,153,0.25)', textTransform: 'uppercase', letterSpacing: '0.2em' },
+  footerCopy: { fontSize: '0.65rem', color: 'rgba(255,255,255,0.12)', marginTop: '0.4rem' },
 
   bgPattern: {
     position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none', opacity: 0.015,

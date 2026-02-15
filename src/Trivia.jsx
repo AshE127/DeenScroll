@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from "react";
+import { useAuth } from "./AuthContext.jsx";
 
 // ============================================
 // QUESTION BANK - 180+ questions across 6 categories
@@ -224,6 +225,7 @@ function shuffle(arr) {
 // MAIN APP
 // ============================================
 export default function DeenScroll({ onBack }) {
+  const { checkPlayLimit, recordPlay } = useAuth();
   const [screen, setScreen] = useState("splash");
   const [progress, setProgress] = useState(getDefaultProgress());
   const [loaded, setLoaded] = useState(false);
@@ -271,6 +273,8 @@ export default function DeenScroll({ onBack }) {
   }, [progress]);
 
   const startGame = (cat) => {
+    if (!checkPlayLimit('trivia')) return;
+    recordPlay('trivia');
     setCategory(cat);
     const q = buildQueue(cat);
     setQueue(q);

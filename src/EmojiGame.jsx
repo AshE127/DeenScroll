@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
+import { useAuth } from "./AuthContext.jsx";
 
 // ============================================
 // EMOJI PUZZLE DATABASE - 60+ puzzles
@@ -115,6 +116,7 @@ function getDefault() {
 // MAIN COMPONENT
 // ============================================
 export default function EmojiGame({ onBack }) {
+  const { checkPlayLimit, recordPlay } = useAuth();
   const [screen, setScreen] = useState("home");
   const [progress, setProgress] = useState(getDefault());
   const [category, setCategory] = useState("All");
@@ -141,6 +143,8 @@ export default function EmojiGame({ onBack }) {
   }, [progress]);
 
   const startGame = (cat) => {
+    if (!checkPlayLimit('emoji')) return;
+    recordPlay('emoji');
     setCategory(cat);
     setQueue(buildQueue(cat));
     setIdx(0);
