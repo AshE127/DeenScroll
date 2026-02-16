@@ -144,7 +144,6 @@ export default function EmojiGame({ onBack }) {
 
   const startGame = (cat) => {
     if (!checkPlayLimit('emoji')) return;
-    recordPlay('emoji');
     setCategory(cat);
     setQueue(buildQueue(cat));
     setIdx(0);
@@ -159,6 +158,7 @@ export default function EmojiGame({ onBack }) {
 
   const handleAnswer = (i) => {
     if (selected !== null) return;
+    recordPlay('emoji');
     setSelected(i);
     setShowInfo(true);
 
@@ -184,6 +184,7 @@ export default function EmojiGame({ onBack }) {
   };
 
   const nextQuestion = () => {
+    if (!checkPlayLimit('emoji')) return;
     setAnim(true);
     setTimeout(() => {
       if (idx + 1 >= queue.length) {

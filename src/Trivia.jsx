@@ -274,7 +274,6 @@ export default function DeenScroll({ onBack }) {
 
   const startGame = (cat) => {
     if (!checkPlayLimit('trivia')) return;
-    recordPlay('trivia');
     setCategory(cat);
     const q = buildQueue(cat);
     setQueue(q);
@@ -289,6 +288,7 @@ export default function DeenScroll({ onBack }) {
 
   const handleAnswer = async (idx) => {
     if (selected !== null) return;
+    recordPlay('trivia');
     setSelected(idx);
     setShowInfo(true);
 
@@ -336,6 +336,7 @@ export default function DeenScroll({ onBack }) {
   };
 
   const nextQuestion = () => {
+    if (!checkPlayLimit('trivia')) return;
     setAnimDir("next");
     setTimeout(() => {
       if (currentIdx + 1 >= queue.length) {

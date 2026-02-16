@@ -9,10 +9,10 @@ const AuthContext = createContext(null);
 // FREE TIER DAILY LIMITS
 // ============================================
 const DAILY_LIMITS = {
-  trivia: 3,
-  "surah-match": 2,
-  emoji: 2,
-  hadith: 3,
+  trivia: 10,
+  "surah-match": 3,
+  emoji: 8,
+  hadith: 10,
 };
 
 function getTodayKey() {

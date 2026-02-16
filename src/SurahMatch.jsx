@@ -205,7 +205,9 @@ export default function SurahMatch({ onBack }) {
 
       // Check if batch complete
       if (newMatched.length === 4) {
+        recordPlay('surah-match');
         setTimeout(() => {
+          if (!checkPlayLimit('surah-match')) return;
           setTransitioning(true);
           setTimeout(() => {
             setRound(r => r + 1);

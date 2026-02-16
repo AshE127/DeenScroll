@@ -128,7 +128,6 @@ export default function HadithTF({ onBack }) {
 
   const startGame = () => {
     if (!checkPlayLimit('hadith')) return;
-    recordPlay('hadith');
     setQueue(buildQueue());
     setIdx(0);
     setSelected(null);
@@ -140,6 +139,7 @@ export default function HadithTF({ onBack }) {
 
   const handleAnswer = (answer) => {
     if (selected !== null) return;
+    recordPlay('hadith');
     setSelected(answer);
     const isCorrect = answer === currentS.answer;
     setSession(s => ({ correct: s.correct + (isCorrect ? 1 : 0), total: s.total + 1 }));
@@ -163,6 +163,7 @@ export default function HadithTF({ onBack }) {
   };
 
   const nextQ = () => {
+    if (!checkPlayLimit('hadith')) return;
     setAnim(true);
     setTimeout(() => {
       if (idx + 1 >= queue.length) setScreen("results");
