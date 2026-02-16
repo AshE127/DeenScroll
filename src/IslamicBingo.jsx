@@ -146,8 +146,8 @@ function saveData(d) { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(d)
 // COMPONENT
 // ============================================
 export default function IslamicBingo({ onBack }) {
-  const { checkPlayLimit, recordPlay } = useAuth();
-  const [tab, setTab] = useState("daily");
+  const { checkPlayLimit, recordPlay, isPremium, signInWithGoogle, user } = useAuth();
+  const [tab, setTab] = useState("weekly");
   const [dayId] = useState(getDayId());
   const [weekId] = useState(getWeekId());
   const [dailyGrid] = useState(() => buildGrid(DAILY_DEEDS, getDayId()));
@@ -232,13 +232,27 @@ export default function IslamicBingo({ onBack }) {
 
         {/* Tabs */}
         <div style={st.tabs}>
-          <button style={{ ...st.tab, ...(tab === "daily" ? st.tabActive : {}) }} onClick={() => setTab("daily")}>
-            ☀️ Daily
+          <button style={{ ...st.tab, ...(tab === "daily" ? st.tabActive : {}), ...(!isPremium ? { opacity: 0.5 } : {}) }} onClick={() => {
+            if (!isPremium) {
+              if (!user) signInWithGoogle();
+              else window.open(`https://buy.stripe.com/aFaeVe2jt6Wb9IG3pi28800?client_reference_id=${user?.uid || 'guest'}`, '_blank');
+              return;
+            }
+            setTab("daily");
+          }}>
+            ☀️ Daily {!isPremium && "🔒"}
           </button>
           <button style={{ ...st.tab, ...(tab === "weekly" ? st.tabActiveW : {}) }} onClick={() => setTab("weekly")}>
-            📅 Weekly
+            📅 Weekly {!isPremium && "🆓"}
           </button>
         </div>
+
+        {/* Premium upsell for daily */}
+        {!isPremium && tab === "weekly" && (
+          <div style={st.dailyLock}>
+            <span style={st.dailyLockText}>☀️ Daily Bingo is a Premium feature — <strong style={{ color: "#FFD93D" }}>upgrade for $5/mo</strong> to unlock daily challenges</span>
+          </div>
+        )}
 
         {/* Info bar */}
         <div style={st.infoBar}>
@@ -428,6 +442,13 @@ const st = {
     width: "100%", padding: "0.75rem", borderRadius: "12px", border: "1px solid",
     fontSize: "0.85rem", fontWeight: 600, marginTop: "auto",
   },
+
+  dailyLock: {
+    padding: "0.5rem 0.75rem", borderRadius: "10px",
+    background: "rgba(255,217,61,0.04)", border: "1px solid rgba(255,217,61,0.1)",
+    marginBottom: "0.25rem",
+  },
+  dailyLockText: { fontSize: "0.7rem", color: "rgba(255,255,255,0.35)", lineHeight: 1.5 },
 
   // Modal
   overlay: {

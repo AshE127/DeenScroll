@@ -13,7 +13,6 @@ const DAILY_LIMITS = {
   "surah-match": 2,
   emoji: 2,
   hadith: 3,
-  bingo: 1,
 };
 
 function getTodayKey() {
