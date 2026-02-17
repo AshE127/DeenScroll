@@ -13,7 +13,7 @@ export default function Landing({ onNavigate }) {
     { id: 'surah-match', name: 'Surah Match', emoji: '📖', limit: 5, desc: 'Match 114 surahs' },
     { id: 'emoji', name: 'Guess the Emoji', emoji: '🤔', limit: 5, desc: '64 Islamic puzzles' },
     { id: 'hadith', name: 'True or False', emoji: '⚖️', limit: 10, desc: '80 hadith statements' },
-    { id: 'bingo', name: 'Islamic Bingo', emoji: '🎯', limit: 1, desc: 'Daily & weekly deeds' },
+    { id: 'bingo', name: 'Islamic Bingo', emoji: '🎯', limit: null, desc: 'Daily & weekly deeds' },
   ]
 
   const premiumContent = [

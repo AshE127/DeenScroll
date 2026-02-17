@@ -10,8 +10,8 @@ const AuthContext = createContext(null);
 // ============================================
 const DAILY_LIMITS = {
   trivia: 10,
-  "surah-match": 3,
-  emoji: 8,
+  "surah-match": 5,
+  emoji: 5,
   hadith: 10,
 };
 
