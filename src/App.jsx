@@ -10,6 +10,11 @@ import MoodReminders from './MoodReminders.jsx'
 import IslamicBingo from './IslamicBingo.jsx'
 import Account from './Account.jsx'
 import About from './About.jsx'
+import Privacy from './Privacy.jsx'
+import Terms from './Terms.jsx'
+import QuranMiracles from './QuranMiracles.jsx'
+import SurahSummaries from './SurahSummaries.jsx'
+import Beginners from './Beginners.jsx'
 import PremiumSuccess from './PremiumSuccess.jsx'
 
 export default function App() {
@@ -51,7 +56,12 @@ export default function App() {
   if (page === 'stories') return <ProphetStories onBack={() => navigate('landing')} />
   if (page === 'mood') return <MoodReminders onBack={() => navigate('landing')} />
   if (page === 'bingo') return <IslamicBingo onBack={() => navigate('landing')} />
+  if (page === 'miracles') return <QuranMiracles onBack={() => navigate('landing')} />
+  if (page === 'surah-summaries') return <SurahSummaries onBack={() => navigate('landing')} />
+  if (page === 'beginners') return <Beginners onBack={() => navigate('landing')} />
   if (page === 'account') return <Account onBack={() => navigate('landing')} />
   if (page === 'about') return <About onBack={() => navigate('landing')} />
+  if (page === 'privacy') return <Privacy onBack={() => navigate('landing')} />
+  if (page === 'terms') return <Terms onBack={() => navigate('landing')} />
   return <Landing onNavigate={navigate} />
 }

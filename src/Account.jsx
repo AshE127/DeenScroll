@@ -99,7 +99,7 @@ export default function Account({ onBack }) {
               <div style={st.premPerks}>
                 <span style={st.perkItem}>✓ Unlimited plays on all games</span>
                 <span style={st.perkItem}>✓ Fun Islamic Facts — 90+ facts</span>
-                <span style={st.perkItem}>✓ Prophet Stories — 20 stories with reflections</span>
+                <span style={st.perkItem}>✓ Stories of the Prophets — 20 stories with reflections</span>
                 <span style={st.perkItem}>✓ Mood Reminders — personalized ayahs & duas</span>
                 <span style={st.perkItem}>✓ Ad-free experience</span>
                 <span style={st.perkItem}>✓ Early access to new content</span>

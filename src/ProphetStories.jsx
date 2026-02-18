@@ -224,7 +224,7 @@ export default function ProphetStories({ onBack }) {
         {/* Top */}
         <div style={st.topRow}>
           {onBack ? <button style={st.backBtn} onClick={onBack}>← Home</button> : <div />}
-          <span style={st.topTitle}>Prophet Stories</span>
+          <span style={st.topTitle}>Stories of the Prophets</span>
           <span style={st.seenCount}>{seen.length}/{ALL_STORIES.length}</span>
         </div>
 

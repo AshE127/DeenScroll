@@ -50,7 +50,7 @@ export default function PremiumSuccess({ onNavigate }) {
 
           <div style={st.perksBox}>
             <div style={st.perk}>✓ Unlimited plays on all games</div>
-            <div style={st.perk}>✓ Prophet Stories — 20 powerful stories</div>
+            <div style={st.perk}>✓ Stories of the Prophets — 20 powerful stories</div>
             <div style={st.perk}>✓ Fun Islamic Facts — 90+ facts</div>
             <div style={st.perk}>✓ Mood Reminders — personalized ayahs & duas</div>
             <div style={st.perk}>✓ Ad-free experience</div>

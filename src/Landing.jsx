@@ -17,12 +17,15 @@ export default function Landing({ onNavigate }) {
     { id: 'emoji', name: 'Guess the Emoji', emoji: '🤔', limit: 5, desc: '64 Islamic puzzles' },
     { id: 'hadith', name: 'True or False', emoji: '⚖️', limit: 10, desc: '80 hadith statements' },
     { id: 'bingo', name: 'Islamic Bingo', emoji: '🎯', limit: null, desc: 'Daily & weekly deeds' },
+    { id: 'beginners', name: 'Islam for Beginners', emoji: '🌙', limit: null, desc: 'Prayer guide, surahs & duas' },
   ]
 
   const premiumContent = [
     { id: 'facts', name: 'Fun Islamic Facts', emoji: '💡', desc: '90+ swipeable facts, 9 categories' },
-    { id: 'stories', name: 'Prophet Stories', emoji: '📜', desc: '20 powerful stories with reflections' },
+    { id: 'stories', name: 'Stories of the Prophets', emoji: '📜', desc: '20 powerful stories with reflections' },
     { id: 'mood', name: 'Mood Reminders', emoji: '🤲', desc: '12 moods, personalized ayahs & duas' },
+    { id: 'miracles', name: 'Miracles of the Quran', emoji: '✨', desc: 'Scientific, numerical & linguistic miracles' },
+    { id: 'surah-summaries', name: 'Surah Summaries', emoji: '📖', desc: 'Browse & learn about every surah' },
   ]
 
   const nav = (id) => { setMenuOpen(false); onNavigate(id) }
@@ -136,6 +139,12 @@ export default function Landing({ onNavigate }) {
               </button>
             </div>
 
+            {/* LEGAL links */}
+            <div style={{ padding: '0.5rem', display: 'flex', gap: '1rem', justifyContent: 'center' }}>
+              <button style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.2)', fontSize: '0.65rem', cursor: 'pointer', fontFamily: "'Outfit', sans-serif" }} onClick={() => nav('privacy')}>Privacy Policy</button>
+              <button style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.2)', fontSize: '0.65rem', cursor: 'pointer', fontFamily: "'Outfit', sans-serif" }} onClick={() => nav('terms')}>Terms</button>
+            </div>
+
           </div>
         </div>
       )}
@@ -247,7 +256,7 @@ export default function Landing({ onNavigate }) {
             <h2 style={s.upsellTitle}>Go Premium</h2>
             <p style={s.upsellText}>
               Unlimited plays on all games, full access to Fun Facts,
-              Prophet Stories, Mood Reminders, ad-free experience, and early access to new content.
+              Stories of the Prophets, Mood Reminders, ad-free experience, and early access to new content.
             </p>
             <div style={s.upsellPrice}>
               <span style={s.priceAmount}>$5</span>
@@ -282,10 +291,27 @@ export default function Landing({ onNavigate }) {
         </p>
       </section>
 
+      {/* CONTACT */}
+      <section style={s.contactSection}>
+        <span style={s.contactIcon}>📧</span>
+        <h2 style={s.contactTitle}>Get in Touch</h2>
+        <p style={s.contactText}>Questions, feedback, or just want to say salaam?</p>
+        <a href="mailto:support@deenscroll.com" style={s.contactBtn}>
+          ✉️ support@deenscroll.com
+        </a>
+      </section>
+
       {/* FOOTER */}
       <footer style={s.footer}>
         <span style={s.footerLogo}>DeenScroll</span>
         <span style={s.footerTagline}>Scroll Less, Deen More.</span>
+        <div style={s.footerLinks}>
+          <button style={s.footerLink} onClick={() => onNavigate('about')}>About</button>
+          <span style={s.footerDot}>·</span>
+          <button style={s.footerLink} onClick={() => onNavigate('privacy')}>Privacy Policy</button>
+          <span style={s.footerDot}>·</span>
+          <button style={s.footerLink} onClick={() => onNavigate('terms')}>Terms of Service</button>
+        </div>
         <span style={s.footerCopy}>© 2026 DeenScroll. All rights reserved.</span>
       </footer>
 
@@ -476,6 +502,21 @@ const s = {
   footerLogo: { fontFamily: "'Amiri', serif", fontSize: '1.1rem', color: 'rgba(240,230,211,0.25)', fontWeight: 700 },
   footerTagline: { fontSize: '0.6rem', color: 'rgba(52,211,153,0.25)', textTransform: 'uppercase', letterSpacing: '0.2em' },
   footerCopy: { fontSize: '0.65rem', color: 'rgba(255,255,255,0.12)', marginTop: '0.4rem' },
+  footerLinks: { display: 'flex', alignItems: 'center', gap: '0.4rem', flexWrap: 'wrap', justifyContent: 'center', marginTop: '0.3rem' },
+  footerLink: { background: 'none', border: 'none', color: 'rgba(255,255,255,0.25)', fontSize: '0.65rem', cursor: 'pointer', fontFamily: "'Outfit', sans-serif" },
+  footerDot: { color: 'rgba(255,255,255,0.15)', fontSize: '0.65rem' },
+  contactSection: {
+    textAlign: 'center', padding: '1.5rem', background: 'rgba(255,255,255,0.02)',
+    border: '1px solid rgba(255,255,255,0.06)', borderRadius: '20px', margin: '0 0.5rem',
+  },
+  contactIcon: { fontSize: '1.5rem', display: 'block', marginBottom: '0.4rem' },
+  contactTitle: { fontFamily: "'Amiri', serif", fontSize: '1.1rem', color: '#F0E6D3', marginBottom: '0.3rem' },
+  contactText: { fontSize: '0.75rem', color: 'rgba(255,255,255,0.3)', marginBottom: '0.7rem' },
+  contactBtn: {
+    display: 'inline-block', padding: '0.6rem 1.2rem', borderRadius: '12px',
+    background: 'rgba(52,211,153,0.1)', border: '1px solid rgba(52,211,153,0.2)',
+    color: '#34D399', fontSize: '0.8rem', fontWeight: 600, textDecoration: 'none',
+  },
 
   bgPattern: {
     position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none', opacity: 0.015,

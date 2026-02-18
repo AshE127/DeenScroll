@@ -79,7 +79,7 @@ export default function About({ onBack }) {
             <div style={st.feature}>
               <span style={st.featureEmoji}>📜</span>
               <div>
-                <span style={st.featureName}>Prophet Stories</span>
+                <span style={st.featureName}>Stories of the Prophets</span>
                 <span style={st.featureDesc}>20 powerful stories with reflection prompts</span>
               </div>
             </div>
@@ -88,6 +88,20 @@ export default function About({ onBack }) {
               <div>
                 <span style={st.featureName}>Mood Reminders</span>
                 <span style={st.featureDesc}>Personalized Quran verses, hadith & duas for 12 moods</span>
+              </div>
+            </div>
+            <div style={st.feature}>
+              <span style={st.featureEmoji}>✨</span>
+              <div>
+                <span style={st.featureName}>Miracles of the Quran</span>
+                <span style={st.featureDesc}>Scientific, numerical & linguistic miracles with references</span>
+              </div>
+            </div>
+            <div style={st.feature}>
+              <span style={st.featureEmoji}>📖</span>
+              <div>
+                <span style={st.featureName}>Surah Summaries</span>
+                <span style={st.featureDesc}>Browse summaries, themes & context for every surah</span>
               </div>
             </div>
           </div>
