@@ -57,7 +57,6 @@ export function AuthProvider({ children }) {
               email: firebaseUser.email,
               name: firebaseUser.displayName,
               photo: firebaseUser.photoURL,
-              premium: false,
               createdAt: new Date().toISOString(),
             });
             setIsPremium(false);
