@@ -1,7 +1,7 @@
 import { useAuth } from "./AuthContext.jsx";
 
 export default function About({ onBack }) {
-  const { user, isPremium, signInWithGoogle } = useAuth();
+  const { user, isPremium, signInWithGoogle, goToPremium } = useAuth();
 
   return (
     <div style={st.wrap}>
@@ -119,7 +119,7 @@ export default function About({ onBack }) {
             <p style={st.premPrice}>$5/month</p>
             <button style={st.premBtn} onClick={() => {
               if (!user) signInWithGoogle();
-              else window.open(`https://buy.stripe.com/aFaeVe2jt6Wb9IG3pi28800?client_reference_id=${user?.uid || 'guest'}`, '_blank');
+              else goToPremium();
             }}>
               🌙 Unlock All Access
             </button>

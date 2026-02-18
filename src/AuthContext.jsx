@@ -141,6 +141,24 @@ export function AuthProvider({ children }) {
     setLimitGame(null);
   }, []);
 
+  // Centralized upgrade function — ensures UID is always passed
+  const goToPremium = useCallback(async () => {
+    let uid = user?.uid;
+    if (!uid) {
+      const result = await signInWithGoogle();
+      if (!result) return;
+      uid = result.uid;
+    }
+    if (!uid) {
+      alert("Please sign in first to upgrade.");
+      return;
+    }
+    window.open(
+      `https://buy.stripe.com/aFaeVe2jt6Wb9IG3pi28800?client_reference_id=${uid}`,
+      "_blank"
+    );
+  }, [user, signInWithGoogle]);
+
   const value = {
     user,
     isPremium,
@@ -154,6 +172,7 @@ export function AuthProvider({ children }) {
     closePremiumModal,
     limitGame,
     DAILY_LIMITS,
+    goToPremium,
   };
 
   return (

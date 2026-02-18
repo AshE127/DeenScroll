@@ -226,7 +226,7 @@ function shuffle(arr) {
 // MAIN APP
 // ============================================
 export default function DeenScroll({ onBack }) {
-  const { checkPlayLimit, recordPlay, isPremium, signInWithGoogle, user } = useAuth();
+  const { checkPlayLimit, recordPlay, isPremium, signInWithGoogle, user, goToPremium } = useAuth();
   const [screen, setScreen] = useState("splash");
   const [progress, setProgress] = useState(getDefaultProgress());
   const [loaded, setLoaded] = useState(false);
@@ -463,7 +463,7 @@ export default function DeenScroll({ onBack }) {
                 }} onClick={() => {
                   if (isLocked) {
                     if (!user) signInWithGoogle();
-                    else window.open(`https://buy.stripe.com/aFaeVe2jt6Wb9IG3pi28800?client_reference_id=${user?.uid || 'guest'}`, '_blank');
+                    else goToPremium();
                     return;
                   }
                   startGame(cat);

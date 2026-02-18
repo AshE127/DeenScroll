@@ -146,7 +146,7 @@ function saveData(d) { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(d)
 // COMPONENT
 // ============================================
 export default function IslamicBingo({ onBack }) {
-  const { checkPlayLimit, recordPlay, isPremium, signInWithGoogle, user } = useAuth();
+  const { checkPlayLimit, recordPlay, isPremium, signInWithGoogle, user, goToPremium } = useAuth();
   const [tab, setTab] = useState("weekly");
   const [dayId] = useState(getDayId());
   const [weekId] = useState(getWeekId());
@@ -235,7 +235,7 @@ export default function IslamicBingo({ onBack }) {
           <button style={{ ...st.tab, ...(tab === "daily" ? st.tabActive : {}), ...(!isPremium ? { opacity: 0.5 } : {}) }} onClick={() => {
             if (!isPremium) {
               if (!user) signInWithGoogle();
-              else window.open(`https://buy.stripe.com/aFaeVe2jt6Wb9IG3pi28800?client_reference_id=${user?.uid || 'guest'}`, '_blank');
+              else goToPremium();
               return;
             }
             setTab("daily");

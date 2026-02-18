@@ -8,24 +8,14 @@ const GAME_NAMES = {
 };
 
 export default function PremiumModal() {
-  const { showPremiumModal, closePremiumModal, limitGame, DAILY_LIMITS, user, signInWithGoogle } = useAuth();
+  const { showPremiumModal, closePremiumModal, limitGame, DAILY_LIMITS, user, goToPremium } = useAuth();
 
   if (!showPremiumModal) return null;
 
   const gameName = GAME_NAMES[limitGame] || "this game";
   const limit = DAILY_LIMITS[limitGame] || 0;
 
-  const handleUpgrade = async () => {
-    if (!user) {
-      const result = await signInWithGoogle();
-      if (!result) return;
-    }
-    // Redirect to Stripe checkout
-    window.open(
-      `https://buy.stripe.com/aFaeVe2jt6Wb9IG3pi28800?client_reference_id=${user?.uid || "guest"}`,
-      "_blank"
-    );
-  };
+  const handleUpgrade = () => goToPremium();
 
   return (
     <div style={st.overlay} onClick={closePremiumModal}>

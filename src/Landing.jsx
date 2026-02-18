@@ -8,7 +8,7 @@ export default function Landing({ onNavigate }) {
   const [gamesOpen, setGamesOpen] = useState(false)
   const [premContentOpen, setPremContentOpen] = useState(false)
   const [accountOpen, setAccountOpen] = useState(false)
-  const { getRemainingPlays, isPremium, user, signInWithGoogle } = useAuth()
+  const { getRemainingPlays, isPremium, user, signInWithGoogle, goToPremium } = useAuth()
   useEffect(() => { setVisible(true) }, [])
 
   const freeGames = [
@@ -83,7 +83,7 @@ export default function Landing({ onNavigate }) {
                     <button key={g.id} style={s.menuItem} onClick={() => {
                       if (!isPremium) {
                         if (!user) signInWithGoogle()
-                        else window.open(`https://buy.stripe.com/aFaeVe2jt6Wb9IG3pi28800?client_reference_id=${user?.uid || 'guest'}`, '_blank')
+                        else goToPremium()
                         return
                       }
                       nav(g.id)
@@ -119,7 +119,7 @@ export default function Landing({ onNavigate }) {
                       {!isPremium && (
                         <button style={s.menuUpgrade} onClick={() => {
                           setMenuOpen(false)
-                          window.open(`https://buy.stripe.com/aFaeVe2jt6Wb9IG3pi28800?client_reference_id=${user?.uid || 'guest'}`, '_blank')
+                          goToPremium()
                         }}>
                           ⭐ Upgrade to Premium — $5/mo
                         </button>
@@ -170,7 +170,7 @@ export default function Landing({ onNavigate }) {
             <span style={s.freeText}>Limited daily plays • Upgrade for unlimited access</span>
             <button style={s.freeUpgradeBtn} onClick={() => {
               if (!user) signInWithGoogle();
-              else window.open(`https://buy.stripe.com/aFaeVe2jt6Wb9IG3pi28800?client_reference_id=${user?.uid || 'guest'}`, '_blank');
+              else goToPremium();
             }}>
               🌙 Unlock All Access — More Deen, No Limits
             </button>
@@ -235,7 +235,7 @@ export default function Landing({ onNavigate }) {
               if (isPremium) { onNavigate(g.id) }
               else {
                 if (!user) signInWithGoogle()
-                window.open(`https://buy.stripe.com/aFaeVe2jt6Wb9IG3pi28800?client_reference_id=${user?.uid || 'guest'}`, '_blank')
+                goToPremium()
               }
             }}>
               <span style={s.gameEmoji}>{g.emoji}</span>
@@ -274,7 +274,7 @@ export default function Landing({ onNavigate }) {
             </div>
             <button style={s.upsellBtn} onClick={() => {
               if (!user) signInWithGoogle()
-              window.open(`https://buy.stripe.com/aFaeVe2jt6Wb9IG3pi28800?client_reference_id=${user?.uid || 'guest'}`, '_blank')
+              goToPremium()
             }}>
               {user ? 'Upgrade Now ⭐' : 'Sign In & Upgrade ⭐'}
             </button>

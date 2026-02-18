@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useAuth } from "./AuthContext.jsx";
 
 export default function Account({ onBack }) {
-  const { user, isPremium, signInWithGoogle, signOutUser, getRemainingPlays } = useAuth();
+  const { user, isPremium, signInWithGoogle, signOutUser, getRemainingPlays, goToPremium } = useAuth();
   const [portalLoading, setPortalLoading] = useState(false);
 
   const openPortal = async () => {
@@ -132,12 +132,7 @@ export default function Account({ onBack }) {
                 })}
                 <span style={st.freeNote}>Bingo, Facts, Stories, Mood — unlimited for all</span>
               </div>
-              <button style={st.upgradeBtn} onClick={() => {
-                window.open(
-                  `https://buy.stripe.com/aFaeVe2jt6Wb9IG3pi28800?client_reference_id=${user.uid}`,
-                  "_blank"
-                );
-              }}>
+              <button style={st.upgradeBtn} onClick={() => goToPremium()}>
                 ⭐ Upgrade to Premium — $5/mo
               </button>
             </>
