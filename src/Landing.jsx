@@ -36,7 +36,10 @@ export default function Landing({ onNavigate }) {
 
       {/* NAV */}
       <nav style={s.nav}>
-        <span style={s.logo}>DeenScroll</span>
+        <div style={s.logoWrap}>
+          <img src="/logo.png" alt="DeenScroll" style={s.logoImg} />
+          <span style={s.logo}>DeenScroll</span>
+        </div>
         <div style={s.navRight}>
           <UserButton />
           <button style={s.burger} onClick={() => setMenuOpen(!menuOpen)}>
@@ -345,6 +348,8 @@ const s = {
     display: 'flex', justifyContent: 'space-between', alignItems: 'center',
     padding: '1rem 1.25rem', maxWidth: '600px', margin: '0 auto',
   },
+  logoWrap: { display: 'flex', alignItems: 'center', gap: '0.4rem' },
+  logoImg: { width: '32px', height: '32px', borderRadius: '6px', objectFit: 'cover' },
   logo: { fontFamily: "'Amiri', serif", fontSize: '1.4rem', color: '#F0E6D3', fontWeight: 700 },
   navRight: { display: 'flex', alignItems: 'center', gap: '0.6rem' },
   burger: {

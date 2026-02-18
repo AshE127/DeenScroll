@@ -132,10 +132,9 @@ export default function About({ onBack }) {
           <p style={st.cardText}>
             Have questions, feedback, or just want to say salaam? We'd love to hear from you.
           </p>
-          <div style={st.contactRow}>
-            <span style={st.contactIcon}>📧</span>
-            <span style={st.contactText}>support@deenscroll.com</span>
-          </div>
+          <a href="mailto:support@deenscroll.com" style={st.contactBtn}>
+            ✉️ support@deenscroll.com
+          </a>
           <p style={st.cardTextSmall}>
             We typically respond within 24 hours.
           </p>
@@ -206,6 +205,12 @@ const st = {
   contactRow: { display: "flex", alignItems: "center", gap: "0.5rem", margin: "0.5rem 0" },
   contactIcon: { fontSize: "1.1rem" },
   contactText: { fontSize: "0.85rem", color: "#34D399", fontWeight: 600 },
+  contactBtn: {
+    display: "inline-block", padding: "0.6rem 1.2rem", borderRadius: "12px",
+    background: "rgba(52,211,153,0.1)", border: "1px solid rgba(52,211,153,0.2)",
+    color: "#34D399", fontSize: "0.8rem", fontWeight: 600, textDecoration: "none",
+    marginBottom: "0.5rem",
+  },
 
   footer: {
     textAlign: "center", padding: "1.5rem 0", marginTop: "auto",
