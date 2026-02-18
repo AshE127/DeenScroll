@@ -5,12 +5,15 @@ import { useAuth } from './AuthContext.jsx'
 export default function Landing({ onNavigate }) {
   const [visible, setVisible] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [gamesOpen, setGamesOpen] = useState(false)
+  const [premContentOpen, setPremContentOpen] = useState(false)
+  const [accountOpen, setAccountOpen] = useState(false)
   const { getRemainingPlays, isPremium, user, signInWithGoogle } = useAuth()
   useEffect(() => { setVisible(true) }, [])
 
   const freeGames = [
     { id: 'trivia', name: 'Islamic Trivia', emoji: '🧠', limit: 10, desc: '150+ questions, 6 categories' },
-    { id: 'surah-match', name: 'Surah Match', emoji: '📖', limit: 5, desc: 'Match 114 surahs' },
+    { id: 'surah-match', name: 'Surah Match', emoji: '📖', limit: 3, desc: 'Match 114 surahs' },
     { id: 'emoji', name: 'Guess the Emoji', emoji: '🤔', limit: 5, desc: '64 Islamic puzzles' },
     { id: 'hadith', name: 'True or False', emoji: '⚖️', limit: 10, desc: '80 hadith statements' },
     { id: 'bingo', name: 'Islamic Bingo', emoji: '🎯', limit: null, desc: 'Daily & weekly deeds' },
@@ -43,54 +46,96 @@ export default function Landing({ onNavigate }) {
       {menuOpen && (
         <div style={s.menuOverlay} onClick={() => setMenuOpen(false)}>
           <div style={s.menu} onClick={e => e.stopPropagation()}>
+
+            {/* GAMES - collapsible */}
             <div style={s.menuSection}>
-              <span style={s.menuLabel}>Games</span>
-              {freeGames.map(g => (
-                <button key={g.id} style={s.menuItem} onClick={() => nav(g.id)}>
-                  <span>{g.emoji} {g.name}</span>
-                  {!isPremium && g.limit && <span style={s.menuBadge}>{getRemainingPlays(g.id)} left</span>}
-                </button>
-              ))}
-            </div>
-            <div style={s.menuSection}>
-              <span style={s.menuLabel}>{isPremium ? 'Content' : 'Premium Content 🔒'}</span>
-              {premiumContent.map(g => (
-                <button key={g.id} style={s.menuItem} onClick={() => nav(g.id)}>
-                  <span>{g.emoji} {g.name}</span>
-                  {!isPremium && <span style={s.menuLock}>⭐</span>}
-                </button>
-              ))}
-            </div>
-            <div style={s.menuSection}>
-              <span style={s.menuLabel}>Account</span>
-              {user ? (
-                <>
-                  <div style={s.menuAccount}>
-                    <span style={s.menuAccountName}>{user.displayName || user.email}</span>
-                    <span style={s.menuAccountStatus}>
-                      {isPremium ? '⭐ Premium Member' : '🆓 Free Plan'}
-                    </span>
-                  </div>
-                  <button style={s.menuItem} onClick={() => nav('account')}>
-                    <span>👤 My Account</span>
-                    <span style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.2)' }}>→</span>
-                  </button>
-                </>
-              ) : (
-                <button style={s.menuSignIn} onClick={signInWithGoogle}>
-                  Sign in with Google
-                </button>
-              )}
-              {!isPremium && (
-                <button style={s.menuUpgrade} onClick={() => {
-                  setMenuOpen(false)
-                  if (!user) signInWithGoogle()
-                  window.open(`https://buy.stripe.com/aFaeVe2jt6Wb9IG3pi28800?client_reference_id=${user?.uid || 'guest'}`, '_blank')
-                }}>
-                  ⭐ Upgrade to Premium — $5/mo
-                </button>
+              <button style={s.menuToggle} onClick={() => setGamesOpen(!gamesOpen)}>
+                <span style={s.menuLabel}>🎮 Games</span>
+                <span style={s.menuArrow}>{gamesOpen ? '▾' : '▸'}</span>
+              </button>
+              {gamesOpen && (
+                <div style={s.menuItems}>
+                  {freeGames.map(g => (
+                    <button key={g.id} style={s.menuItem} onClick={() => nav(g.id)}>
+                      <span>{g.emoji} {g.name}</span>
+                      {!isPremium && g.limit && <span style={s.menuBadge}>{getRemainingPlays(g.id)} left</span>}
+                    </button>
+                  ))}
+                </div>
               )}
             </div>
+
+            {/* PREMIUM CONTENT - collapsible */}
+            <div style={s.menuSection}>
+              <button style={s.menuToggle} onClick={() => setPremContentOpen(!premContentOpen)}>
+                <span style={s.menuLabel}>{isPremium ? '✨ Content' : '🔒 Premium Content'}</span>
+                <span style={s.menuArrow}>{premContentOpen ? '▾' : '▸'}</span>
+              </button>
+              {premContentOpen && (
+                <div style={s.menuItems}>
+                  {premiumContent.map(g => (
+                    <button key={g.id} style={s.menuItem} onClick={() => {
+                      if (!isPremium) {
+                        if (!user) signInWithGoogle()
+                        else window.open(`https://buy.stripe.com/aFaeVe2jt6Wb9IG3pi28800?client_reference_id=${user?.uid || 'guest'}`, '_blank')
+                        return
+                      }
+                      nav(g.id)
+                    }}>
+                      <span>{g.emoji} {g.name}</span>
+                      {!isPremium && <span style={s.menuLock}>⭐</span>}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* ACCOUNT - collapsible */}
+            <div style={s.menuSection}>
+              <button style={s.menuToggle} onClick={() => setAccountOpen(!accountOpen)}>
+                <span style={s.menuLabel}>👤 Account</span>
+                <span style={s.menuArrow}>{accountOpen ? '▾' : '▸'}</span>
+              </button>
+              {accountOpen && (
+                <div style={s.menuItems}>
+                  {user ? (
+                    <>
+                      <div style={s.menuAccount}>
+                        <span style={s.menuAccountName}>{user.displayName || user.email}</span>
+                        <span style={s.menuAccountStatus}>
+                          {isPremium ? '⭐ Premium Member' : '🆓 Free Plan'}
+                        </span>
+                      </div>
+                      <button style={s.menuItem} onClick={() => nav('account')}>
+                        <span>⚙️ Settings & Membership</span>
+                        <span style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.2)' }}>→</span>
+                      </button>
+                      {!isPremium && (
+                        <button style={s.menuUpgrade} onClick={() => {
+                          setMenuOpen(false)
+                          window.open(`https://buy.stripe.com/aFaeVe2jt6Wb9IG3pi28800?client_reference_id=${user?.uid || 'guest'}`, '_blank')
+                        }}>
+                          ⭐ Upgrade to Premium — $5/mo
+                        </button>
+                      )}
+                    </>
+                  ) : (
+                    <button style={s.menuSignIn} onClick={signInWithGoogle}>
+                      Sign in with Google
+                    </button>
+                  )}
+                </div>
+              )}
+            </div>
+
+            {/* ABOUT - direct link */}
+            <div style={s.menuSection}>
+              <button style={s.menuToggle} onClick={() => nav('about')}>
+                <span style={s.menuLabel}>ℹ️ About</span>
+                <span style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.2)' }}>→</span>
+              </button>
+            </div>
+
           </div>
         </div>
       )}
@@ -111,6 +156,12 @@ export default function Landing({ onNavigate }) {
           <div style={s.freeBanner}>
             <span style={s.freeLabel}>🆓 FREE PLAN</span>
             <span style={s.freeText}>Limited daily plays • Upgrade for unlimited access</span>
+            <button style={s.freeUpgradeBtn} onClick={() => {
+              if (!user) signInWithGoogle();
+              else window.open(`https://buy.stripe.com/aFaeVe2jt6Wb9IG3pi28800?client_reference_id=${user?.uid || 'guest'}`, '_blank');
+            }}>
+              🌙 Unlock All Access — More Deen, No Limits
+            </button>
           </div>
         )}
         {isPremium && (
@@ -287,11 +338,17 @@ const s = {
     padding: '1.5rem', overflowY: 'auto', animation: 'slideIn 0.25s ease-out',
     borderLeft: '1px solid rgba(255,255,255,0.06)',
   },
-  menuSection: { marginBottom: '1.5rem' },
+  menuSection: { marginBottom: '0.5rem' },
+  menuToggle: {
+    display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+    width: '100%', padding: '0.7rem 0.5rem', background: 'none', border: 'none',
+    borderBottom: '1px solid rgba(255,255,255,0.04)', cursor: 'pointer',
+  },
+  menuArrow: { fontSize: '0.7rem', color: 'rgba(255,255,255,0.2)' },
+  menuItems: { padding: '0.3rem 0 0.3rem 0.5rem' },
   menuLabel: {
-    fontSize: '0.65rem', color: 'rgba(255,255,255,0.25)', textTransform: 'uppercase',
-    letterSpacing: '0.15em', fontWeight: 700, display: 'block', marginBottom: '0.6rem',
-    paddingBottom: '0.4rem', borderBottom: '1px solid rgba(255,255,255,0.04)',
+    fontSize: '0.7rem', color: 'rgba(255,255,255,0.35)', textTransform: 'uppercase',
+    letterSpacing: '0.12em', fontWeight: 700,
   },
   menuItem: {
     display: 'flex', justifyContent: 'space-between', alignItems: 'center',
@@ -341,6 +398,12 @@ const s = {
   },
   freeLabel: { fontSize: '0.7rem', fontWeight: 700, color: '#34D399', letterSpacing: '0.1em' },
   freeText: { fontSize: '0.65rem', color: 'rgba(255,255,255,0.3)' },
+  freeUpgradeBtn: {
+    marginTop: '0.6rem', padding: '0.55rem 1.2rem', borderRadius: '10px', border: 'none',
+    background: 'linear-gradient(135deg, rgba(255,217,61,0.15), rgba(249,115,22,0.15))',
+    color: '#FFD93D', fontSize: '0.7rem', fontWeight: 600, letterSpacing: '0.02em',
+    cursor: 'pointer', fontFamily: "'Outfit', sans-serif",
+  },
   premBanner: {
     display: 'inline-flex', flexDirection: 'column', gap: '0.2rem',
     padding: '0.6rem 1.25rem', borderRadius: '14px',

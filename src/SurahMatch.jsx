@@ -170,7 +170,6 @@ export default function SurahMatch({ onBack }) {
 
   const startGame = () => {
     if (!checkPlayLimit('surah-match')) return;
-    recordPlay('surah-match');
     setStarted(true);
     setScore(0);
     setTotalMatched(0);

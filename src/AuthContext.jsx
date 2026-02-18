@@ -10,7 +10,7 @@ const AuthContext = createContext(null);
 // ============================================
 const DAILY_LIMITS = {
   trivia: 10,
-  "surah-match": 5,
+  "surah-match": 3,
   emoji: 5,
   hadith: 10,
 };
@@ -45,8 +45,9 @@ export function AuthProvider({ children }) {
   // Listen to auth state
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (firebaseUser) => {
-      setUser(firebaseUser);
+      setLoading(true);
       if (firebaseUser) {
+        setUser(firebaseUser);
         try {
           const userDoc = await getDoc(doc(db, "users", firebaseUser.uid));
           if (userDoc.exists()) {
@@ -66,7 +67,10 @@ export function AuthProvider({ children }) {
           setIsPremium(false);
         }
       } else {
+        setUser(null);
         setIsPremium(false);
+        setShowPremiumModal(false);
+        setLimitGame(null);
       }
       setLoading(false);
     });
@@ -88,6 +92,10 @@ export function AuthProvider({ children }) {
       await signOut(auth);
       setUser(null);
       setIsPremium(false);
+      setShowPremiumModal(false);
+      setLimitGame(null);
+      // Clear play counts so fresh state on next login
+      try { localStorage.removeItem("deenscroll-plays"); } catch {}
     } catch (err) {
       console.error("Sign out error:", err);
     }

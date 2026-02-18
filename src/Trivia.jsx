@@ -169,6 +169,7 @@ const QUESTIONS = [
 ];
 
 const CATEGORIES = ["All", "Quran", "Seerah", "Prophets", "Fiqh", "History", "Ramadan"];
+const FREE_CATEGORIES = ["All", "Quran"];
 const CAT_ICONS = { All: "✦", Quran: "📖", Seerah: "🕌", Prophets: "🌟", Fiqh: "⚖️", History: "🏛️", Ramadan: "🌙" };
 const CAT_COLORS = { Quran: "#4ECDC4", Seerah: "#FFD93D", Prophets: "#FF6B6B", Fiqh: "#A78BFA", History: "#F97316", Ramadan: "#34D399" };
 
@@ -225,7 +226,7 @@ function shuffle(arr) {
 // MAIN APP
 // ============================================
 export default function DeenScroll({ onBack }) {
-  const { checkPlayLimit, recordPlay } = useAuth();
+  const { checkPlayLimit, recordPlay, isPremium, signInWithGoogle, user } = useAuth();
   const [screen, setScreen] = useState("splash");
   const [progress, setProgress] = useState(getDefaultProgress());
   const [loaded, setLoaded] = useState(false);
@@ -452,15 +453,28 @@ export default function DeenScroll({ onBack }) {
             {CATEGORIES.map(cat => {
               const count = cat === "All" ? QUESTIONS.length : QUESTIONS.filter(q => q.cat === cat).length;
               const seenCount = cat === "All" ? progress.seen.length : QUESTIONS.filter(q => q.cat === cat && progress.seen.includes(q.id)).length;
+              const isLocked = !isPremium && !FREE_CATEGORIES.includes(cat);
               return (
                 <button key={cat} style={{
                   ...styles.catCard,
                   borderColor: cat === "All" ? "rgba(255,255,255,0.15)" : CAT_COLORS[cat] + "40",
                   background: cat === "All" ? "rgba(255,255,255,0.05)" : CAT_COLORS[cat] + "10",
-                }} onClick={() => startGame(cat)}>
+                  opacity: isLocked ? 0.45 : 1,
+                }} onClick={() => {
+                  if (isLocked) {
+                    if (!user) signInWithGoogle();
+                    else window.open(`https://buy.stripe.com/aFaeVe2jt6Wb9IG3pi28800?client_reference_id=${user?.uid || 'guest'}`, '_blank');
+                    return;
+                  }
+                  startGame(cat);
+                }}>
                   <span style={styles.catIcon}>{CAT_ICONS[cat]}</span>
                   <span style={styles.catName}>{cat}</span>
-                  <span style={styles.catCount}>{seenCount}/{count}</span>
+                  {isLocked ? (
+                    <span style={{ fontSize: "0.6rem", color: "#FFD93D" }}>🔒 Premium</span>
+                  ) : (
+                    <span style={styles.catCount}>{seenCount}/{count}</span>
+                  )}
                 </button>
               );
             })}

@@ -9,6 +9,7 @@ import ProphetStories from './ProphetStories.jsx'
 import MoodReminders from './MoodReminders.jsx'
 import IslamicBingo from './IslamicBingo.jsx'
 import Account from './Account.jsx'
+import About from './About.jsx'
 import PremiumSuccess from './PremiumSuccess.jsx'
 
 export default function App() {
@@ -51,5 +52,6 @@ export default function App() {
   if (page === 'mood') return <MoodReminders onBack={() => navigate('landing')} />
   if (page === 'bingo') return <IslamicBingo onBack={() => navigate('landing')} />
   if (page === 'account') return <Account onBack={() => navigate('landing')} />
+  if (page === 'about') return <About onBack={() => navigate('landing')} />
   return <Landing onNavigate={navigate} />
 }
