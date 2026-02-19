@@ -82,30 +82,30 @@ export default function SurahSummaries({ onBack }) {
         {mode === "browse" && (
           <div style={st.list}>
             {filtered.map(s => (
-              <button key={s.num} style={{
-                ...st.listItem,
-                background: selected?.num === s.num ? "rgba(255,255,255,0.05)" : "transparent",
-              }} onClick={() => setSelected(selected?.num === s.num ? null : s)}>
-                <div style={st.listLeft}>
-                  <span style={st.listNum}>{s.num}</span>
-                  <div>
-                    <span style={st.listName}>{s.name}</span>
-                    <span style={st.listEn}>{s.en} · {s.ayahs} ayahs · {s.type}</span>
+              <div key={s.num}>
+                <button style={{
+                  ...st.listItem,
+                  background: selected?.num === s.num ? "rgba(255,255,255,0.05)" : "transparent",
+                }} onClick={() => setSelected(selected?.num === s.num ? null : s)}>
+                  <div style={st.listLeft}>
+                    <span style={st.listNum}>{s.num}</span>
+                    <div>
+                      <span style={st.listName}>{s.name}</span>
+                      <span style={st.listEn}>{s.en} · {s.ayahs} ayahs · {s.type}</span>
+                    </div>
                   </div>
-                </div>
-                <span style={st.listArrow}>{selected?.num === s.num ? "▾" : "▸"}</span>
-              </button>
+                  <span style={st.listArrow}>{selected?.num === s.num ? "▾" : "▸"}</span>
+                </button>
+                {selected?.num === s.num && (
+                  <div style={st.expandedCard}>
+                    <SurahCard s={selected} />
+                  </div>
+                )}
+              </div>
             ))}
             {filtered.length === 0 && (
               <p style={st.noResults}>No surahs found for "{search}"</p>
             )}
-          </div>
-        )}
-
-        {/* Expanded card */}
-        {mode === "browse" && selected && (
-          <div style={st.expandedCard}>
-            <SurahCard s={selected} />
           </div>
         )}
       </div>
