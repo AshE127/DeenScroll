@@ -5,6 +5,13 @@
     { "source": "/learn/how-to-pray", "destination": "/articles/how-to-pray.html" },
     { "source": "/learn/story-of-yusuf", "destination": "/articles/story-of-yusuf.html" },
     { "source": "/learn/quran-miracles", "destination": "/articles/quran-miracles.html" },
+    { "source": "/learn/ramadan-guide", "destination": "/articles/ramadan-guide.html" },
+    { "source": "/learn/five-pillars", "destination": "/articles/five-pillars.html" },
+    { "source": "/learn/surah-al-kahf", "destination": "/articles/surah-al-kahf.html" },
+    { "source": "/learn/story-of-musa", "destination": "/articles/story-of-musa.html" },
+    { "source": "/learn/benefits-of-dhikr", "destination": "/articles/benefits-of-dhikr.html" },
+    { "source": "/learn/how-to-make-dua", "destination": "/articles/how-to-make-dua.html" },
+    { "source": "/learn/night-journey", "destination": "/articles/night-journey.html" },
     { "source": "/((?!api/|articles/).*)", "destination": "/index.html" }
   ]
 }
