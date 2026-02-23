@@ -311,6 +311,8 @@ export default function Landing({ onNavigate }) {
         <div style={s.footerLinks}>
           <button style={s.footerLink} onClick={() => onNavigate('about')}>About</button>
           <span style={s.footerDot}>·</span>
+          <a href="/learn" style={s.footerLink}>Learn</a>
+          <span style={s.footerDot}>·</span>
           <button style={s.footerLink} onClick={() => onNavigate('privacy')}>Privacy Policy</button>
           <span style={s.footerDot}>·</span>
           <button style={s.footerLink} onClick={() => onNavigate('terms')}>Terms of Service</button>
