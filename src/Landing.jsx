@@ -142,6 +142,14 @@ export default function Landing({ onNavigate }) {
               </button>
             </div>
 
+            {/* LEARN - direct link */}
+            <div style={s.menuSection}>
+              <a href="/learn" style={{ ...s.menuToggle, textDecoration: 'none' }}>
+                <span style={s.menuLabel}>📚 Learn Islam</span>
+                <span style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.2)' }}>→</span>
+              </a>
+            </div>
+
             {/* LEGAL links */}
             <div style={{ padding: '0.5rem', display: 'flex', gap: '1rem', justifyContent: 'center' }}>
               <button style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.2)', fontSize: '0.65rem', cursor: 'pointer', fontFamily: "'Outfit', sans-serif" }} onClick={() => nav('privacy')}>Privacy Policy</button>
@@ -249,6 +257,25 @@ export default function Landing({ onNavigate }) {
             </button>
           ))}
         </div>
+      </section>
+
+      {/* LEARN ISLAM - Articles */}
+      <section style={{ padding: '0 1rem', marginBottom: '1.5rem' }}>
+        <a href="/learn" style={{
+          display: 'block', textDecoration: 'none',
+          background: 'linear-gradient(135deg, rgba(167,139,250,0.08), rgba(52,211,153,0.08))',
+          border: '1px solid rgba(167,139,250,0.15)',
+          borderRadius: '16px', padding: '1.25rem', textAlign: 'center',
+        }}>
+          <span style={{ fontSize: '1.5rem' }}>📚</span>
+          <h2 style={{ fontFamily: "'Amiri', serif", fontSize: '1.2rem', color: '#F0E6D3', margin: '0.3rem 0' }}>Learn Islam</h2>
+          <p style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.35)', margin: 0 }}>
+            Articles on prayer, prophets, Quran miracles, Ramadan & more
+          </p>
+          <span style={{ display: 'inline-block', marginTop: '0.6rem', fontSize: '0.7rem', color: '#34D399', fontWeight: 600 }}>
+            Read Articles →
+          </span>
+        </a>
       </section>
 
       {/* PREMIUM UPSELL (free users only) */}
