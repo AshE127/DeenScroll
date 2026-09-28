@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FredVegasBallers Draft Lottery</title>
+<meta name="description" content="FredVegasBallers 2026 draft order straw pull. Live reveal Thursday, Oct 1 at 8:00 PM ET.">
+<meta property="og:title" content="FredVegasBallers Draft Lottery">
+<meta property="og:description" content="12 straws. 12 ballers. Draft order revealed live Thu 10/1 at 8:00 PM ET.">
+<meta name="theme-color" content="#0b0a12">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0a12; --bg2:#15121f; --card:#1b1727; --line:#2c2640;
+    --text:#f4f1ea; --muted:#a39db3; --gold:#f5c542; --gold2:#ffdf7e;
+    --pink:#ff4d8d; --teal:#2ee6c5; --straw1:#ff4d6d; --straw2:#fff4f0;
+    --radius:16px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    background:
+      radial-gradient(1200px 600px at 50% -200px, rgba(245,197,66,.14), transparent 60%),
+      radial-gradient(800px 500px at 100% 100%, rgba(255,77,141,.08), transparent 60%),
+      var(--bg);
+    color:var(--text); font-family:Inter,system-ui,-apple-system,sans-serif;
+    min-height:100vh; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1040px;margin:0 auto;padding:20px 16px 48px}
+  .demo-banner{background:var(--pink);color:#fff;text-align:center;font-weight:700;font-size:13px;padding:8px 12px;letter-spacing:.04em}
+  header{text-align:center;padding:12px 0 8px}
+  .eyebrow{color:var(--gold);font-weight:700;letter-spacing:.22em;font-size:12px;text-transform:uppercase}
+  h1{font-family:"Bebas Neue",Impact,sans-serif;font-weight:400;font-size:clamp(46px,11vw,92px);line-height:.92;margin:6px 0 4px;
+     background:linear-gradient(180deg,var(--gold2),var(--gold) 55%,#c98f12);-webkit-background-clip:text;background-clip:text;color:transparent;
+     text-shadow:0 0 40px rgba(245,197,66,.18)}
+  .sub{color:var(--muted);font-size:15px}
+  .sub b{color:var(--text)}
+
+  /* countdown */
+  .countdown{display:flex;justify-content:center;gap:10px;margin:22px 0 6px}
+  .unit{background:var(--card);border:1px solid var(--line);border-radius:14px;min-width:72px;padding:10px 8px 8px;text-align:center}
+  .unit .n{font-family:"Bebas Neue",sans-serif;font-size:clamp(40px,11vw,64px);line-height:1;font-variant-numeric:tabular-nums}
+  .unit .l{color:var(--muted);font-size:11px;letter-spacing:.16em;text-transform:uppercase;margin-top:2px}
+  .status{text-align:center;min-height:26px;margin:10px 0 0;color:var(--gold2);font-weight:600;font-size:16px}
+  .final10 .unit{border-color:var(--pink);box-shadow:0 0 24px rgba(255,77,141,.35)}
+  .final10 .unit .n{color:var(--pink)}
+
+  /* layout */
+  .main{display:grid;grid-template-columns:1fr;gap:18px;margin-top:18px}
+  @media (min-width:860px){.main{grid-template-columns:1.1fr .9fr;align-items:start}}
+  .panel{background:linear-gradient(180deg,var(--bg2),#110e19);border:1px solid var(--line);border-radius:var(--radius);padding:16px}
+  .panel h2{font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin:0 0 12px;font-weight:700}
+
+  /* stage */
+  .stage{position:relative;height:400px;overflow:hidden;border-radius:12px;
+         background:radial-gradient(360px 220px at 50% 90%, rgba(245,197,66,.12), transparent 70%)}
+  .straws{position:absolute;left:50%;top:0;width:280px;height:100%;transform:translateX(-50%)}
+  .straw{position:absolute;top:120px;width:16px;height:120px;border-radius:8px;
+         background:repeating-linear-gradient(-35deg,var(--straw1) 0 9px,var(--straw2) 9px 18px);
+         box-shadow:inset -3px 0 0 rgba(0,0,0,.18), inset 3px 0 0 rgba(255,255,255,.25);
+         transform-origin:50% 100%; will-change:transform,opacity}
+  .straw.pulled{z-index:5}
+  .straw .tag{position:absolute;left:50%;top:-30px;transform:translateX(-50%);background:var(--gold);color:#1a1300;font-weight:800;
+              font-size:12px;padding:3px 7px;border-radius:999px;white-space:nowrap;opacity:0}
+  .cup{position:absolute;left:50%;top:210px;width:300px;height:190px;transform:translateX(-50%);z-index:3;
+       clip-path:polygon(0 0,100% 0,90% 100%,10% 100%);
+       background:linear-gradient(90deg,#2a2045,#3b2d63 30%,#4a3a7a 50%,#3b2d63 70%,#2a2045)}
+  .cup::before{content:"";position:absolute;inset:0;
+       background:repeating-linear-gradient(90deg,transparent 0 36px,rgba(255,255,255,.04) 36px 38px)}
+  .cup-rim{position:absolute;left:50%;top:204px;width:312px;height:14px;transform:translateX(-50%);z-index:4;border-radius:8px;
+       background:linear-gradient(180deg,#6b58a8,#3b2d63)}
+  .cup-label{position:absolute;left:50%;top:280px;transform:translateX(-50%);z-index:4;font-family:"Bebas Neue",sans-serif;
+       font-size:30px;letter-spacing:.06em;color:rgba(245,197,66,.85);white-space:nowrap}
+  .cup-label small{display:block;text-align:center;font-family:Inter,sans-serif;font-size:10px;letter-spacing:.2em;color:var(--muted)}
+
+  .reveal{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center;padding-bottom:22px;z-index:10;pointer-events:none}
+  .reveal-card{background:rgba(11,10,18,.92);border:2px solid var(--gold);border-radius:18px;padding:14px 26px 16px;text-align:center;
+       box-shadow:0 20px 60px rgba(0,0,0,.6),0 0 50px rgba(245,197,66,.25);opacity:0;transform:scale(.6);min-width:220px}
+  .reveal-card .k{color:var(--muted);font-size:12px;letter-spacing:.2em;text-transform:uppercase;font-weight:700}
+  .reveal-card .p{font-family:"Bebas Neue",sans-serif;font-size:64px;line-height:1;color:var(--gold)}
+  .reveal-card .who{font-family:"Bebas Neue",sans-serif;font-size:48px;line-height:1;letter-spacing:.02em}
+  .reveal-card.one{border-color:var(--pink);box-shadow:0 20px 60px rgba(0,0,0,.6),0 0 70px rgba(255,77,141,.45)}
+  .reveal-card.one .p{color:var(--pink)}
+
+  /* roster chips */
+  .chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:12px}
+  .chip{font-size:13px;font-weight:600;padding:5px 10px;border-radius:999px;background:var(--card);border:1px solid var(--line);transition:all .4s}
+  .chip.out{opacity:.35;text-decoration:line-through}
+
+  /* board */
+  .board{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+  .slot{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 12px;min-height:46px}
+  .slot .num{font-family:"Bebas Neue",sans-serif;font-size:28px;width:34px;text-align:center;color:var(--muted);line-height:1}
+  .slot .name{font-family:"Bebas Neue",sans-serif;font-size:28px;letter-spacing:.03em;line-height:1;color:#5b5570}
+  .slot.filled .name{color:var(--text)}
+  .slot.filled .num{color:var(--gold)}
+  .slot.first{border-color:var(--gold);background:linear-gradient(90deg,rgba(245,197,66,.18),var(--card) 70%)}
+  .slot.last .num{color:var(--muted)}
+  .slot .badge{margin-left:auto;font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--muted);text-transform:uppercase}
+  .slot.first .badge{color:var(--gold)}
+
+  .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+  button{font:inherit;cursor:pointer;border:0;border-radius:12px;padding:12px 16px;font-weight:700;font-size:15px}
+  .btn-primary{background:var(--gold);color:#1a1300;flex:1}
+  .btn-ghost{background:transparent;color:var(--text);border:1px solid var(--line)}
+  .hidden{display:none !important}
+  .locked{margin-top:10px;font-size:13px;color:var(--teal);font-weight:600;text-align:center}
+
+  details{margin-top:18px;background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);padding:12px 16px}
+  summary{cursor:pointer;font-weight:700;color:var(--gold2)}
+  details p,details li{color:var(--muted);font-size:14px;line-height:1.55}
+  details code{background:#0f0d18;border:1px solid var(--line);border-radius:6px;padding:1px 5px;font-size:12px;color:var(--text);word-break:break-all}
+  details a{color:var(--teal)}
+  .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--teal);color:#062a24;font-weight:700;padding:10px 16px;border-radius:999px;opacity:0;transition:opacity .3s;z-index:50}
+  .toast.show{opacity:1}
+  footer{text-align:center;color:#5b5570;font-size:12px;margin-top:28px}
+  footer a{color:#7d7694}
+  #confetti{position:fixed;inset:0;pointer-events:none;z-index:40}
+  @media (max-width:380px){.unit{min-width:62px}.cup{width:270px}.cup-rim{width:282px}.straws{width:250px}}
+</style>
+</head>
+<body>
+<div id="demoBanner" class="demo-banner hidden">DEMO MODE · practice run, not the official draw</div>
+<canvas id="confetti"></canvas>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">2026 Draft Lottery</div>
+    <h1>FredVegasBallers</h1>
+    <div class="sub">Straw pull reveal · <b id="whenText">Thursday, Oct 1 · 8:00 PM ET</b></div>
+  </header>
+
+  <div id="countdown" class="countdown" aria-live="polite">
+    <div class="unit"><div class="n" id="cd-d">00</div><div class="l">Days</div></div>
+    <div class="unit"><div class="n" id="cd-h">00</div><div class="l">Hrs</div></div>
+    <div class="unit"><div class="n" id="cd-m">00</div><div class="l">Min</div></div>
+    <div class="unit"><div class="n" id="cd-s">00</div><div class="l">Sec</div></div>
+  </div>
+  <div class="status" id="status">12 straws in the cup. Longest straw picks first.</div>
+
+  <div class="main">
+    <section class="panel">
+      <h2>The Cup</h2>
+      <div class="stage" id="stage">
+        <div class="straws" id="straws"></div>
+        <div class="cup-rim"></div>
+        <div class="cup"></div>
+        <div class="cup-label">FVB<small>DRAFT CUP</small></div>
+        <div class="reveal"><div class="reveal-card" id="card"><div class="k">Pick</div><div class="p" id="cardPick">#12</div><div class="who" id="cardWho">—</div></div></div>
+      </div>
+      <div class="chips" id="chips"></div>
+    </section>
+
+    <section class="panel">
+      <h2 id="boardTitle">Draft Order</h2>
+      <ol class="board" id="board"></ol>
+      <div id="done" class="hidden">
+        <div class="locked" id="lockedText">✓ Locked by public randomness. Nobody could rig this, including the commish.</div>
+        <div class="actions">
+          <button class="btn-primary" id="shareBtn">Share draft order</button>
+          <button class="btn-ghost" id="replayBtn">Replay draw</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <details>
+    <summary>How the draw works (and how to verify it)</summary>
+    <p>Nobody picks the order, and nobody can know it ahead of time. At exactly <b>8:00:00 PM ET on Oct 1</b>, the
+      <a href="https://drand.love" target="_blank" rel="noopener">drand League of Entropy</a> (a public randomness beacon run by Cloudflare, Protocol Labs, universities and others) publishes
+      <b>round <span id="roundNum"></span></b>, a random value that doesn't exist until that moment.</p>
+    <p>Every phone loading this page fetches that same value and shuffles the managers with it, so everyone sees the identical order.</p>
+    <ol>
+      <li>Starting list (fixed before the draw): <code id="listText"></code></li>
+      <li>Shuffle: for <code>i</code> = 11 down to 1, swap position <code>i</code> with position <code>SHA-256(randomness + ":" + i) mod (i+1)</code>.</li>
+      <li>Position 1 of the result = Pick #1.</li>
+    </ol>
+    <p id="proof">Randomness value appears here after the reveal.</p>
+  </details>
+
+  <footer>Hosted by <a href="/">DeenScroll</a> · Good luck, ballers.</footer>
+</div>
+<div class="toast" id="toast">Copied</div>
+
+<script>
+(() => {
+  // ================= CONFIG =================
+  const CONFIG = {
+    league: "FredVegasBallers",
+    season: "2026",
+    // Fixed starting order. Do not edit after sharing the page: it's part of the fairness proof.
+    managers: ["Zarar","Zerk","Zayan","Ryan","Aly","Ali","Waleed","Wasay","Ahsen","Aahab","Sam","Saad"],
+    revealAt: Date.UTC(2026, 9, 2, 0, 0, 0),     // Thu Oct 1 2026, 8:00:00 PM ET (= Oct 2 00:00 UTC)
+    // drand "quicknet" chain: new value every 3s
+    chain: "52db9ba70e0cc0f6eaf7803dd07447a1f5477735fd3f661792ba94600c84e971",
+    genesis: 1692803367, period: 3,
+    relays: ["https://api.drand.sh","https://drand.cloudflare.com","https://api2.drand.sh","https://api3.drand.sh"],
+    autoplayWindowMs: 15 * 60 * 1000             // arrive within 15 min of reveal: the draw plays automatically
+  };
+  // ==========================================
+
+  const params = new URLSearchParams(location.search);
+  const DEMO = params.has("demo");
+  if (DEMO) {
+    CONFIG.revealAt = Date.now() + (parseInt(params.get("demo"),10) || 8) * 1000;
+    document.getElementById("demoBanner").classList.remove("hidden");
+    document.getElementById("whenText").textContent = "Demo in a few seconds";
+  }
+  const ROUND = Math.ceil((CONFIG.revealAt/1000 - CONFIG.genesis) / CONFIG.period) + 1;
+  const N = CONFIG.managers.length;
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const $ = id => document.getElementById(id);
+  const sleep = ms => new Promise(r => setTimeout(r, reduced ? Math.min(ms, 300) : ms));
+
+  $("roundNum").textContent = ROUND.toLocaleString();
+  $("listText").textContent = CONFIG.managers.join(", ");
+
+  // ---------- build UI ----------
+  const board = $("board");
+  const slots = [];
+  for (let i = 1; i <= N; i++) {
+    const li = document.createElement("li");
+    li.className = "slot";
+    li.innerHTML = `<span class="num">${i}</span><span class="name">?</span><span class="badge"></span>`;
+    board.appendChild(li); slots.push(li);
+  }
+  const chips = {};
+  CONFIG.managers.forEach(m => {
+    const c = document.createElement("span"); c.className = "chip"; c.textContent = m;
+    $("chips").appendChild(c); chips[m] = c;
+  });
+
+  let straws = [];
+  function buildStraws() {
+    const box = $("straws"); box.innerHTML = "";
+    const w = box.clientWidth || 280, gap = (w - 16) / (N - 1);
+    straws = [];
+    for (let i = 0; i < N; i++) {
+      const s = document.createElement("div");
+      s.className = "straw";
+      const rot = (i - (N-1)/2) * 1.6 + (Math.sin(i*7.3) * 1.5);
+      s.dataset.rot = rot;
+      s.style.left = (i * gap) + "px";
+      s.style.transform = `rotate(${rot}deg)`;
+      s.innerHTML = `<span class="tag"></span>`;
+      box.appendChild(s); straws.push(s);
+    }
+  }
+  buildStraws();
+
+  function resetBoard() {
+    slots.forEach(s => { s.className = "slot"; s.querySelector(".name").textContent = "?"; s.querySelector(".badge").textContent = ""; });
+    Object.values(chips).forEach(c => c.classList.remove("out"));
+    $("done").classList.add("hidden");
+  }
+  function fillSlot(pick, name, animate) {
+    const s = slots[pick-1];
+    s.classList.add("filled");
+    if (pick === 1) { s.classList.add("first"); s.querySelector(".badge").textContent = "First pick"; }
+    if (pick === N) { s.classList.add("last"); s.querySelector(".badge").textContent = "Last pick"; }
+    s.querySelector(".name").textContent = name;
+    if (chips[name]) chips[name].classList.add("out");
+    if (animate) s.animate([{transform:"scale(1.06)",background:"rgba(245,197,66,.3)"},{transform:"scale(1)"}], {duration:700, easing:"ease-out"});
+  }
+
+  // ---------- randomness ----------
+  const hex = b => [...new Uint8Array(b)].map(x => x.toString(16).padStart(2,"0")).join("");
+  const sha = async str => hex(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str)));
+  async function shuffle(list, randomness) {
+    const a = [...list];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Number(BigInt("0x" + await sha(randomness + ":" + i)) % BigInt(i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+  async function fetchRound(round) {
+    for (const r of CONFIG.relays) {
+      try {
+        const res = await fetch(`${r}/${CONFIG.chain}/public/${round}`, { cache: "no-store" });
+        if (res.ok) { const j = await res.json(); if (j && j.randomness && j.round === round) return { ...j, relay: r }; }
+      } catch (e) {}
+    }
+    return null;
+  }
+  async function getRandomness() {
+    const started = Date.now();
+    while (true) {
+      const got = await fetchRound(ROUND);
+      if (got) return got;
+      if (DEMO && Date.now() - started > 4000) {         // demo only: fall back to local randomness if beacon unreachable
+        const b = new Uint8Array(32); crypto.getRandomValues(b);
+        return { round: ROUND, randomness: hex(b), relay: "local (demo fallback)" };
+      }
+      const waited = Math.round((Date.now() - started)/1000);
+      if (waited > 8) $("status").textContent = "Still waiting on the randomness beacon… hang tight";
+      await new Promise(r => setTimeout(r, 1500));
+    }
+  }
+
+  // ---------- countdown ----------
+  const pad = n => String(n).padStart(2, "0");
+  let timer;
+  function tick() {
+    const ms = CONFIG.revealAt - Date.now();
+    if (ms <= 0) {
+      clearInterval(timer);
+      ["d","h","m","s"].forEach(k => $("cd-"+k).textContent = "00");
+      $("countdown").classList.remove("final10");
+      startDraw(true);
+      return;
+    }
+    const t = Math.ceil(ms/1000);
+    $("cd-d").textContent = pad(Math.floor(t/86400));
+    $("cd-h").textContent = pad(Math.floor(t%86400/3600));
+    $("cd-m").textContent = pad(Math.floor(t%3600/60));
+    $("cd-s").textContent = pad(t%60);
+    $("countdown").classList.toggle("final10", t <= 10);
+  }
+
+  // ---------- the draw ----------
+  let result = null, drand = null, playing = false;
+
+  async function startDraw(live) {
+    $("status").textContent = "Time! Pulling the official randomness…";
+    drand = await getRandomness();
+    result = await shuffle(CONFIG.managers, drand.randomness);
+    const proofUrl = `${CONFIG.relays[0]}/${CONFIG.chain}/public/${ROUND}`;
+    $("proof").innerHTML = `Round <b>${ROUND}</b> randomness: <code>${drand.randomness}</code><br>` +
+      (drand.relay.startsWith("local") ? "Demo used local randomness." : `Check it yourself: <a href="${proofUrl}" target="_blank" rel="noopener">${proofUrl.replace("https://","")}</a>`);
+    const lateBy = Date.now() - CONFIG.revealAt;
+    if (live || lateBy < CONFIG.autoplayWindowMs) await play();
+    else showFinal();
+  }
+
+  function showFinal() {
+    resetBoard();
+    result.forEach((name, i) => fillSlot(i+1, name, false));
+    straws.forEach(s => s.style.opacity = 0);
+    $("countdown").classList.add("hidden");
+    $("status").textContent = "The draft order is official.";
+    $("boardTitle").textContent = "Official Draft Order";
+    $("done").classList.remove("hidden");
+  }
+
+  async function play() {
+    if (playing) return; playing = true;
+    resetBoard(); buildStraws();
+    $("countdown").classList.add("hidden");
+    $("boardTitle").textContent = "Draft Order";
+    const card = $("card");
+    // cosmetic: which physical straw gets pulled (from the same randomness so it's identical on every phone)
+    const seed = parseInt(drand.randomness.slice(0, 8), 16);
+    let remaining = straws.slice();
+
+    $("status").textContent = "Shaking the cup…";
+    await Promise.all(straws.map((s, i) => s.animate(
+      [0,-3,3,-2,2,0].map(d => ({ transform: `rotate(${+s.dataset.rot + d}deg)` })),
+      { duration: 1400, delay: i*20, easing: "ease-in-out" }).finished));
+    await sleep(300);
+
+    for (let pick = N; pick >= 1; pick--) {
+      const name = result[pick-1];
+      const straw = remaining.splice((seed + pick*7) % remaining.length, 1)[0];
+      const big = pick === 1, two = pick === 2;
+      // straw length encodes the pick: longest = #1 (hidden under cup until pulled)
+      const h = 110 + (N - pick) * 8;
+      straw.style.height = h + "px";
+      straw.querySelector(".tag").textContent = "#" + pick;
+
+      $("status").textContent = big ? `One straw left. Pick #1 goes to…` :
+                                two ? `Two left. Pick #2…` : `Pulling pick #${pick}…`;
+      if (big || two) {
+        const pool = big ? [straw] : [straw, ...remaining];
+        await Promise.all(pool.map(s => s.animate(
+          [0,-4,4,-4,4,0].map(d => ({ transform:`rotate(${+s.dataset.rot + d}deg)` })),
+          { duration: big ? 1800 : 1100, easing:"ease-in-out" }).finished));
+      } else {
+        remaining.forEach(s => s.animate(
+          [0,-1.5,1.5,0].map(d => ({ transform:`rotate(${+s.dataset.rot + d}deg)` })), { duration: 500 }));
+        await sleep(350);
+      }
+
+      // pull the straw up and out
+      const rot = +straw.dataset.rot, rise = h - 80;
+      straw.classList.add("pulled");
+      await straw.animate([
+        { transform:`rotate(${rot}deg) translateY(0)` },
+        { transform:`rotate(${rot*0.3}deg) translateY(${-rise*0.35}px)`, offset:.35 },
+        { transform:`rotate(0deg) translateY(${-rise}px)` }
+      ], { duration: big ? 1600 : 850, easing:"cubic-bezier(.3,.7,.2,1)", fill:"forwards" }).finished;
+      straw.querySelector(".tag").animate([{opacity:0},{opacity:1}], {duration:200, fill:"forwards"});
+
+      // reveal card
+      $("cardPick").textContent = "#" + pick;
+      $("cardWho").textContent = name;
+      card.classList.toggle("one", big);
+      await card.animate([
+        { opacity:0, transform:"scale(.6)" },
+        { opacity:1, transform:"scale(1.08)", offset:.7 },
+        { opacity:1, transform:"scale(1)" }
+      ], { duration: big ? 650 : 420, easing:"ease-out", fill:"forwards" }).finished;
+      fillSlot(pick, name, true);
+      if (big) confetti();
+      await sleep(big ? 2600 : pick <= 3 ? 1400 : 1000);
+
+      card.animate([{ opacity:1, transform:"scale(1)" },{ opacity:0, transform:"scale(.85) translateY(-20px)" }],
+        { duration: 300, fill:"forwards" });
+      straw.animate([{ opacity:1 },{ opacity:0 }], { duration: 300, fill:"forwards" });
+      await sleep(big ? 300 : 250);
+    }
+
+    $("status").textContent = DEMO ? "Demo complete. The real one runs Thursday at 8." : "The draft order is official. 🏈";
+    $("boardTitle").textContent = DEMO ? "Demo Draft Order" : "Official Draft Order";
+    if (DEMO) $("lockedText").textContent = "Demo only. The real order is drawn Thu 10/1 at 8:00 PM ET.";
+    $("done").classList.remove("hidden");
+    playing = false;
+  }
+
+  // ---------- share ----------
+  $("shareBtn").onclick = async () => {
+    const url = location.origin + location.pathname;
+    const text = `${CONFIG.league} ${CONFIG.season} Draft Order${DEMO ? " (DEMO)" : ""}\n` +
+      result.map((n, i) => `${i+1}. ${n}`).join("\n") + `\n\nDrawn live with public randomness (drand round ${ROUND}).`;
+    if (navigator.share) { try { await navigator.share({ title: CONFIG.league + " Draft Order", text, url }); return; } catch (e) { if (e.name === "AbortError") return; } }
+    try { await navigator.clipboard.writeText(text + "\n" + url); } catch (e) {}
+    const t = $("toast"); t.textContent = "Draft order copied"; t.classList.add("show"); setTimeout(() => t.classList.remove("show"), 1800);
+  };
+  $("replayBtn").onclick = () => { if (!playing) play(); };
+
+  // ---------- confetti ----------
+  function confetti() {
+    if (reduced) return;
+    const c = $("confetti"), ctx = c.getContext("2d");
+    const dpr = devicePixelRatio || 1;
+    c.width = innerWidth * dpr; c.height = innerHeight * dpr; ctx.scale(dpr, dpr);
+    const colors = ["#f5c542","#ff4d8d","#2ee6c5","#fff4f0","#8f7bff"];
+    const ps = Array.from({ length: 160 }, () => ({
+      x: innerWidth/2 + (Math.random()-.5)*120, y: innerHeight*0.4,
+      vx: (Math.random()-.5)*14, vy: -Math.random()*14 - 4, r: Math.random()*6+4,
+      rot: Math.random()*6, vr: (Math.random()-.5)*.3, c: colors[(Math.random()*colors.length)|0]
+    }));
+    const t0 = performance.now();
+    (function frame(t) {
+      const el = t - t0; ctx.clearRect(0, 0, innerWidth, innerHeight);
+      ps.forEach(p => { p.vy += .35; p.vx *= .99; p.x += p.vx; p.y += p.vy; p.rot += p.vr;
+        ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot); ctx.globalAlpha = Math.max(0, 1 - el/3500);
+        ctx.fillStyle = p.c; ctx.fillRect(-p.r/2, -p.r/4, p.r, p.r/2); ctx.restore(); });
+      if (el < 3500) requestAnimationFrame(frame); else ctx.clearRect(0, 0, innerWidth, innerHeight);
+    })(t0);
+  }
+
+  // ---------- go ----------
+  if (Date.now() < CONFIG.revealAt) { tick(); timer = setInterval(tick, 250); }
+  else startDraw(false);
+})();
+</script>
+</body>
+</html>
