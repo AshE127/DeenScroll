@@ -3,457 +3,417 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>FredVegasBallers Draft Lottery</title>
-<meta name="description" content="FredVegasBallers 2026 draft order straw pull. Live reveal Thursday, Oct 1 at 8:00 PM ET.">
-<meta property="og:title" content="FredVegasBallers Draft Lottery">
-<meta property="og:description" content="12 straws. 12 ballers. Draft order revealed live Thu 10/1 at 8:00 PM ET.">
+<title>FredVegasBallers Lottery Machine</title>
+<meta name="description" content="FredVegasBallers 2026 draft order: the ping-pong lottery machine replay.">
+<meta property="og:title" content="FredVegasBallers Lottery Machine">
+<meta property="og:description" content="12 balls. 12 ballers. Watch the draft order pop out of the machine.">
 <meta name="theme-color" content="#0b0a12">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg:#0b0a12; --bg2:#15121f; --card:#1b1727; --line:#2c2640;
-    --text:#f4f1ea; --muted:#a39db3; --gold:#f5c542; --gold2:#ffdf7e;
-    --pink:#ff4d8d; --teal:#2ee6c5; --straw1:#ff4d6d; --straw2:#fff4f0;
-    --radius:16px;
-  }
-  *{box-sizing:border-box}
-  html,body{margin:0}
-  body{
-    background:
-      radial-gradient(1200px 600px at 50% -200px, rgba(245,197,66,.14), transparent 60%),
-      radial-gradient(800px 500px at 100% 100%, rgba(255,77,141,.08), transparent 60%),
-      var(--bg);
-    color:var(--text); font-family:Inter,system-ui,-apple-system,sans-serif;
-    min-height:100vh; -webkit-font-smoothing:antialiased;
-  }
+  :root{--bg:#0b0a12;--bg2:#15121f;--card:#1b1727;--line:#2c2640;--text:#f4f1ea;--muted:#a39db3;--gold:#f5c542;--gold2:#ffdf7e;--pink:#ff4d8d;--teal:#2ee6c5}
+  *{box-sizing:border-box} html,body{margin:0}
+  body{background:radial-gradient(1100px 560px at 50% -180px,rgba(46,230,197,.10),transparent 60%),radial-gradient(800px 500px at 100% 100%,rgba(245,197,66,.08),transparent 60%),var(--bg);
+       color:var(--text);font-family:Inter,system-ui,-apple-system,sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased}
   .wrap{max-width:1040px;margin:0 auto;padding:20px 16px 48px}
-  .demo-banner{background:var(--pink);color:#fff;text-align:center;font-weight:700;font-size:13px;padding:8px 12px;letter-spacing:.04em}
-  header{text-align:center;padding:12px 0 8px}
-  .eyebrow{color:var(--gold);font-weight:700;letter-spacing:.22em;font-size:12px;text-transform:uppercase}
-  h1{font-family:"Bebas Neue",Impact,sans-serif;font-weight:400;font-size:clamp(46px,11vw,92px);line-height:.92;margin:6px 0 4px;
-     background:linear-gradient(180deg,var(--gold2),var(--gold) 55%,#c98f12);-webkit-background-clip:text;background-clip:text;color:transparent;
-     text-shadow:0 0 40px rgba(245,197,66,.18)}
+  header{text-align:center;padding:8px 0 4px}
+  .eyebrow{color:var(--teal);font-weight:800;letter-spacing:.22em;font-size:12px;text-transform:uppercase}
+  h1{font-family:"Bebas Neue",Impact,sans-serif;font-weight:400;font-size:clamp(44px,10vw,86px);line-height:.92;margin:6px 0 4px;
+     background:linear-gradient(180deg,var(--gold2),var(--gold) 55%,#c98f12);-webkit-background-clip:text;background-clip:text;color:transparent}
   .sub{color:var(--muted);font-size:15px}
-  .sub b{color:var(--text)}
-
-  /* countdown */
-  .countdown{display:flex;justify-content:center;gap:10px;margin:22px 0 6px}
-  .unit{background:var(--card);border:1px solid var(--line);border-radius:14px;min-width:72px;padding:10px 8px 8px;text-align:center}
-  .unit .n{font-family:"Bebas Neue",sans-serif;font-size:clamp(40px,11vw,64px);line-height:1;font-variant-numeric:tabular-nums}
-  .unit .l{color:var(--muted);font-size:11px;letter-spacing:.16em;text-transform:uppercase;margin-top:2px}
-  .status{text-align:center;min-height:26px;margin:10px 0 0;color:var(--gold2);font-weight:600;font-size:16px}
-  .final10 .unit{border-color:var(--pink);box-shadow:0 0 24px rgba(255,77,141,.35)}
-  .final10 .unit .n{color:var(--pink)}
-
-  /* layout */
-  .main{display:grid;grid-template-columns:1fr;gap:18px;margin-top:18px}
-  @media (min-width:860px){.main{grid-template-columns:1.1fr .9fr;align-items:start}}
-  .panel{background:linear-gradient(180deg,var(--bg2),#110e19);border:1px solid var(--line);border-radius:var(--radius);padding:16px}
-  .panel h2{font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin:0 0 12px;font-weight:700}
-
-  /* stage */
-  .stage{position:relative;height:400px;overflow:hidden;border-radius:12px;
-         background:radial-gradient(360px 220px at 50% 90%, rgba(245,197,66,.12), transparent 70%)}
-  .straws{position:absolute;left:50%;top:0;width:280px;height:100%;transform:translateX(-50%)}
-  .straw{position:absolute;top:120px;width:16px;height:120px;border-radius:8px;
-         background:repeating-linear-gradient(-35deg,var(--straw1) 0 9px,var(--straw2) 9px 18px);
-         box-shadow:inset -3px 0 0 rgba(0,0,0,.18), inset 3px 0 0 rgba(255,255,255,.25);
-         transform-origin:50% 100%; will-change:transform,opacity}
-  .straw.pulled{z-index:5}
-  .straw .tag{position:absolute;left:50%;top:-30px;transform:translateX(-50%);background:var(--gold);color:#1a1300;font-weight:800;
-              font-size:12px;padding:3px 7px;border-radius:999px;white-space:nowrap;opacity:0}
-  .cup{position:absolute;left:50%;top:210px;width:300px;height:190px;transform:translateX(-50%);z-index:3;
-       clip-path:polygon(0 0,100% 0,90% 100%,10% 100%);
-       background:linear-gradient(90deg,#2a2045,#3b2d63 30%,#4a3a7a 50%,#3b2d63 70%,#2a2045)}
-  .cup::before{content:"";position:absolute;inset:0;
-       background:repeating-linear-gradient(90deg,transparent 0 36px,rgba(255,255,255,.04) 36px 38px)}
-  .cup-rim{position:absolute;left:50%;top:204px;width:312px;height:14px;transform:translateX(-50%);z-index:4;border-radius:8px;
-       background:linear-gradient(180deg,#6b58a8,#3b2d63)}
-  .cup-label{position:absolute;left:50%;top:280px;transform:translateX(-50%);z-index:4;font-family:"Bebas Neue",sans-serif;
-       font-size:30px;letter-spacing:.06em;color:rgba(245,197,66,.85);white-space:nowrap}
-  .cup-label small{display:block;text-align:center;font-family:Inter,sans-serif;font-size:10px;letter-spacing:.2em;color:var(--muted)}
-
-  .reveal{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center;padding-bottom:22px;z-index:10;pointer-events:none}
-  .reveal-card{background:rgba(11,10,18,.92);border:2px solid var(--gold);border-radius:18px;padding:14px 26px 16px;text-align:center;
-       box-shadow:0 20px 60px rgba(0,0,0,.6),0 0 50px rgba(245,197,66,.25);opacity:0;transform:scale(.6);min-width:220px}
-  .reveal-card .k{color:var(--muted);font-size:12px;letter-spacing:.2em;text-transform:uppercase;font-weight:700}
-  .reveal-card .p{font-family:"Bebas Neue",sans-serif;font-size:64px;line-height:1;color:var(--gold)}
-  .reveal-card .who{font-family:"Bebas Neue",sans-serif;font-size:48px;line-height:1;letter-spacing:.02em}
-  .reveal-card.one{border-color:var(--pink);box-shadow:0 20px 60px rgba(0,0,0,.6),0 0 70px rgba(255,77,141,.45)}
-  .reveal-card.one .p{color:var(--pink)}
-
-  /* roster chips */
-  .chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:12px}
-  .chip{font-size:13px;font-weight:600;padding:5px 10px;border-radius:999px;background:var(--card);border:1px solid var(--line);transition:all .4s}
-  .chip.out{opacity:.35;text-decoration:line-through}
-
-  /* board */
+  .status{text-align:center;min-height:24px;margin:12px 0 0;color:var(--gold2);font-weight:700;font-size:16px}
+  .main{display:grid;grid-template-columns:1fr;gap:18px;margin-top:14px}
+  @media(min-width:860px){.main{grid-template-columns:1.05fr .95fr;align-items:start}}
+  .panel{background:linear-gradient(180deg,var(--bg2),#110e19);border:1px solid var(--line);border-radius:16px;padding:16px}
+  .panel h2{font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin:0 0 12px;font-weight:800}
+  .stage{position:relative;width:100%;max-width:400px;margin:0 auto;aspect-ratio:360/460}
+  canvas#machine{width:100%;height:100%;display:block}
+  .overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:5}
+  .start{background:var(--gold);color:#1a1300;font:inherit;font-weight:800;font-size:18px;border:0;border-radius:999px;padding:16px 26px;cursor:pointer;
+         box-shadow:0 10px 40px rgba(245,197,66,.35)}
+  .start:active{transform:scale(.97)}
+  .reveal{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:6;pointer-events:none}
+  .rcard{background:rgba(11,10,18,.94);border:2px solid var(--gold);border-radius:22px;padding:14px 22px 16px;text-align:center;width:min(270px,80%);
+         box-shadow:0 20px 60px rgba(0,0,0,.6),0 0 50px rgba(245,197,66,.25);opacity:0}
+  .rcard.one{border-color:var(--pink);box-shadow:0 20px 60px rgba(0,0,0,.6),0 0 80px rgba(255,77,141,.5)}
+  .rcard .av{width:150px;height:150px;margin:0 auto;border-radius:50%;overflow:hidden;background:#f3ead8}
+  .rcard .av svg{width:100%;height:100%;display:block}
+  .rcard .p{font-family:"Bebas Neue",sans-serif;font-size:52px;line-height:1;color:var(--gold);margin-top:8px}
+  .rcard.one .p{color:var(--pink)}
+  .rcard .who{font-family:"Bebas Neue",sans-serif;font-size:42px;line-height:1;letter-spacing:.02em}
+  .rcard .cap{color:var(--muted);font-size:13px;font-weight:700;margin-top:4px}
   .board{list-style:none;margin:0;padding:0;display:grid;gap:6px}
-  .slot{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 12px;min-height:46px}
-  .slot .num{font-family:"Bebas Neue",sans-serif;font-size:28px;width:34px;text-align:center;color:var(--muted);line-height:1}
+  .slot{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px 10px;min-height:52px}
+  .slot .num{font-family:"Bebas Neue",sans-serif;font-size:28px;width:30px;text-align:center;color:#5b5570;line-height:1}
+  .slot .mini{width:40px;height:40px;border-radius:50%;background:#26213a;overflow:hidden;flex:none;display:flex;align-items:center;justify-content:center;color:#5b5570;font-weight:800}
+  .slot .mini svg{width:100%;height:100%;display:block}
   .slot .name{font-family:"Bebas Neue",sans-serif;font-size:28px;letter-spacing:.03em;line-height:1;color:#5b5570}
-  .slot.filled .name{color:var(--text)}
-  .slot.filled .num{color:var(--gold)}
+  .slot.filled .num{color:var(--gold)} .slot.filled .name{color:var(--text)} .slot.filled .mini{background:#f3ead8}
   .slot.first{border-color:var(--gold);background:linear-gradient(90deg,rgba(245,197,66,.18),var(--card) 70%)}
-  .slot.last .num{color:var(--muted)}
-  .slot .badge{margin-left:auto;font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--muted);text-transform:uppercase}
+  .slot .badge{margin-left:auto;font-size:11px;font-weight:800;letter-spacing:.08em;color:var(--muted);text-transform:uppercase}
   .slot.first .badge{color:var(--gold)}
-
   .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
-  button{font:inherit;cursor:pointer;border:0;border-radius:12px;padding:12px 16px;font-weight:700;font-size:15px}
-  .btn-primary{background:var(--gold);color:#1a1300;flex:1}
+  .actions button,.actions a{font:inherit;cursor:pointer;border-radius:12px;padding:12px 16px;font-weight:800;font-size:15px;text-decoration:none;text-align:center}
+  .btn-primary{background:var(--gold);color:#1a1300;border:0;flex:1}
   .btn-ghost{background:transparent;color:var(--text);border:1px solid var(--line)}
-  .hidden{display:none !important}
-  .locked{margin-top:10px;font-size:13px;color:var(--teal);font-weight:600;text-align:center}
-
-  details{margin-top:18px;background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);padding:12px 16px}
-  summary{cursor:pointer;font-weight:700;color:var(--gold2)}
-  details p,details li{color:var(--muted);font-size:14px;line-height:1.55}
-  details code{background:#0f0d18;border:1px solid var(--line);border-radius:6px;padding:1px 5px;font-size:12px;color:var(--text);word-break:break-all}
-  details a{color:var(--teal)}
-  .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--teal);color:#062a24;font-weight:700;padding:10px 16px;border-radius:999px;opacity:0;transition:opacity .3s;z-index:50}
-  .toast.show{opacity:1}
-  footer{text-align:center;color:#5b5570;font-size:12px;margin-top:28px}
-  footer a{color:#7d7694}
+  .hidden{display:none!important}
+  .note{color:var(--muted);font-size:12px;text-align:center;margin-top:10px}
+  footer{text-align:center;color:#5b5570;font-size:12px;margin-top:28px} footer a{color:#7d7694}
   #confetti{position:fixed;inset:0;pointer-events:none;z-index:40}
-  @media (max-width:380px){.unit{min-width:62px}.cup{width:270px}.cup-rim{width:282px}.straws{width:250px}}
 </style>
 </head>
 <body>
-<div id="demoBanner" class="demo-banner hidden">DEMO MODE · practice run, not the official draw</div>
 <canvas id="confetti"></canvas>
 <div class="wrap">
   <header>
-    <div class="eyebrow">2026 Draft Lottery</div>
+    <div class="eyebrow">2026 Draft Lottery · The Machine</div>
     <h1>FredVegasBallers</h1>
-    <div class="sub">Straw pull reveal · <b id="whenText">Thursday, Oct 1 · 8:00 PM ET</b></div>
+    <div class="sub">Ping-pong lottery replay of the official order</div>
   </header>
-
-  <div id="countdown" class="countdown" aria-live="polite">
-    <div class="unit"><div class="n" id="cd-d">00</div><div class="l">Days</div></div>
-    <div class="unit"><div class="n" id="cd-h">00</div><div class="l">Hrs</div></div>
-    <div class="unit"><div class="n" id="cd-m">00</div><div class="l">Min</div></div>
-    <div class="unit"><div class="n" id="cd-s">00</div><div class="l">Sec</div></div>
-  </div>
-  <div class="status" id="status">12 straws in the cup. Longest straw picks first.</div>
+  <div class="status" id="status">12 balls loaded. Hit start.</div>
 
   <div class="main">
     <section class="panel">
-      <h2>The Cup</h2>
-      <div class="stage" id="stage">
-        <div class="straws" id="straws"></div>
-        <div class="cup-rim"></div>
-        <div class="cup"></div>
-        <div class="cup-label">FVB<small>DRAFT CUP</small></div>
-        <div class="reveal"><div class="reveal-card" id="card"><div class="k">Pick</div><div class="p" id="cardPick">#12</div><div class="who" id="cardWho">—</div></div></div>
+      <h2>The Machine</h2>
+      <div class="stage">
+        <canvas id="machine"></canvas>
+        <div class="overlay" id="startWrap"><button class="start" id="startBtn">▶ Start the machine</button></div>
+        <div class="reveal"><div class="rcard" id="card"><div class="av" id="cardAv"></div><div class="p" id="cardPick"></div><div class="who" id="cardWho"></div><div class="cap" id="cardCap"></div></div></div>
       </div>
-      <div class="chips" id="chips"></div>
     </section>
-
     <section class="panel">
       <h2 id="boardTitle">Draft Order</h2>
       <ol class="board" id="board"></ol>
-      <div id="done" class="hidden">
-        <div class="locked" id="lockedText">✓ Locked by public randomness. Nobody could rig this, including the commish.</div>
-        <div class="actions">
-          <button class="btn-primary" id="shareBtn">Share draft order</button>
-          <button class="btn-ghost" id="replayBtn">Replay draw</button>
-        </div>
+      <div class="actions hidden" id="done">
+        <button class="btn-primary" id="replayBtn">Run it back</button>
+        <a class="btn-ghost" href="/fantasy">Official board</a>
       </div>
+      <div class="note">Same order as the official draw on Oct 1 (drand round 32,698,612). This one's just for fun.</div>
     </section>
   </div>
-
-  <details>
-    <summary>How the draw works (and how to verify it)</summary>
-    <p>Nobody picks the order, and nobody can know it ahead of time. At exactly <b>8:00:00 PM ET on Oct 1</b>, the
-      <a href="https://drand.love" target="_blank" rel="noopener">drand League of Entropy</a> (a public randomness beacon run by Cloudflare, Protocol Labs, universities and others) publishes
-      <b>round <span id="roundNum"></span></b>, a random value that doesn't exist until that moment.</p>
-    <p>Every phone loading this page fetches that same value and shuffles the managers with it, so everyone sees the identical order.</p>
-    <ol>
-      <li>Starting list (fixed before the draw): <code id="listText"></code></li>
-      <li>Shuffle: for <code>i</code> = 11 down to 1, swap position <code>i</code> with position <code>SHA-256(randomness + ":" + i) mod (i+1)</code>.</li>
-      <li>Position 1 of the result = Pick #1.</li>
-    </ol>
-    <p id="proof">Randomness value appears here after the reveal.</p>
-  </details>
-
   <footer>Hosted by <a href="/">DeenScroll</a> · Good luck, ballers.</footer>
 </div>
-<div class="toast" id="toast">Copied</div>
 
 <script>
 (() => {
-  // ================= CONFIG =================
-  const CONFIG = {
-    league: "FredVegasBallers",
-    season: "2026",
-    // Fixed starting order. Do not edit after sharing the page: it's part of the fairness proof.
-    managers: ["Zarar","Zerk","Zayan","Ryan","Aly","Ali","Waleed","Wasay","Ahsen","Aahab","Sam","Saad"],
-    revealAt: Date.UTC(2026, 9, 2, 0, 0, 0),     // Thu Oct 1 2026, 8:00:00 PM ET (= Oct 2 00:00 UTC)
-    // drand "quicknet" chain: new value every 3s
-    chain: "52db9ba70e0cc0f6eaf7803dd07447a1f5477735fd3f661792ba94600c84e971",
-    genesis: 1692803367, period: 3,
-    relays: ["https://api.drand.sh","https://drand.cloudflare.com","https://api2.drand.sh","https://api3.drand.sh"],
-    autoplayWindowMs: 15 * 60 * 1000             // arrive within 15 min of reveal: the draw plays automatically
+  // ============ OFFICIAL ORDER (pick 1 → 12) ============
+  const ORDER = ["Saad","Waleed","Zayan","Aahab","Ali","Wasay","Zarar","Sam","Zerk","Ryan","Aly","Ahsen"];
+
+  // ============ THE BALLERS ============
+  // hair: short | afro | combover | spikycomb | spiky | pompadour | poufspike | fade | curly | neat | textured
+  // beard: none | full | stubble | goatee      shirt: {base, trim, text, tee, label, num, pocket}   skinny / tall
+  const P = {
+    Ryan:   { skin:"#f2cfb8", hair:"short",     hc:"#c4521c", beard:"none",    freckles:true,  shirt:{base:"#1f7a3a",trim:"#ffffff",text:"#ffffff"} },
+    Sam   : { skin:"#6b4127", hair:"afro",      hc:"#17110e", beard:"none",    shirt:{base:"#007a33",trim:"#ffffff",text:"#ffffff",word:"BOSTON"} },
+    Waleed: { skin:"#a46a43", hair:"combover",  hc:"#15100d", beard:"none",    shirt:{base:"#0a1428",trim:"#c8aa6e",text:"#c8aa6e",tee:true,label:"GG"} },
+    Zarar : { skin:"#9a6240", hair:"poufcomb",  hc:"#15100d", beard:"full",    shirt:{base:"#111111",trim:"#ffffff",text:"#ffffff",word:"BROOKLYN"} },
+    Ahsen : { skin:"#a86e46", hair:"spiky",     hc:"#15100d", beard:"full",    shirt:{base:"#f7d038",trim:"#c9a414",text:"#1a1a1a",tee:true,bolt:true} },
+    Zerk  : { skin:"#9c6542", hair:"poufspike", hc:"#15100d", beard:"full",    shirt:{base:"#006bb6",trim:"#f58426",text:"#ffffff",word:"NEW YORK"} },
+    Aly:    { skin:"#a06844", hair:"combover",  hc:"#1c1410", beard:"full",    tall:true, shirt:{base:"#0f766e",trim:"#fbbf24",text:"#ffffff"} },
+    Aahab:  { skin:"#b07650", hair:"combover",  hc:"#15100d", beard:"full",    flipHair:true, shirt:{base:"#7a1f2b",trim:"#e8b923",text:"#ffffff"} },
+    Ali   : { skin:"#a46c47", hair:"neat",      hc:"#15100d", beard:"none",    shirt:{base:"#64748b",trim:"#e2e8f0",text:"#ffffff",tee:true,label:"",pocket:true} },
+    Zayan:  { skin:"#b37a52", hair:"curly",     hc:"#18120f", beard:"none",    shirt:{base:"#232d4b",trim:"#e57200",text:"#e57200"} },
+    Wasay : { skin:"#9e6743", hair:"curly",     hc:"#15100d", beard:"full",    skinny:true, shirt:{base:"#fdb927",trim:"#552583",text:"#552583",num:"23"} },
+    Saad:   { skin:"#a97048", hair:"fade",      hc:"#15100d", beard:"full",    shirt:{base:"#f8f8f8",trim:"#d4a017",text:"#b8860b"} }
   };
-  // ==========================================
 
-  const params = new URLSearchParams(location.search);
-  const DEMO = params.has("demo");
-  if (DEMO) {
-    CONFIG.revealAt = Date.now() + (parseInt(params.get("demo"),10) || 8) * 1000;
-    document.getElementById("demoBanner").classList.remove("hidden");
-    document.getElementById("whenText").textContent = "Demo in a few seconds";
-  }
-  const ROUND = Math.ceil((CONFIG.revealAt/1000 - CONFIG.genesis) / CONFIG.period) + 1;
-  const N = CONFIG.managers.length;
-  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const $ = id => document.getElementById(id);
-  const sleep = ms => new Promise(r => setTimeout(r, reduced ? Math.min(ms, 300) : ms));
-
-  $("roundNum").textContent = ROUND.toLocaleString();
-  $("listText").textContent = CONFIG.managers.join(", ");
-
-  // ---------- build UI ----------
-  const board = $("board");
-  const slots = [];
-  for (let i = 1; i <= N; i++) {
-    const li = document.createElement("li");
-    li.className = "slot";
-    li.innerHTML = `<span class="num">${i}</span><span class="name">?</span><span class="badge"></span>`;
-    board.appendChild(li); slots.push(li);
-  }
-  const chips = {};
-  CONFIG.managers.forEach(m => {
-    const c = document.createElement("span"); c.className = "chip"; c.textContent = m;
-    $("chips").appendChild(c); chips[m] = c;
-  });
-
-  let straws = [];
-  function buildStraws() {
-    const box = $("straws"); box.innerHTML = "";
-    const w = box.clientWidth || 280, gap = (w - 16) / (N - 1);
-    straws = [];
-    for (let i = 0; i < N; i++) {
-      const s = document.createElement("div");
-      s.className = "straw";
-      const rot = (i - (N-1)/2) * 1.6 + (Math.sin(i*7.3) * 1.5);
-      s.dataset.rot = rot;
-      s.style.left = (i * gap) + "px";
-      s.style.transform = `rotate(${rot}deg)`;
-      s.innerHTML = `<span class="tag"></span>`;
-      box.appendChild(s); straws.push(s);
-    }
-  }
-  buildStraws();
-
-  function resetBoard() {
-    slots.forEach(s => { s.className = "slot"; s.querySelector(".name").textContent = "?"; s.querySelector(".badge").textContent = ""; });
-    Object.values(chips).forEach(c => c.classList.remove("out"));
-    $("done").classList.add("hidden");
-  }
-  function fillSlot(pick, name, animate) {
-    const s = slots[pick-1];
-    s.classList.add("filled");
-    if (pick === 1) { s.classList.add("first"); s.querySelector(".badge").textContent = "First pick"; }
-    if (pick === N) { s.classList.add("last"); s.querySelector(".badge").textContent = "Last pick"; }
-    s.querySelector(".name").textContent = name;
-    if (chips[name]) chips[name].classList.add("out");
-    if (animate) s.animate([{transform:"scale(1.06)",background:"rgba(245,197,66,.3)"},{transform:"scale(1)"}], {duration:700, easing:"ease-out"});
-  }
-
-  // ---------- randomness ----------
-  const hex = b => [...new Uint8Array(b)].map(x => x.toString(16).padStart(2,"0")).join("");
-  const sha = async str => hex(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str)));
-  async function shuffle(list, randomness) {
-    const a = [...list];
-    for (let i = a.length - 1; i > 0; i--) {
-      const j = Number(BigInt("0x" + await sha(randomness + ":" + i)) % BigInt(i + 1));
-      [a[i], a[j]] = [a[j], a[i]];
-    }
-    return a;
-  }
-  async function fetchRound(round) {
-    for (const r of CONFIG.relays) {
-      try {
-        const res = await fetch(`${r}/${CONFIG.chain}/public/${round}`, { cache: "no-store" });
-        if (res.ok) { const j = await res.json(); if (j && j.randomness && j.round === round) return { ...j, relay: r }; }
-      } catch (e) {}
-    }
-    return null;
-  }
-  async function getRandomness() {
-    const started = Date.now();
-    while (true) {
-      const got = await fetchRound(ROUND);
-      if (got) return got;
-      if (DEMO && Date.now() - started > 4000) {         // demo only: fall back to local randomness if beacon unreachable
-        const b = new Uint8Array(32); crypto.getRandomValues(b);
-        return { round: ROUND, randomness: hex(b), relay: "local (demo fallback)" };
+  // ============ AVATAR DRAWING ============
+  function hairFront(style, c){
+    const base = `M29 42 Q29 24 50 23 Q71 24 71 42 Q66 31 50 31 Q34 31 29 42Z`;
+    switch(style){
+      case "short":     return `<path d="M29 44 Q27 20 50 19 Q73 20 71 44 Q70 33 64 30 Q50 27 36 30 Q30 33 29 44Z" fill="${c}"/>
+                                <path d="M40 22 Q46 18 52 21 Q58 18 63 23" stroke="${c}" stroke-width="3" fill="none" stroke-linecap="round"/>`;
+      case "afro":      return `<path d="${base}" fill="${c}"/>`;
+      case "combover":  return `<path d="M29 46 Q26 22 46 18 Q68 14 72 32 Q73 40 71 46 Q69 35 62 31 Q52 28 41 31 Q33 34 29 46Z" fill="${c}"/>
+                                <path d="M33 30 Q44 13 70 25 Q58 21 48 25 Q40 27 33 30Z" fill="${c}"/>
+                                <path d="M37 25 Q38 28 39 31" stroke="rgba(255,255,255,.25)" stroke-width="1.2" fill="none"/>`;
+      case "spikycomb": return `<path d="M29 44 L29 27 L37 17 L40 24 L48 11 L51 22 L61 12 L61 22 L72 18 L69 27 L72 31 L71 44 Q67 32 50 31 Q34 32 29 44Z" fill="${c}"/>`;
+      case "spiky":     return `<path d="M29 44 L28 25 L33 13 L39 23 L44 8 L50 21 L56 8 L61 23 L67 13 L72 25 L71 44 Q66 31 50 31 Q34 31 29 44Z" fill="${c}"/>`;
+      case "pompadour": return `<path d="M29 44 Q26 28 33 21 Q38 5 57 6 Q74 8 71 20 Q64 15 57 17 Q67 21 71 30 L71 44 Q66 31 50 31 Q34 31 29 44Z" fill="${c}"/>
+                                <path d="M40 15 Q50 9 62 12" stroke="rgba(255,255,255,.22)" stroke-width="1.4" fill="none"/>`;
+      case "fade":      return `<path d="M29 46 Q28 22 50 20 Q72 22 71 46 Q70 36 68 33 Q64 28 50 28 Q36 28 32 33 Q30 36 29 46Z" fill="${c}" opacity=".35"/>
+                                <path d="M33 33 Q34 19 50 18 Q66 19 67 33 Q60 26 50 26 Q40 26 33 33Z" fill="${c}"/>`;
+      case "curly": {
+        let s = `<path d="${base}" fill="${c}"/>`;
+        [[33,30,6],[39,24,6.5],[46,21,6.5],[54,21,6.5],[61,24,6.5],[67,30,6],[50,26,5],[42,28,4.5],[58,28,4.5]].forEach(([x,y,r])=> s+=`<circle cx="${x}" cy="${y}" r="${r}" fill="${c}"/>`);
+        return s;
       }
-      const waited = Math.round((Date.now() - started)/1000);
-      if (waited > 8) $("status").textContent = "Still waiting on the randomness beacon… hang tight";
-      await new Promise(r => setTimeout(r, 1500));
+      case "neat":      return `<path d="M29 45 Q27 21 50 19 Q73 21 71 45 Q69 33 62 30 L44 30 Q34 31 29 45Z" fill="${c}"/>
+                                <path d="M44 20 Q42 25 44 30" stroke="rgba(255,255,255,.22)" stroke-width="1.2" fill="none"/>`;
+      case "poufspike": return `<g transform="translate(0 3)"><path d="M28 44 Q24 30 30 22 L28 11 L36 16 L36 5 L44 12 L48 2 L53 11 L60 3 L62 12 L70 7 L69 17 L75 16 Q72 23 72 30 L71 44 Q66 31 50 31 Q34 31 28 44Z" fill="${c}"/>
+                                <path d="M37 18 Q46 10 60 13" stroke="rgba(255,255,255,.2)" stroke-width="1.4" fill="none"/></g>`;
+      case "poufcomb":  return `<path d="M28 46 Q24 26 33 16 Q45 3 63 7 Q78 11 75 26 Q73 34 72 46 Q70 34 63 30 Q52 27 41 31 Q33 34 28 46Z" fill="${c}"/>
+                                <path d="M31 27 Q40 6 68 11 Q57 12 49 17 Q40 22 31 27Z" fill="${c}" stroke="rgba(255,255,255,.18)" stroke-width="1.2"/>
+                                <path d="M42 12 Q54 7 66 10 M38 19 Q48 13 60 14" stroke="rgba(255,255,255,.2)" stroke-width="1.2" fill="none"/>`;
+      case "textured":  return `<path d="M29 44 Q27 24 34 20 L37 14 L42 19 L47 12 L52 18 L58 12 L61 19 L67 16 L67 23 Q72 28 71 44 Q66 31 50 31 Q34 31 29 44Z" fill="${c}"/>`;
+    }
+    return "";
+  }
+  function avatar(name, expr="smile", num=""){
+    const p = P[name] || { skin:"#a46c47", hair:"short", hc:"#15100d", beard:"none", shirt:{base:"#444",trim:"#ddd",text:"#fff"} };
+    const s = p.skin, h = p.hc, sh = p.shirt, lift = p.tall ? -5 : 0;
+    const dark = "#2a160f", n = sh.num || num;
+    const AF = `font-family="Arial Black,Arial,sans-serif" font-weight="900"`;
+    let o = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">`;
+    // ---- shirt (narrower for skinny guys) ----
+    o += p.skinny ? `<g transform="translate(50 0) scale(.82 1) translate(-50 0)">` : `<g>`;
+    o += `<path d="M3 100 Q4 72 27 64.5 Q37 61.5 42 61 L58 61 Q63 61.5 73 64.5 Q96 72 97 100Z" fill="${sh.base}"/>`;
+    o += `<path d="M3 100 Q4 72 27 64.5 Q20 80 19 100Z M97 100 Q96 72 73 64.5 Q80 80 81 100Z" fill="rgba(0,0,0,.14)"/>`;
+    if (sh.tee) {
+      o += `<path d="M27 65 Q21 80 20 100 M73 65 Q79 80 80 100" stroke="rgba(0,0,0,.22)" stroke-width="1.3" fill="none"/>`;
+      o += `<path d="M41 61 Q50 69 59 61Z" fill="${s}"/><path d="M40.5 61 Q50 70 59.5 61" stroke="${sh.trim}" stroke-width="3" fill="none" stroke-linecap="round"/>`;
+      if (sh.pocket) o += `<path d="M60 75 h11 v9 q-5.5 3 -11 0Z" fill="none" stroke="${sh.trim}" stroke-width="1.4" opacity=".8"/>`;
+    } else {
+      o += `<path d="M27 65 Q20 80 19 100 M73 65 Q80 80 81 100" stroke="${sh.trim}" stroke-width="3" fill="none"/>`;
+      o += `<path d="M24 67 Q17 82 16 100 M76 67 Q83 82 84 100" stroke="${sh.base}" stroke-width="1.2" fill="none" opacity=".9"/>`;
+      o += `<path d="M41 61 L50 73 L59 61Z" fill="${s}"/><path d="M40 61 L50 73.5 L60 61" stroke="${sh.trim}" stroke-width="3.4" fill="none" stroke-linejoin="round"/>`;
+      o += `<path d="M28 66 Q20 66 13 74" stroke="${sh.trim}" stroke-width="2" fill="none" opacity=".6"/><path d="M72 66 Q80 66 87 74" stroke="${sh.trim}" stroke-width="2" fill="none" opacity=".6"/>`;
+    }
+    o += `</g>`;
+    if (sh.tee && sh.label) o += `<text x="50" y="91" text-anchor="middle" ${AF} font-size="${sh.label.length > 2 ? 12 : 15}" fill="${sh.text}" letter-spacing=".5">${sh.label}</text>`;
+    if (sh.tee && sh.bolt) o += `<path d="M53 69 L42 85 L49 85 L45 98 L58 80 L51 80 L55 69Z" fill="#1a1a1a"/><path d="M53 69 L42 85 L49 85 L45 98 L58 80 L51 80 L55 69Z" fill="none" stroke="#fff" stroke-width=".8" opacity=".6"/>`;
+    if (!sh.tee && sh.word) o += `<text x="50" y="81" text-anchor="middle" ${AF} font-size="${sh.word.length > 6 ? 7.5 : 9}" fill="${sh.text}" letter-spacing=".4">${sh.word}</text>`;
+    if (!sh.tee && n && sh.word) o += `<text x="50" y="98" text-anchor="middle" ${AF} font-size="17" fill="${sh.text}" stroke="${sh.trim}" stroke-width="1" paint-order="stroke">${n}</text>`;
+    else if (!sh.tee && n) o += `<text x="50" y="96" text-anchor="middle" ${AF} font-size="21" fill="${sh.text}" stroke="${sh.trim}" stroke-width="1.2" paint-order="stroke">${n}</text>`;
+    // ---- neck ----
+    o += `<rect x="44.5" y="${46+lift}" width="11" height="${17-lift}" rx="3" fill="${s}"/><path d="M44.5 52 h11 v4 q-5.5 2 -11 0Z" fill="rgba(0,0,0,.14)"/>`;
+    // ---- head (scaled down so more shirt shows) ----
+    o += `<g transform="translate(9.5 ${-3 + lift*.8}) scale(.81)">`;
+    if (p.skinny) o += `<g transform="translate(50 0) scale(.88 1) translate(-50 0)">`;
+    o += `<g>`;
+    // afro back
+    if (p.hair === "afro") [[50,24,22],[32,30,12],[68,30,12],[36,18,12],[64,18,12],[50,12,13],[28,40,8],[72,40,8]].forEach(([x,y,r]) => o += `<circle cx="${x}" cy="${y}" r="${r}" fill="${h}"/>`);
+    // ears + head
+    o += `<ellipse cx="29.5" cy="48" rx="4" ry="6" fill="${s}"/><ellipse cx="70.5" cy="48" rx="4" ry="6" fill="${s}"/>`;
+    o += `<ellipse cx="50" cy="45" rx="21" ry="${p.tall ? 26.5 : 23}" fill="${s}"/>`;
+    // freckles
+    if (p.freckles) [[37,52],[40,54.5],[35.5,55],[63,52],[60,54.5],[64.5,55],[48,51],[52,51]].forEach(([x,y]) => o += `<circle cx="${x}" cy="${y}" r=".9" fill="#c0612e" opacity=".75"/>`);
+    // beard
+    const beardPath = `M29 45 Q29 67 40 72 Q50 76 60 72 Q71 67 71 45 Q69 56 63 59 Q57 55 50 56 Q43 55 37 59 Q31 56 29 45Z`;
+    if (p.beard === "full") o += `<path d="${beardPath}" fill="${h}"/><ellipse cx="50" cy="60.5" rx="6.5" ry="3.6" fill="${s}"/><path d="M41 57 Q50 52 59 57 Q55 58.5 50 57 Q45 58.5 41 57Z" fill="${h}"/>`;
+    if (p.beard === "stubble") o += `<path d="${beardPath}" fill="#24160f" opacity=".42"/>`;
+    if (p.beard === "goatee") o += `<path d="M43 63 Q50 72 57 63 Q54 66 50 66 Q46 66 43 63Z" fill="${h}"/><path d="M42 57 Q50 53 58 57 Q54 58 50 57 Q46 58 42 57Z" fill="${h}"/>`;
+    // eyes + brows
+    if (expr === "hype") {
+      o += `<path d="M38.5 47 Q42 42.5 45.5 47 M54.5 47 Q58 42.5 61.5 47" stroke="${dark}" stroke-width="2.3" fill="none" stroke-linecap="round"/>`;
+      o += `<path d="M37 38.5 Q42 35.5 46 38 M54 38 Q58 35.5 63 38.5" stroke="${h}" stroke-width="2.4" fill="none" stroke-linecap="round"/>`;
+    } else {
+      o += `<ellipse cx="42" cy="46" rx="2.3" ry="2.7" fill="${dark}"/><ellipse cx="58" cy="46" rx="2.3" ry="2.7" fill="${dark}"/>`;
+      o += `<circle cx="42.8" cy="45" r=".8" fill="#fff"/><circle cx="58.8" cy="45" r=".8" fill="#fff"/>`;
+      o += expr === "sad"
+        ? `<path d="M37 39.5 Q42 40 46 42.5 M54 42.5 Q58 40 63 39.5" stroke="${h}" stroke-width="2.4" fill="none" stroke-linecap="round"/>`
+        : `<path d="M37 41 Q42 38.5 46 40.5 M54 40.5 Q58 38.5 63 41" stroke="${h}" stroke-width="2.4" fill="none" stroke-linecap="round"/>`;
+    }
+    // nose
+    o += `<path d="M50 47.5 Q47.8 52.5 50 53.5 Q51.3 53.8 52.4 53" stroke="rgba(0,0,0,.28)" stroke-width="1.5" fill="none" stroke-linecap="round"/>`;
+    // mouth
+    if (expr === "hype") o += `<path d="M43 58.5 Q50 69 57 58.5Z" fill="#5a1414"/><path d="M44.5 59 L55.5 59 L55 61 L45 61Z" fill="#fff"/>`;
+    else if (expr === "sad") o += `<path d="M45 62 Q50 58 55 62" stroke="#5a1f1a" stroke-width="2.2" fill="none" stroke-linecap="round"/>`;
+    else o += `<path d="M44 59 Q50 64.5 56 59 Q50 61.5 44 59Z" fill="#6b241d" stroke="#6b241d" stroke-width="1.2" stroke-linejoin="round"/>`;
+    // hair front
+    const hf = hairFront(p.hair, h);
+    const hf2 = p.tall ? `<g transform="translate(0 -3.5)">${hf}</g>` : hf;
+    o += p.flipHair ? `<g transform="translate(100 0) scale(-1 1)">${hf2}</g>` : hf2;
+    // glasses
+    if (p.glasses) o += `<g stroke="#111" stroke-width="1.9" fill="rgba(255,255,255,.18)"><rect x="35" y="41.5" width="13.5" height="9.5" rx="3"/><rect x="51.5" y="41.5" width="13.5" height="9.5" rx="3"/></g><path d="M48.5 45.5 L51.5 45.5 M35 45 L30 44 M65 45 L70 44" stroke="#111" stroke-width="1.7"/>`;
+    // sad sweat drop for last pick
+    if (expr === "sad") o += `<path d="M67 34 Q69.5 38.5 67 40 Q64.5 38.5 67 34Z" fill="#7dd3fc"/>`;
+    o += `</g>` + (p.skinny ? `</g>` : ``) + `</g></svg>`;
+    return o;
+  }
+  const svgURL = svg => "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+
+  // ============ BOARD ============
+  const $ = id => document.getElementById(id);
+  const N = ORDER.length, slots = [];
+  for (let i = 1; i <= N; i++) {
+    const li = document.createElement("li"); li.className = "slot";
+    li.innerHTML = `<span class="num">${i}</span><span class="mini">?</span><span class="name">?</span><span class="badge"></span>`;
+    $("board").appendChild(li); slots.push(li);
+  }
+  function resetBoard(){
+    slots.forEach(s => { s.className = "slot"; s.querySelector(".mini").innerHTML = "?"; s.querySelector(".name").textContent = "?"; s.querySelector(".badge").textContent = ""; });
+  }
+  function fillSlot(pick, name){
+    const s = slots[pick-1]; s.classList.add("filled"); if (pick === 1) s.classList.add("first");
+    s.querySelector(".mini").innerHTML = avatar(name, pick === 1 ? "hype" : pick === N ? "sad" : "smile", pick);
+    s.querySelector(".name").textContent = name;
+    s.querySelector(".badge").textContent = pick === 1 ? "First pick" : pick === N ? "Last pick" : "";
+    s.animate([{transform:"scale(1.06)",background:"rgba(245,197,66,.3)"},{transform:"scale(1)"}],{duration:700,easing:"ease-out"});
+  }
+
+  // ============ MACHINE (canvas physics) ============
+  const cv = $("machine"), ctx = cv.getContext("2d");
+  const W = 360, H = 460, CX = 180, CY = 280, R = 150, BR = 25, TUBE_TOP = 18;
+  const dpr = Math.min(devicePixelRatio || 1, 2);
+  cv.width = W * dpr; cv.height = H * dpr; ctx.scale(dpr, dpr);
+
+  const imgs = {};
+  Object.keys(P).forEach(n => { const im = new Image(); im.src = svgURL(avatar(n, "smile", ORDER.indexOf(n) + 1)); imgs[n] = im; });
+
+  let balls = [], intensity = 0.2, jetFlash = 0;
+  function loadBalls(){
+    const names = [...ORDER].sort(() => Math.random() - .5);
+    balls = names.map((n, i) => {
+      const a = (i / names.length) * Math.PI * 2, rr = 40 + (i % 3) * 30;
+      return { name:n, x: CX + Math.cos(a)*rr, y: CY + 40 + Math.sin(a)*rr*0.6, vx:(Math.random()-.5)*2, vy:0, rot:Math.random()*6, state:"in" };
+    });
+  }
+  loadBalls();
+
+  function step(){
+    const live = balls.filter(b => b.state === "in");
+    for (const b of live) {
+      b.vy += 0.32;
+      const dx = b.x - CX, dy = b.y - CY, d = Math.hypot(dx, dy) || 1;
+      if (intensity > 0.05) {
+        if (b.y > CY + R*0.15) b.vy -= (0.55 + Math.random()*0.9) * intensity;   // air jet
+        b.vx += (Math.random()-.5) * 1.1 * intensity;
+        b.vy += (Math.random()-.5) * 1.1 * intensity;
+        b.vx += (-dy/d) * 0.18 * intensity; b.vy += (dx/d) * 0.18 * intensity;  // swirl
+      }
+      b.vx *= 0.992; b.vy *= 0.992;
+      const sp = Math.hypot(b.vx, b.vy), cap = 15; if (sp > cap) { b.vx *= cap/sp; b.vy *= cap/sp; }
+      b.x += b.vx; b.y += b.vy; b.rot += b.vx * 0.035;
+    }
+    for (let i = 0; i < live.length; i++) for (let j = i+1; j < live.length; j++) {
+      const a = live[i], b = live[j], dx = b.x - a.x, dy = b.y - a.y, d = Math.hypot(dx, dy);
+      if (d > 0 && d < BR*2) {
+        const nx = dx/d, ny = dy/d, ov = (BR*2 - d)/2;
+        a.x -= nx*ov; a.y -= ny*ov; b.x += nx*ov; b.y += ny*ov;
+        const rv = (b.vx - a.vx)*nx + (b.vy - a.vy)*ny;
+        if (rv < 0) { const imp = -(1.85)*rv/2; a.vx -= imp*nx; a.vy -= imp*ny; b.vx += imp*nx; b.vy += imp*ny; }
+      }
+    }
+    for (const b of live) {
+      const dx = b.x - CX, dy = b.y - CY, d = Math.hypot(dx, dy) || 1, lim = R - BR - 4;
+      if (d > lim) {
+        const nx = dx/d, ny = dy/d; b.x = CX + nx*lim; b.y = CY + ny*lim;
+        const vn = b.vx*nx + b.vy*ny; if (vn > 0) { b.vx -= 1.8*vn*nx; b.vy -= 1.8*vn*ny; }
+      }
     }
   }
 
-  // ---------- countdown ----------
-  const pad = n => String(n).padStart(2, "0");
-  let timer;
-  function tick() {
-    const ms = CONFIG.revealAt - Date.now();
-    if (ms <= 0) {
-      clearInterval(timer);
-      ["d","h","m","s"].forEach(k => $("cd-"+k).textContent = "00");
-      $("countdown").classList.remove("final10");
-      startDraw(true);
-      return;
+  const ease = t => t < .5 ? 2*t*t : 1 - Math.pow(-2*t + 2, 2)/2;
+  function exitPos(b, now){
+    const t = now - b.t0, mouth = { x: CX, y: CY - R + BR + 2 }, top = { x: CX, y: TUBE_TOP + BR + 6 };
+    if (t < 520) { const k = ease(t/520); return { x: b.fx + (mouth.x - b.fx)*k, y: b.fy + (mouth.y - b.fy)*k, done:false }; }
+    if (t < 1150) { const k = ease((t-520)/630); return { x: CX, y: mouth.y + (top.y - mouth.y)*k, done:false }; }
+    return { x: CX, y: top.y, done:true };
+  }
+
+  function drawBall(b, x, y, scale=1){
+    const r = BR*scale, sh = P[b.name].shirt;
+    ctx.save(); ctx.translate(x, y);
+    ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI*2); ctx.fillStyle = "#f3ead8"; ctx.fill();
+    ctx.save(); ctx.rotate(Math.sin(b.rot) * 0.5); ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI*2); ctx.clip();
+    if (imgs[b.name].complete) ctx.drawImage(imgs[b.name], -r, -r, r*2, r*2);
+    ctx.restore();
+    ctx.lineWidth = 3.5; ctx.strokeStyle = sh.base === "#f8f8f8" ? "#d4a017" : sh.base; ctx.beginPath(); ctx.arc(0, 0, r - 1.5, 0, Math.PI*2); ctx.stroke();
+    const g = ctx.createRadialGradient(-r*.4, -r*.5, 1, -r*.4, -r*.5, r*1.1);
+    g.addColorStop(0, "rgba(255,255,255,.55)"); g.addColorStop(.35, "rgba(255,255,255,0)");
+    ctx.fillStyle = g; ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI*2); ctx.fill();
+    ctx.restore();
+  }
+
+  function draw(now){
+    ctx.clearRect(0, 0, W, H);
+    // stand
+    ctx.fillStyle = "#2a2045"; ctx.beginPath(); ctx.moveTo(CX-70, CY+R-10); ctx.lineTo(CX+70, CY+R-10); ctx.lineTo(CX+100, H-4); ctx.lineTo(CX-100, H-4); ctx.closePath(); ctx.fill();
+    ctx.fillStyle = "#3b2d63"; ctx.fillRect(CX-110, H-14, 220, 12);
+    ctx.fillStyle = "rgba(245,197,66,.8)"; ctx.font = "22px 'Bebas Neue', sans-serif"; ctx.textAlign = "center"; ctx.fillText("FVB LOTTERY", CX, H-22);
+    // tube
+    ctx.fillStyle = "rgba(255,255,255,.05)"; ctx.fillRect(CX-BR-7, TUBE_TOP, BR*2+14, CY-R-TUBE_TOP+6);
+    ctx.strokeStyle = "rgba(255,255,255,.35)"; ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.moveTo(CX-BR-7, TUBE_TOP); ctx.lineTo(CX-BR-7, CY-R+4); ctx.moveTo(CX+BR+7, TUBE_TOP); ctx.lineTo(CX+BR+7, CY-R+4); ctx.stroke();
+    ctx.fillStyle = "#3b2d63"; ctx.fillRect(CX-BR-12, TUBE_TOP-8, BR*2+24, 10);
+    // drum glass
+    const gg = ctx.createRadialGradient(CX-50, CY-60, 10, CX, CY, R);
+    gg.addColorStop(0, "rgba(255,255,255,.10)"); gg.addColorStop(1, "rgba(120,100,200,.10)");
+    ctx.fillStyle = gg; ctx.beginPath(); ctx.arc(CX, CY, R, 0, Math.PI*2); ctx.fill();
+    // jets
+    if (intensity > 0.3) {
+      jetFlash += 0.3;
+      ctx.strokeStyle = `rgba(46,230,197,${0.15 + 0.1*Math.sin(jetFlash)})`; ctx.lineWidth = 2;
+      for (let i = -3; i <= 3; i++) { const x = CX + i*16, y0 = CY + R - 12 - Math.random()*8; ctx.beginPath(); ctx.moveTo(x, y0); ctx.lineTo(x + (Math.random()-.5)*6, y0 - 30 - Math.random()*30*intensity); ctx.stroke(); }
     }
-    const t = Math.ceil(ms/1000);
-    $("cd-d").textContent = pad(Math.floor(t/86400));
-    $("cd-h").textContent = pad(Math.floor(t%86400/3600));
-    $("cd-m").textContent = pad(Math.floor(t%3600/60));
-    $("cd-s").textContent = pad(t%60);
-    $("countdown").classList.toggle("final10", t <= 10);
+    // balls inside
+    for (const b of balls) if (b.state === "in") drawBall(b, b.x, b.y);
+    // drum rim & shine (over balls)
+    ctx.strokeStyle = "rgba(255,255,255,.4)"; ctx.lineWidth = 4; ctx.beginPath(); ctx.arc(CX, CY, R, 0, Math.PI*2); ctx.stroke();
+    ctx.strokeStyle = "rgba(255,255,255,.18)"; ctx.lineWidth = 8; ctx.beginPath(); ctx.arc(CX, CY, R-14, Math.PI*1.1, Math.PI*1.45); ctx.stroke();
+    // exiting ball (over glass)
+    for (const b of balls) if (b.state === "out") { const p = exitPos(b, now); b.rot += 0.12; drawBall(b, p.x, p.y, 1); b.arrived = p.done; }
   }
 
-  // ---------- the draw ----------
-  let result = null, drand = null, playing = false;
+  let last = performance.now(), acc = 0;
+  (function loop(now){
+    acc += Math.min(now - last, 100); last = now;
+    while (acc >= 1000/60) { step(); acc -= 1000/60; }
+    draw(now); requestAnimationFrame(loop);
+  })(last);
 
-  async function startDraw(live) {
-    $("status").textContent = "Time! Pulling the official randomness…";
-    drand = await getRandomness();
-    result = await shuffle(CONFIG.managers, drand.randomness);
-    const proofUrl = `${CONFIG.relays[0]}/${CONFIG.chain}/public/${ROUND}`;
-    $("proof").innerHTML = `Round <b>${ROUND}</b> randomness: <code>${drand.randomness}</code><br>` +
-      (drand.relay.startsWith("local") ? "Demo used local randomness." : `Check it yourself: <a href="${proofUrl}" target="_blank" rel="noopener">${proofUrl.replace("https://","")}</a>`);
-    const lateBy = Date.now() - CONFIG.revealAt;
-    if (live || lateBy < CONFIG.autoplayWindowMs) await play();
-    else showFinal();
-  }
+  // ============ SHOW ============
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+  const until = fn => new Promise(r => { (function c(){ fn() ? r() : requestAnimationFrame(c); })(); });
+  const CAPS = { 12:"Last pick… thoughts and prayers", 11:"Ouch", 3:"Top 3!", 2:"So close", 1:"FIRST OVERALL PICK" };
+  let running = false;
 
-  function showFinal() {
-    resetBoard();
-    result.forEach((name, i) => fillSlot(i+1, name, false));
-    straws.forEach(s => s.style.opacity = 0);
-    $("countdown").classList.add("hidden");
-    $("status").textContent = "The draft order is official.";
-    $("boardTitle").textContent = "Official Draft Order";
-    $("done").classList.remove("hidden");
-  }
-
-  async function play() {
-    if (playing) return; playing = true;
-    resetBoard(); buildStraws();
-    $("countdown").classList.add("hidden");
-    $("boardTitle").textContent = "Draft Order";
-    const card = $("card");
-    // cosmetic: which physical straw gets pulled (from the same randomness so it's identical on every phone)
-    const seed = parseInt(drand.randomness.slice(0, 8), 16);
-    let remaining = straws.slice();
-
-    $("status").textContent = "Shaking the cup…";
-    await Promise.all(straws.map((s, i) => s.animate(
-      [0,-3,3,-2,2,0].map(d => ({ transform: `rotate(${+s.dataset.rot + d}deg)` })),
-      { duration: 1400, delay: i*20, easing: "ease-in-out" }).finished));
-    await sleep(300);
+  async function show(){
+    if (running) return; running = true;
+    $("startWrap").classList.add("hidden"); $("done").classList.add("hidden");
+    resetBoard(); loadBalls(); $("boardTitle").textContent = "Draft Order";
+    $("status").textContent = "Mixing the balls…";
+    intensity = 1.2; await sleep(3200);
 
     for (let pick = N; pick >= 1; pick--) {
-      const name = result[pick-1];
-      const straw = remaining.splice((seed + pick*7) % remaining.length, 1)[0];
-      const big = pick === 1, two = pick === 2;
-      // straw length encodes the pick: longest = #1 (hidden under cup until pulled)
-      const h = 110 + (N - pick) * 8;
-      straw.style.height = h + "px";
-      straw.querySelector(".tag").textContent = "#" + pick;
+      const name = ORDER[pick-1], top = pick <= 3;
+      $("status").textContent = pick === 1 ? "One ball left. The #1 pick is…" : top ? `Top ${pick}. Mixing…` : `Drawing pick #${pick}…`;
+      intensity = top ? 1.5 : 1.1;
+      await sleep(pick === 1 ? 1600 : top ? 2000 : 1100);
+      const b = balls.find(x => x.name === name && x.state === "in");
+      b.state = "out"; b.fx = b.x; b.fy = b.y; b.t0 = performance.now(); b.arrived = false;
+      intensity = 0.6;
+      await until(() => b.arrived);
 
-      $("status").textContent = big ? `One straw left. Pick #1 goes to…` :
-                                two ? `Two left. Pick #2…` : `Pulling pick #${pick}…`;
-      if (big || two) {
-        const pool = big ? [straw] : [straw, ...remaining];
-        await Promise.all(pool.map(s => s.animate(
-          [0,-4,4,-4,4,0].map(d => ({ transform:`rotate(${+s.dataset.rot + d}deg)` })),
-          { duration: big ? 1800 : 1100, easing:"ease-in-out" }).finished));
-      } else {
-        remaining.forEach(s => s.animate(
-          [0,-1.5,1.5,0].map(d => ({ transform:`rotate(${+s.dataset.rot + d}deg)` })), { duration: 500 }));
-        await sleep(350);
-      }
-
-      // pull the straw up and out
-      const rot = +straw.dataset.rot, rise = h - 80;
-      straw.classList.add("pulled");
-      await straw.animate([
-        { transform:`rotate(${rot}deg) translateY(0)` },
-        { transform:`rotate(${rot*0.3}deg) translateY(${-rise*0.35}px)`, offset:.35 },
-        { transform:`rotate(0deg) translateY(${-rise}px)` }
-      ], { duration: big ? 1600 : 850, easing:"cubic-bezier(.3,.7,.2,1)", fill:"forwards" }).finished;
-      straw.querySelector(".tag").animate([{opacity:0},{opacity:1}], {duration:200, fill:"forwards"});
-
-      // reveal card
-      $("cardPick").textContent = "#" + pick;
+      const card = $("card");
+      card.classList.toggle("one", pick === 1);
+      $("cardAv").innerHTML = avatar(name, pick === 1 ? "hype" : pick === N ? "sad" : "smile", pick);
+      $("cardPick").textContent = "PICK #" + pick;
       $("cardWho").textContent = name;
-      card.classList.toggle("one", big);
-      await card.animate([
-        { opacity:0, transform:"scale(.6)" },
-        { opacity:1, transform:"scale(1.08)", offset:.7 },
-        { opacity:1, transform:"scale(1)" }
-      ], { duration: big ? 650 : 420, easing:"ease-out", fill:"forwards" }).finished;
-      fillSlot(pick, name, true);
-      if (big) confetti();
-      await sleep(big ? 2600 : pick <= 3 ? 1400 : 1000);
-
-      card.animate([{ opacity:1, transform:"scale(1)" },{ opacity:0, transform:"scale(.85) translateY(-20px)" }],
-        { duration: 300, fill:"forwards" });
-      straw.animate([{ opacity:1 },{ opacity:0 }], { duration: 300, fill:"forwards" });
-      await sleep(big ? 300 : 250);
+      $("cardCap").textContent = CAPS[pick] || "";
+      await card.animate([{opacity:0,transform:"translateY(-120px) scale(.3)"},{opacity:1,transform:"translateY(0) scale(1.08)",offset:.7},{opacity:1,transform:"scale(1)"}],
+        {duration: pick === 1 ? 750 : 500, easing:"cubic-bezier(.2,.8,.2,1)", fill:"forwards"}).finished;
+      b.state = "gone";
+      fillSlot(pick, name);
+      if (pick === 1) confetti();
+      await sleep(pick === 1 ? 3600 : top ? 1900 : 1500);
+      if (pick > 1) await card.animate([{opacity:1,transform:"scale(1)"},{opacity:0,transform:"scale(.85) translateY(20px)"}],{duration:280,fill:"forwards"}).finished;
     }
-
-    $("status").textContent = DEMO ? "Demo complete. The real one runs Thursday at 8." : "The draft order is official. 🏈";
-    $("boardTitle").textContent = DEMO ? "Demo Draft Order" : "Official Draft Order";
-    if (DEMO) $("lockedText").textContent = "Demo only. The real order is drawn Thu 10/1 at 8:00 PM ET.";
+    intensity = 0.2;
+    $("status").textContent = "That's the draft order. Saad's on the clock. 🏈";
+    $("boardTitle").textContent = "Official Draft Order";
     $("done").classList.remove("hidden");
-    playing = false;
+    running = false;
   }
+  $("startBtn").onclick = show;
+  $("replayBtn").onclick = () => { $("card").getAnimations().forEach(a => a.cancel()); $("card").style.opacity = 0; show(); };
 
-  // ---------- share ----------
-  $("shareBtn").onclick = async () => {
-    const url = location.origin + location.pathname;
-    const text = `${CONFIG.league} ${CONFIG.season} Draft Order${DEMO ? " (DEMO)" : ""}\n` +
-      result.map((n, i) => `${i+1}. ${n}`).join("\n") + `\n\nDrawn live with public randomness (drand round ${ROUND}).`;
-    if (navigator.share) { try { await navigator.share({ title: CONFIG.league + " Draft Order", text, url }); return; } catch (e) { if (e.name === "AbortError") return; } }
-    try { await navigator.clipboard.writeText(text + "\n" + url); } catch (e) {}
-    const t = $("toast"); t.textContent = "Draft order copied"; t.classList.add("show"); setTimeout(() => t.classList.remove("show"), 1800);
-  };
-  $("replayBtn").onclick = () => { if (!playing) play(); };
-
-  // ---------- confetti ----------
-  function confetti() {
-    if (reduced) return;
-    const c = $("confetti"), ctx = c.getContext("2d");
-    const dpr = devicePixelRatio || 1;
-    c.width = innerWidth * dpr; c.height = innerHeight * dpr; ctx.scale(dpr, dpr);
-    const colors = ["#f5c542","#ff4d8d","#2ee6c5","#fff4f0","#8f7bff"];
-    const ps = Array.from({ length: 160 }, () => ({
-      x: innerWidth/2 + (Math.random()-.5)*120, y: innerHeight*0.4,
-      vx: (Math.random()-.5)*14, vy: -Math.random()*14 - 4, r: Math.random()*6+4,
-      rot: Math.random()*6, vr: (Math.random()-.5)*.3, c: colors[(Math.random()*colors.length)|0]
-    }));
+  // ============ CONFETTI ============
+  function confetti(){
+    const c = $("confetti"), x = c.getContext("2d"), d = devicePixelRatio || 1;
+    c.width = innerWidth*d; c.height = innerHeight*d; x.setTransform(d,0,0,d,0,0);
+    const cols = ["#f5c542","#ff4d8d","#2ee6c5","#fff4f0","#8f7bff"];
+    const ps = Array.from({length:180}, () => ({ x: innerWidth/2 + (Math.random()-.5)*160, y: innerHeight*.4, vx:(Math.random()-.5)*15, vy:-Math.random()*15-4, r:Math.random()*6+4, a:Math.random()*6, va:(Math.random()-.5)*.3, c:cols[(Math.random()*cols.length)|0] }));
     const t0 = performance.now();
-    (function frame(t) {
-      const el = t - t0; ctx.clearRect(0, 0, innerWidth, innerHeight);
-      ps.forEach(p => { p.vy += .35; p.vx *= .99; p.x += p.vx; p.y += p.vy; p.rot += p.vr;
-        ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot); ctx.globalAlpha = Math.max(0, 1 - el/3500);
-        ctx.fillStyle = p.c; ctx.fillRect(-p.r/2, -p.r/4, p.r, p.r/2); ctx.restore(); });
-      if (el < 3500) requestAnimationFrame(frame); else ctx.clearRect(0, 0, innerWidth, innerHeight);
-    })(t0);
+    (function f(t){ const e = t - t0; x.clearRect(0,0,innerWidth,innerHeight);
+      ps.forEach(p => { p.vy += .35; p.vx *= .99; p.x += p.vx; p.y += p.vy; p.a += p.va; x.save(); x.translate(p.x,p.y); x.rotate(p.a); x.globalAlpha = Math.max(0, 1 - e/3800); x.fillStyle = p.c; x.fillRect(-p.r/2,-p.r/4,p.r,p.r/2); x.restore(); });
+      if (e < 3800) requestAnimationFrame(f); else x.clearRect(0,0,innerWidth,innerHeight); })(t0);
   }
 
-  // ---------- go ----------
-  if (Date.now() < CONFIG.revealAt) { tick(); timer = setInterval(tick, 250); }
-  else startDraw(false);
+  // preview mode for checking avatars: ?lineup
+  if (new URLSearchParams(location.search).has("lineup")) { ORDER.forEach((n,i) => fillSlot(i+1, n)); }
 })();
 </script>
 </body>
