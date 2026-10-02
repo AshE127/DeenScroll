@@ -57,6 +57,10 @@
   .actions button,.actions a{font:inherit;cursor:pointer;border-radius:12px;padding:12px 16px;font-weight:800;font-size:15px;text-decoration:none;text-align:center}
   .btn-primary{background:var(--gold);color:#1a1300;border:0;flex:1}
   .btn-ghost{background:transparent;color:var(--text);border:1px solid var(--line)}
+  .speed{display:flex;justify-content:center;align-items:center;gap:6px;margin-top:10px}
+  .speed span{color:var(--muted);font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;margin-right:4px}
+  .speed button{font:inherit;font-weight:800;font-size:14px;color:var(--text);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:7px 12px;cursor:pointer;min-width:52px}
+  .speed button.on{background:var(--teal);color:#062a24;border-color:var(--teal)}
   .hidden{display:none!important}
   .note{color:var(--muted);font-size:12px;text-align:center;margin-top:10px}
   footer{text-align:center;color:#5b5570;font-size:12px;margin-top:28px} footer a{color:#7d7694}
@@ -72,6 +76,8 @@
     <div class="sub">Ping-pong lottery replay of the official order</div>
   </header>
   <div class="status" id="status">12 balls loaded. Hit start.</div>
+  <div class="speed" id="speed" role="group" aria-label="Playback speed"><span>Speed</span>
+    <button data-s="0.5">0.5×</button><button data-s="1" class="on">1×</button><button data-s="1.5">1.5×</button><button data-s="2">2×</button></div>
 
   <div class="main">
     <section class="panel">
@@ -344,18 +350,24 @@
     ctx.strokeStyle = "rgba(255,255,255,.4)"; ctx.lineWidth = 4; ctx.beginPath(); ctx.arc(CX, CY, R, 0, Math.PI*2); ctx.stroke();
     ctx.strokeStyle = "rgba(255,255,255,.18)"; ctx.lineWidth = 8; ctx.beginPath(); ctx.arc(CX, CY, R-14, Math.PI*1.1, Math.PI*1.45); ctx.stroke();
     // exiting ball (over glass)
-    for (const b of balls) if (b.state === "out") { const p = exitPos(b, now); b.rot += 0.12; drawBall(b, p.x, p.y, 1); b.arrived = p.done; }
+    for (const b of balls) if (b.state === "out") { const p = exitPos(b, vnow); b.rot += 0.12 * SPEED; drawBall(b, p.x, p.y, 1); b.arrived = p.done; }
   }
 
-  let last = performance.now(), acc = 0;
+  let last = performance.now(), acc = 0, vnow = 0, SPEED = 1;
   (function loop(now){
-    acc += Math.min(now - last, 100); last = now;
+    const dt = Math.min(now - last, 100); last = now; vnow += dt * SPEED; acc += dt * SPEED;
     while (acc >= 1000/60) { step(); acc -= 1000/60; }
     draw(now); requestAnimationFrame(loop);
   })(last);
 
   // ============ SHOW ============
-  const sleep = ms => new Promise(r => setTimeout(r, ms));
+  const sleep = ms => { const end = vnow + ms; return new Promise(r => { (function c(){ vnow >= end ? r() : requestAnimationFrame(c); })(); }); };
+  const anims = new Set();
+  const play = (el, kf, opt) => { const a = el.animate(kf, opt); a.playbackRate = SPEED; anims.add(a); a.finished.finally(() => anims.delete(a)); return a.finished; };
+  document.querySelectorAll("#speed button").forEach(btn => btn.onclick = () => {
+    SPEED = +btn.dataset.s; anims.forEach(a => a.playbackRate = SPEED);
+    document.querySelectorAll("#speed button").forEach(x => x.classList.toggle("on", x === btn));
+  });
   const until = fn => new Promise(r => { (function c(){ fn() ? r() : requestAnimationFrame(c); })(); });
   const CAPS = { 12:"Last pick… thoughts and prayers", 11:"Ouch", 3:"Top 3!", 2:"So close", 1:"FIRST OVERALL PICK" };
   let running = false;
@@ -373,7 +385,7 @@
       intensity = top ? 1.5 : 1.1;
       await sleep(pick === 1 ? 1600 : top ? 2000 : 1100);
       const b = balls.find(x => x.name === name && x.state === "in");
-      b.state = "out"; b.fx = b.x; b.fy = b.y; b.t0 = performance.now(); b.arrived = false;
+      b.state = "out"; b.fx = b.x; b.fy = b.y; b.t0 = vnow; b.arrived = false;
       intensity = 0.6;
       await until(() => b.arrived);
 
@@ -383,13 +395,13 @@
       $("cardPick").textContent = "PICK #" + pick;
       $("cardWho").textContent = name;
       $("cardCap").textContent = CAPS[pick] || "";
-      await card.animate([{opacity:0,transform:"translateY(-120px) scale(.3)"},{opacity:1,transform:"translateY(0) scale(1.08)",offset:.7},{opacity:1,transform:"scale(1)"}],
-        {duration: pick === 1 ? 750 : 500, easing:"cubic-bezier(.2,.8,.2,1)", fill:"forwards"}).finished;
+      await play(card, [{opacity:0,transform:"translateY(-120px) scale(.3)"},{opacity:1,transform:"translateY(0) scale(1.08)",offset:.7},{opacity:1,transform:"scale(1)"}],
+        {duration: pick === 1 ? 750 : 500, easing:"cubic-bezier(.2,.8,.2,1)", fill:"forwards"});
       b.state = "gone";
       fillSlot(pick, name);
       if (pick === 1) confetti();
       await sleep(pick === 1 ? 3600 : top ? 1900 : 1500);
-      if (pick > 1) await card.animate([{opacity:1,transform:"scale(1)"},{opacity:0,transform:"scale(.85) translateY(20px)"}],{duration:280,fill:"forwards"}).finished;
+      if (pick > 1) await play(card, [{opacity:1,transform:"scale(1)"},{opacity:0,transform:"scale(.85) translateY(20px)"}],{duration:280,fill:"forwards"});
     }
     intensity = 0.2;
     $("status").textContent = "That's the draft order. Saad's on the clock. 🏈";
