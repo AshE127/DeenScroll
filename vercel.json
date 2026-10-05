@@ -12,6 +12,7 @@
     { "source": "/learn/benefits-of-dhikr", "destination": "/articles/benefits-of-dhikr.html" },
     { "source": "/learn/how-to-make-dua", "destination": "/articles/how-to-make-dua.html" },
     { "source": "/learn/night-journey", "destination": "/articles/night-journey.html" },
-    { "source": "/((?!api/|articles/).*)", "destination": "/index.html" }
+    { "source": "/japan", "destination": "/japan/index.html" },
+    { "source": "/((?!api/|articles/|japan/).*)", "destination": "/index.html" }
   ]
 }
