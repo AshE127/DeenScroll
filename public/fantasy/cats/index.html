@@ -5,8 +5,43 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Josh Lloyd 2026-27 category-league board: top 25, tiers, sleepers, avoids, flyers, pairings, with a draft tracker.">
 <style>*{box-sizing:border-box}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html,body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<style>
+.gate{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;padding:16px;background:var(--bg,#f6f7f9)}
+.gate form{width:min(360px,100%);background:var(--panel,#fff);border:1px solid var(--line,#dde2e8);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:10px;font-family:var(--body,system-ui,sans-serif);color:var(--fg,#17202b)}
+.gate h2{margin:0;font-family:var(--display,sans-serif);font-size:24px}
+.gate p{margin:0;color:var(--muted,#5d6878);font-size:14px}
+.gate input{font:16px var(--body,system-ui,sans-serif);padding:10px 12px;border:1px solid var(--line,#dde2e8);border-radius:8px;background:var(--bg,#f6f7f9);color:var(--fg,#17202b)}
+.gate button{font:600 15px var(--body,system-ui,sans-serif);padding:10px;border:0;border-radius:8px;background:var(--accent,#c2410c);color:#fff;cursor:pointer}
+.gate .err{color:var(--bad,#b42318);font-size:13px;min-height:1.2em}
+body.locked .wrap{display:none}
+</style>
 </head>
 <body>
+<div class="gate" id="gate" hidden>
+  <form id="gateForm" autocomplete="off">
+    <h2>Draft board</h2>
+    <p>Enter the password to open the board.</p>
+    <label for="gatePw" class="visually-hidden" style="position:absolute;left:-9999px">Password</label>
+    <input id="gatePw" type="password" placeholder="Password" autofocus>
+    <div class="err" id="gateErr" role="alert"></div>
+    <button type="submit">Open</button>
+  </form>
+</div>
+<script>
+(function(){
+  var ok=false;try{ok=localStorage.getItem("jlUnlocked")==="1"}catch(e){}
+  if(ok)return;
+  document.body.classList.add("locked");
+  var g=document.getElementById("gate");g.hidden=false;
+  document.getElementById("gateForm").addEventListener("submit",function(e){
+    e.preventDefault();
+    var v=document.getElementById("gatePw").value.trim().toLowerCase();
+    if(v==="draft"){try{localStorage.setItem("jlUnlocked","1")}catch(_){}
+      g.hidden=true;document.body.classList.remove("locked");}
+    else{document.getElementById("gateErr").textContent="That password didn't work. Try again.";document.getElementById("gatePw").select();}
+  });
+})();
+</script>
 <title>Josh Lloyd Cats Board</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@500;700&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap">

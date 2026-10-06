@@ -57,6 +57,8 @@
   .actions button,.actions a{font:inherit;cursor:pointer;border-radius:12px;padding:12px 16px;font-weight:800;font-size:15px;text-decoration:none;text-align:center}
   .btn-primary{background:var(--gold);color:#1a1300;border:0;flex:1}
   .btn-ghost{background:transparent;color:var(--text);border:1px solid var(--line)}
+  .draftlink{display:inline-block;margin-top:10px;padding:8px 14px;border:1px solid var(--gold);border-radius:999px;color:var(--gold);font-weight:800;font-size:14px;text-decoration:none}
+  .draftlink:hover,.draftlink:focus-visible{background:var(--gold);color:#1a1300}
   .speed{display:flex;justify-content:center;align-items:center;gap:6px;margin-top:10px}
   .speed span{color:var(--muted);font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;margin-right:4px}
   .speed button{font:inherit;font-weight:800;font-size:14px;color:var(--text);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:7px 12px;cursor:pointer;min-width:52px}
@@ -74,6 +76,7 @@
     <div class="eyebrow">2026 Draft Lottery · The Machine</div>
     <h1>FredVegasBallers</h1>
     <div class="sub">Ping-pong lottery replay of the official order</div>
+    <a class="draftlink" href="/fantasy/cats">Draft board →</a>
   </header>
   <div class="status" id="status">12 balls loaded. Hit start.</div>
   <div class="speed" id="speed" role="group" aria-label="Playback speed"><span>Speed</span>
