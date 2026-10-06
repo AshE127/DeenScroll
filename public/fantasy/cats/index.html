@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Josh Lloyd 2026-27 category-league board: top 25, tiers, sleepers, avoids, flyers, pairings, with a draft tracker.">
+<style>*{box-sizing:border-box}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html,body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>Josh Lloyd Cats Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@500;700&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: scorer's-sheet board — sticky tab rail, one dense table per view, tier chips as the at-a-glance signal */
+:root{
+  --bg:#f6f7f9; --panel:#ffffff; --fg:#17202b; --muted:#5d6878; --line:#dde2e8;
+  --accent:#c2410c; --accent-soft:#fbe9df; --good:#15803d; --good-soft:#e3f4e8; --bad:#b42318; --bad-soft:#fbe6e4;
+  --t1:#c2410c; --t2:#d97706; --t3:#ca8a04; --t4:#65a30d; --t5:#0d9488; --t6:#0284c7; --t7:#4f46e5; --t8:#7c3aed; --t9:#64748b;
+  --display:"Archivo Narrow","Arial Narrow",Arial,sans-serif;
+  --body:"Source Sans 3",system-ui,-apple-system,Segoe UI,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f141a; --panel:#161d26; --fg:#e6ebf1; --muted:#97a3b3; --line:#27313d;
+  --accent:#fb8a4c; --accent-soft:#3a2216; --good:#4ade80; --good-soft:#12301d; --bad:#f87171; --bad-soft:#3a1a19; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f141a; --panel:#161d26; --fg:#e6ebf1; --muted:#97a3b3; --line:#27313d;
+  --accent:#fb8a4c; --accent-soft:#3a2216; --good:#4ade80; --good-soft:#12301d; --bad:#f87171; --bad-soft:#3a1a19; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.45}
+.wrap{max-width:1100px;margin:0 auto;padding-inline:16px;padding-block:20px 48px}
+header h1{font-family:var(--display);font-size:clamp(26px,5vw,38px);margin:0;letter-spacing:.01em;text-wrap:balance}
+header p{color:var(--muted);margin:.3em 0 0;max-width:68ch}
+.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);display:flex;gap:6px;flex-wrap:wrap;padding-block:12px;border-bottom:1px solid var(--line);margin-top:14px}
+.tab{font:600 14px var(--body);border:1px solid var(--line);background:var(--panel);color:var(--fg);padding:7px 12px;border-radius:999px;cursor:pointer}
+.tab[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.tab:focus-visible,.chip:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:16px 0 10px}
+.bar input{flex:1 1 220px;min-width:0;font:15px var(--body);padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--fg)}
+.chip{font:600 13px var(--body);border:1px solid var(--line);background:var(--panel);color:var(--muted);padding:5px 10px;border-radius:6px;cursor:pointer}
+.chip[aria-pressed="true"]{color:var(--accent);border-color:var(--accent);background:var(--accent-soft)}
+h2{font-family:var(--display);font-size:22px;margin:22px 0 4px}
+.lede{color:var(--muted);margin:0 0 10px;max-width:72ch}
+.tbl{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;min-width:560px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:600 12px var(--body);text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--panel);cursor:pointer;white-space:nowrap}
+th.nosort{cursor:default}
+tr:last-child td{border-bottom:none}
+td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+td.name{font-weight:600;white-space:nowrap}
+td.note{color:var(--muted);min-width:240px}
+.tier{display:inline-block;min-width:2.2em;text-align:center;font:500 12px var(--mono);color:#fff;padding:2px 6px;border-radius:5px}
+.pos{font:500 11px var(--mono);color:var(--muted);margin-left:6px}
+.tag{display:inline-block;font:600 11px var(--body);padding:2px 7px;border-radius:5px;letter-spacing:.03em}
+.tag.good{background:var(--good-soft);color:var(--good)} .tag.bad{background:var(--bad-soft);color:var(--bad)}
+.tiergroup{margin-top:14px}
+.tiergroup h3{font:700 15px var(--display);margin:0 0 6px;display:flex;gap:8px;align-items:center}
+.names{display:flex;flex-wrap:wrap;gap:6px}
+.pill{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:4px 9px;font-weight:600;font-size:14px}
+.pill small{color:var(--muted);font-weight:400}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;min-width:0}
+.card h4{margin:0 0 4px;font:700 17px var(--display)}
+.card .weak{color:var(--bad);font-size:13px;font-weight:600}
+.card ul{margin:6px 0 0;padding-left:18px}
+.rules{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 16px}
+.rules li{margin:4px 0}
+.foot{color:var(--muted);font-size:13px;margin-top:28px;max-width:72ch}
+.empty{color:var(--muted);padding:14px}
+.p{cursor:pointer;border-radius:3px}
+.p:hover{color:var(--accent)}
+.p.gone{text-decoration:line-through;text-decoration-thickness:2px;text-decoration-color:var(--bad);opacity:.5}
+.pill.gone{opacity:.5}
+.pill.gone .p{text-decoration:line-through;text-decoration-color:var(--bad)}
+.draft{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.count{font:500 13px var(--mono);color:var(--muted)}
+.btn{font:600 13px var(--body);border:1px solid var(--line);background:var(--panel);color:var(--fg);padding:6px 10px;border-radius:6px;cursor:pointer}
+.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.btn.warn{color:var(--bad);border-color:var(--bad)}
+.hint{color:var(--muted);font-size:13px;margin:0 0 4px}
+.scrim{position:fixed;inset:0;background:rgba(10,14,20,.45);z-index:20;display:flex;align-items:center;justify-content:center;padding:16px}
+.pop{background:var(--panel);color:var(--fg);border:1px solid var(--line);border-radius:12px;width:min(440px,100%);max-height:85vh;overflow:auto;padding:16px 18px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
+.pop h3{font:700 22px var(--display);margin:0 0 2px}
+.pop .row{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 0}
+.pop dl{margin:12px 0 0;display:grid;grid-template-columns:max-content 1fr;gap:6px 12px}
+.pop dt{font:600 12px var(--body);text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding-top:2px}
+.pop dd{margin:0;min-width:0}
+.pop .acts{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.tag.flyer{background:var(--accent-soft);color:var(--accent)}
+@media (max-width:520px){.scrim{align-items:flex-end;padding:0}.pop{border-radius:14px 14px 0 0;width:100%;padding-bottom:calc(16px + env(safe-area-inset-bottom,0px))}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+<header>
+  <h1>Josh Lloyd Cats Board · 2026-27</h1>
+  <p>Category-league (9-cat H2H) takes pulled from 12 Locked On Fantasy Basketball videos, Sept 15 – Oct 3, 2026. Yahoo rank and ADP are used where he quoted them; Fantrax ADP fills in where Yahoo wasn't given.</p>
+</header>
+
+<nav class="tabs" role="tablist" id="tabs"></nav>
+<div class="bar">
+  <input id="q" type="search" placeholder="Find a player across every list…" aria-label="Search players">
+  <div class="draft">
+    <div role="group" aria-label="Show players">
+      <button class="chip" id="showAll" aria-pressed="true">All</button>
+      <button class="chip" id="showLeft" aria-pressed="false">Available only</button>
+    </div>
+    <span class="count" id="count">0 taken</span>
+    <button class="btn" id="undo">Undo last</button>
+    <button class="btn" id="reset">Reset draft</button>
+  </div>
+</div>
+<p class="hint">Tap any player name for his card: tiers, top-25 spot, sleeper / avoid / flyer tags, and a button to mark him taken. Marks stay in this browser.</p>
+<div class="scrim" id="scrim" hidden><div class="pop" id="pop" role="dialog" aria-modal="true" aria-labelledby="popName"></div></div>
+<main id="view"></main>
+
+<p class="foot">Ranks and ADPs are what Josh read on air on the recording date and will have moved since. Names were cleaned up from auto-captions; a few players the captions garbled beyond recognition were left out. Josh's own warning: tiers are for discussion, not for drafting by — draft for value and team shape.</p>
+</div>
+
+<script>
+const TABS=[["top25","Top 25"],["tiers","Position tiers"],["sleepers","Sleepers"],["avoids","Avoids"],["flyers","Late flyers"],["pairing","Pairing & punting"],["ranges","Best/worst case"]];
+
+const TOP25=[
+["Nikola Jokić","1","Tightest range in round 1 (worst case 3rd)."],
+["Victor Wembanyama","2","65 games in 2 of 3 seasons; minutes still a bit low."],
+["Luka Dončić","3","Takes Luka over SGA in H2H: more usage/assists/rebounds; SGA's edge is efficiency, the most volatile week to week."],
+["Shai Gilgeous-Alexander","4",""],
+["Giannis Antetokounmpo","5","Clear pick 5. Punt FT; threes are easy to recover."],
+["Jayson Tatum","6","Over Cade. Not worried about the Achilles (36 min in playoffs); watch the Game 7 knee/calf issue."],
+["Anthony Edwards","7","Projects here even though he hasn't hit it before."],
+["Cade Cunningham","8","Durant formula dings his FG/FT; more offensive load could hurt efficiency. Fine at 5 if you want."],
+["Kevin Durant","9","Udoka will play him big minutes. 9th last season."],
+["Cooper Flagg","10","Year-two jump expected; Kyrie doesn't take much from him."],
+["Tyrese Maxey","11","Usage drops with Brown, LeBron, Embiid; in trouble if he's not at 38 min."],
+["Austin Reaves","12","Big step forward with LeBron gone; top-10 upside, especially if Luka misses time."],
+["Amen Thompson","13","Off the ball now, so blocks/rebounds should come back."],
+["Jamal Murray","14","17th per game last season; role locked in."],
+["Donovan Mitchell","15","Lost 20-25% of assists after Harden arrived; dropped off late."],
+["Jalen Johnson","16","Not a 1st-rounder in cats: shaky percentages, defensive stats vanished."],
+["Scottie Barnes","17","Hard to leap with Kawhi joining."],
+["LaMelo Ball","18","Minutes should rise to 32+, but new team and ankle risk."],
+["Karl-Anthony Towns","19","Likely managed after a long Finals run."],
+["Tyrese Haliburton","20","Early-season rest and minute caps expected; fine by playoffs."],
+["Stephen Curry","21","Top-10 per game, pushed down for the knee and age 38."],
+["Josh Giddey","22",""],
+["Alperen Şengün","23","Threes never coming; limited block upside."],
+["Anthony Davis","24","Doesn't expect a trade."],
+["Lauri Markkanen","25","Jazz aren't tanking; past injuries were mostly exaggerated."]];
+const ROTO=["Nikola Jokić","Victor Wembanyama","Shai Gilgeous-Alexander","Luka Dončić","Anthony Edwards","Jayson Tatum","Cade Cunningham","Giannis Antetokounmpo","Kevin Durant","Tyrese Maxey","LaMelo Ball","Cooper Flagg","Stephen Curry","Amen Thompson","Donovan Mitchell","Scottie Barnes","Jamal Murray","Tyrese Haliburton","Austin Reaves","Jalen Johnson","Josh Giddey","Trey Murphy III","Karl-Anthony Towns","Kawhi Leonard","Anthony Davis"];
+const INJURY_ADJ="Injury adjustments he applied: Kawhi not in the first 3 rounds (H2H) · Embiid not top 50 · LaMelo down ~6-7 · Kyrie mid-2nd per game but ~top 40 · AD down ~6-7 · Curry down 6-10.";
+
+// tiers: [tier, [names]] — category tiers by Fantrax position eligibility
+const TIERS={
+PG:[[1,["Luka Dončić","Shai Gilgeous-Alexander"]],[2,["Cade Cunningham","Anthony Edwards"]],[3,["LaMelo Ball","Stephen Curry","Tyrese Haliburton","Tyrese Maxey","Donovan Mitchell","Jamal Murray","Austin Reaves"]],[4,["Darius Garland","Josh Giddey","James Harden","Amen Thompson","Trae Young"]],[5,["Nickeil Alexander-Walker","Devin Booker","Jalen Brunson","Keyonte George","Kyrie Irving","Dejounte Murray","Derrick White"]],[6,["Tyler Herro","Ryan Rollins","Coby White"]],[7,["Stephon Castle","VJ Edgecombe","De'Aaron Fox","Ty Jerome","Damian Lillard","CJ McCollum","Immanuel Quickley"]],[8,["Ayo Dosunmu","Jeremiah Fears","Dylan Harper","Zach LaVine","Ajay Mitchell","Ja Morant","Andrew Nembhard","Brandin Podziemski","Kevin Porter Jr.","Payton Pritchard","Jalen Suggs","Fred VanVleet","Cason Wallace"]],[9,["Anthony Black","Collin Gillespie","Jordan Goodwin","Scoot Henderson","Jrue Holiday","Dennis Smith Jr.","Tre Jones","De'Anthony Melton","Davion Mitchell","Malik Monk","Scotty Pippen Jr.","Reed Sheppard"]]],
+SG:[[1,["Luka Dončić"]],[2,["Cade Cunningham","Anthony Edwards"]],[3,["Kevin Durant","Cooper Flagg","Tyrese Haliburton","Donovan Mitchell","Austin Reaves","Amen Thompson"]],[4,["Jaylen Brown","Dyson Daniels","Josh Giddey","James Harden","Trey Murphy III"]],[5,["Nickeil Alexander-Walker","Deni Avdija","Desmond Bane","Devin Booker","Keyonte George","Brandon Ingram","Kawhi Leonard","Ryan Rollins","Derrick White"]],[6,["Stephon Castle","Tyler Herro","Kon Knueppel","Norman Powell","Ausar Thompson","Coby White"]],[7,["Cedric Coward","VJ Edgecombe","Jalen Green","Dylan Harper","Josh Hart","Ty Jerome","Zach LaVine","CJ McCollum","Daryn Peterson","Brandin Podziemski","Immanuel Quickley","Cason Wallace","Andrew Wiggins"]],[8,["RJ Barrett","Anthony Black","Egor Dëmin","Ayo Dosunmu","Jeremiah Fears","Kyshawn George","Jrue Holiday","Herb Jones","De'Anthony Melton","Ajay Mitchell","Andrew Nembhard","Aaron Nesmith","Kevin Porter Jr.","Reed Sheppard","Jalen Suggs"]],[9,["Grayson Allen","Christian Braun","Collin Gillespie","Tre Jones","Malik Monk","Jaylon Tyson"]]],
+SF:[[1,["Jayson Tatum"]],[2,["Kevin Durant","Cooper Flagg"]],[3,["Scottie Barnes","Jalen Johnson","Austin Reaves"]],[4,["Deni Avdija","Jaylen Brown","Matas Buzelis","Dyson Daniels","Brandon Ingram","Kawhi Leonard","Lauri Markkanen","Brandon Miller","Trey Murphy III","Michael Porter Jr.","Jalen Williams"]],[5,["OG Anunoby","Desmond Bane","Paul George","LeBron James","Kon Knueppel","Jaden McDaniels","Ausar Thompson","Franz Wagner"]],[6,["Mikal Bridges","Cedric Coward","Jalen Green","Keegan Murray","Norman Powell"]],[7,["RJ Barrett","Toumani Camara","Josh Hart","Cam Johnson","Gui Santos","Peyton Watson","Andrew Wiggins"]],[8,["Ace Bailey","Anthony Black","DeMar DeRozan","AJ Dybantsa","Tari Eason","Kyshawn George","Jerami Grant","Rui Hachimura","Jonathan Kuminga","Jake LaRavia","Zach LaVine","Aaron Nesmith","Kelly Oubre Jr.","Jaylon Tyson","Cason Wallace"]]],
+PF:[[1,["Giannis Antetokounmpo"]],[2,["Jayson Tatum"]],[3,["Kevin Durant","Cooper Flagg"]],[4,["Scottie Barnes","Jalen Johnson","Alperen Şengün","Karl-Anthony Towns"]],[5,["Bam Adebayo","Deni Avdija","Paolo Banchero","Jaylen Brown","Matas Buzelis","Anthony Davis","Chet Holmgren","Brandon Ingram","Jaren Jackson Jr.","Kawhi Leonard","Lauri Markkanen","Brandon Miller","Evan Mobley","Domantas Sabonis","Jalen Williams"]],[6,["OG Anunoby","Paul George","LeBron James","Michael Porter Jr.","Pascal Siakam","Ausar Thompson","Franz Wagner"]],[7,["Derik Queen","Julius Randle","Naz Reid"]],[8,["John Collins","Draymond Green","Collin Murray-Boyles","Keegan Murray","Zion Williamson","Caleb Wilson"]],[9,["Mikal Bridges","Miles Bridges","Toumani Camara","Aaron Gordon","Jerami Grant","Tobias Harris","Cam Johnson","Yaxel Lendeborg","Sandro Mamukelashvili","Paul Reed","Gui Santos","Jabari Smith Jr.","Peyton Watson","Andrew Wiggins"]]],
+C:[[1,["Nikola Jokić","Victor Wembanyama"]],[2,["Giannis Antetokounmpo"]],[3,["Scottie Barnes","Karl-Anthony Towns"]],[4,["Alperen Şengün"]],[5,["Bam Adebayo","Anthony Davis","Jalen Duren","Chet Holmgren","Jaren Jackson Jr.","Evan Mobley","Domantas Sabonis"]],[6,["Joel Embiid","Pascal Siakam"]],[7,["Donovan Clingan","Isaiah Hartenstein","Walker Kessler","Onyeka Okongwu","Naz Reid","Kel'el Ware","Ivica Zubac"]],[8,["Jarrett Allen","Nic Claxton","John Collins","Zach Edey","Rudy Gobert","Collin Murray-Boyles","Jusuf Nurkić","Jakob Poeltl","Derik Queen","Alex Sarr","Day'Ron Sharpe","Jabari Smith Jr.","Zion Williamson"]],[9,["Moussa Diabaté","Aaron Gordon","Draymond Green","Khaman Maluach","Sandro Mamukelashvili","Kristaps Porziņģis","Paul Reed","Miles Turner"]]]};
+const TIER_NOTES={
+"Giannis Antetokounmpo":"Pick 5 in cats. Missed games last year were partly tank-related.",
+"Jayson Tatum":"Fine at 6-8. No minutes limit expected.",
+"Jalen Johnson":"Over-drafted at 8-10 in cats.",
+"Domantas Sabonis":"Assists should return with DeRozan/Westbrook/Schröder gone; trade is the risk.",
+"Chet Holmgren":"Round 2 is too early, even in cats.",
+"Kawhi Leonard":"Not before pick 40 in H2H.",
+"Paolo Banchero":"9-cat rank (133rd) is misleading; his Durant rank was 55th.",
+"Jaylen Brown":"~35th in cats for Josh; 9-cat totals undersell him.",
+"Matas Buzelis":"Top-50 player for Josh.",
+"Mark Williams":"",
+"Alex Sarr":"Usage, boards and blocks all squeezed by Davis/Young/Dybantsa.",
+"Donovan Clingan":"Rebounds + blocks only; bad FT, weak FG for a big.",
+"Walker Kessler":"Last year's rank was built on 5 games of fluky threes/steals.",
+"Kel'el Ware":"Jumps to tier 5 if he's named a starter.",
+"Zach Edey":"Top-50 talent; only down here for ankle uncertainty.",
+"Khaman Maluach":"Should start with Mark Williams out; fine outside the top 100.",
+"Kristaps Porziņģis":"Top-50 upside if healthy; can't bank on 50 games.",
+"Joel Embiid":"Not inside the top 50, but a fine swing after that.",
+"Coby White":"Starting PG now; last year's rank was injury + bench role.",
+"CJ McCollum":"Going ~111-117 — big value.",
+"Payton Pritchard":"Situation is worse than last year (Tatum + George in).",
+"Dejounte Murray":"Favorite value; was 46th per game on limited minutes.",
+"Austin Reaves":"Could finish first-round.",
+"Tyrese Maxey":"Josh wouldn't take him inside the top 10.",
+"Donovan Mitchell":"Not a first-rounder for Josh.",
+"Jalen Brunson":"Much better in points; ~40s in cats.",
+"Kon Knueppel":"Third-round price is ~20 spots too high.",
+"Ausar Thompson":"Bet is 3 more minutes a night.",
+"Paul George":"Back to No. 2 option; target in the 60s.",
+"Darius Garland":"Round-3 value going in the 50s-60s.",
+"Brandon Miller":"Top-30 upside; watch the shoulder.",
+"Derik Queen":"Fit with Zion is awkward, but cheap.",
+"Day'Ron Sharpe":"Top 70 if he plays 27+ min.",
+"Mikal Bridges":"Unrosterable for the last 2+ months of last season.",
+"Miles Bridges":"20-30 spots too high in the top 100.",
+"AJ Dybantsa":"Fine around 120, not the 70s.",
+"Daryn Peterson":"Fine around 120."};
+
+// sleepers: [player, yahooRank, yahooADP, fantraxADP, target, note]
+const SLEEPERS=[
+["Giannis Antetokounmpo","9","7","9","Pick 5","Being let slide to 7-12. Punting FT doesn't mean losing 3 cats."],
+["Kevin Durant","15","16","17","Round 1","Narrowest range in round 2 (best 6th, worst 24th)."],
+["Amen Thompson","21","29","","Mid round 2",""],
+["Austin Reaves","20","","24","End of round 2","Real chance he's a first-rounder."],
+["LaMelo Ball","24","","","~24 or earlier","Value even at 24."],
+["Lauri Markkanen","34","44","35","Early round 3","Jazz aren't tanking."],
+["Domantas Sabonis","","","39","Round 3-4","Could be top 30 again; trade is the only risk."],
+["Anthony Davis","45","43","","~25-26","Top-10 per game possible; risk is baked in."],
+["Jaylen Brown","","","44","~35","Josh's cats ranking is about 35th."],
+["Brandon Miller","","46","44","Round 3","Top-30 season is on the cards."],
+["Kyrie Irving","46","52","51","~40 (early 3rd–4th)","Mid-2nd per game; 18 months off the ACL."],
+["Darius Garland","54","62","54","Round 3 (40s)","Probably top 30 with ~30% usage."],
+["Jaren Jackson Jr.","","55","41","Mid round 4","Rare 20-point, 2-block big."],
+["Nickeil Alexander-Walker","56","60","","Round 4-5","Role unchanged; shooting will cool but still beats ADP."],
+["Dyson Daniels","61","64","57","40s–50","Steals and shooting can only go up from last year."],
+["Keyonte George","","","58","Before 58","Was ~29th in Durant last season."],
+["Matas Buzelis","69","","60","44-51","Top 50 for Josh."],
+["Michael Porter Jr.","","68","","~60s","Worst case is about 75th."],
+["Dejounte Murray","","70","55","Round 4-5","Josh's favorite sleeper. No minutes limit expected."],
+["OG Anunoby","71","","58","Round 5","Wide range: best 22nd, worst 89th."],
+["Brandon Ingram","","75","77","50s","Him and Garland carry the Clippers' usage."],
+["Ausar Thompson","77","85","80","60s","Best case 28th; more minutes expected."],
+["Paul George","","80","76","60s","Back to No. 2 option in Boston. Top-25 upside."],
+["Coby White","83","89","84","60s","Starting PG, no calf issue, no bench role."],
+["Jaden McDaniels","","91","","70s-80s","Not losing his starting spot."],
+["Derik Queen","92","","92","80s","Little downside at that price."],
+["Kristaps Porziņģis","97","106","109","~100","Top-30 upside if healthy."],
+["Isaiah Hartenstein","102","","99","80s-90s","Worst case 93rd, best 40th."],
+["Ja Morant","103","","","~100","Will beat that rank per game."],
+["Jalen Suggs","104","108","","~100","Top 70-75 per game when healthy."],
+["Day'Ron Sharpe","","","101","Round 9-10","Top 70 if he plays 27+ min."],
+["Jusuf Nurkić","106","118","119","Round 10","Likely Jazz starting C; top 70 as a starter last year."],
+["Damian Lillard","","","","Under ADP","Per-game value is well above where he's going."],
+["Zach LaVine","","","116","~110","Top 50 when firing; Kings need him to win."],
+["CJ McCollum","","","117","~100","Top 70 over the last two months last season."]];
+
+// avoids: [player, yahooRank, yahooADP, fantraxADP, Josh's price, note]
+const AVOIDS=[
+["Tyrese Maxey","6","10","8","~14","Usage can't stay at 30% with Brown, LeBron, Embiid."],
+["Jalen Johnson","10","","10","Round 2","Best stretch came without Trae/CJ; D stats vanished."],
+["Trae Young","19","27","23","Round 3+","Best 13th, worst 78th."],
+["Devin Booker","24","31","27","~Round 4","Jalen Green takes touches."],
+["Chet Holmgren","27","","25","Round 3+","Was 47th in Durant last season."],
+["Evan Mobley","28","32","30","Later than ADP","Josh is lower than consensus."],
+["Jalen Brunson","29","23","32","40s","Poor cats fit: no rebounds, steals or blocks. Worst case 91st."],
+["Derrick White","","","34","Later","Unlikely to return that price."],
+["Jalen Duren","36","33","","Later","Unsigned; minutes and team uncertain."],
+["Walker Kessler","37","32","","Later","Last year was 5 games of fluky threes/steals."],
+["Kon Knueppel","45","38","45","~60","Best 25th, worst 110th. Efficiency tied to LaMelo."],
+["Donovan Clingan","39","41","49","Later","Rebounds + blocks only."],
+["Onyeka Okongwu","","","","Not round 4","Efficiency drop likely sticks."],
+["Kawhi Leonard","18","20","29","After 40","Degenerative knee; load management."],
+["Stephon Castle","","56","62","Later","Yahoo's ADP is points-inflated; cats value is lower."],
+["Alex Sarr","68","64","64","Avoid","Strong avoid. Best 62nd, worst 134th."],
+["Rudy Gobert","","72","71","After ~80","A year older; best case only 59th."],
+["Mikal Bridges","","77","73","~100","Playing every game doesn't help if output is 130th."],
+["AJ Dybantsa","95","76","101","~120","Best case doesn't reach 100 for the season."],
+["Payton Pritchard","","","81","Later","Worst case 171st; probably doesn't start."],
+["Nic Claxton","86","","","100-110","Shot blocking has declined."],
+["Daryn Peterson","","96","113","~120","Rookie efficiency and turnover concerns."],
+["Miles Turner","99","97","","Later","Ware's arrival may cap minutes."],
+["Miles Bridges","","~98","","Outside top 100","Useless when there are other scorers."],
+["Toumani Camara","101","","","Later","Steals specialist only."],
+["RJ Barrett","","111","","Outside 120","Points-league player."],
+["Ace Bailey","","","","Outside 120","Probably doesn't start."],
+["Tre Jones","","~110","","Pass","Backup PG behind Powell and Giddey."],
+["Davion Mitchell","","","114","Pass","Very low usage."]];
+
+// flyers: [player, team, note, top15]
+const FLYERS=[
+["Jusuf Nurkić","UTA","Likely starter; top 80 if he starts.",1],
+["Keegan Murray","SAC","Usage cleared out; top-100 season likely.",1],
+["Collin Murray-Boyles","TOR","Closes games; top 70 at 30 minutes.",1],
+["Jeremiah Fears","NOP","~50/50 to start over Herb Jones. Only draft if he starts.",1],
+["Brandin Podziemski","GSW","Starting; top-100 season likely. Not at ESPN's 66.",1],
+["Yaxel Lendeborg","GSW","Starting in preseason; assists and defensive stats.",1],
+["Jalen Green","PHX","20 points, 2+ threes; Josh drafted him himself.",1],
+["Ajay Mitchell","OKC","Big jump if SGA misses time.",1],
+["Cam Johnson","DEN","Best case top 90 with Watson gone.",1],
+["Egor Dëmin","BKN","Wide range: projected ~120th, could be 80th.",1],
+["Gui Santos","GSW","Top 100 down the stretch last year.",1],
+["Khaman Maluach","PHX","Near-locked starter with Mark Williams out. Top 75 at 28 min.",1],
+["Isaiah Jackson","LAC","Short-term starter until Yanic Konan Niederhäuser returns.",1],
+["Daniel Gafford","DAL","May start opening night with injuries.",1],
+["Yves Missi","NOP","Likely starting C; 2-block upside.",1],
+["Baylor Scheierman","BOS","Looks set to start over Pritchard.",0],
+["Day'Ron Sharpe","BKN","Starter at C.",0],
+["Grayson Allen","CHA","Use early with Knueppel hurt, then move on.",0],
+["Moussa Diabaté","CHA","Expected starter; steals + FG%.",0],
+["Paul Reed","DET","Backup C behind Duren; ~20 min.",0],
+["Kristaps Porziņģis","GSW","Top 70 for ~40 games; needs a bench spot.",0],
+["Jabari Smith Jr.","HOU","Josh believes in this one.",0],
+["Max Strus","LAC","Almost certain starter.",0],
+["Rui Hachimura","LAC","Usage bump without Ingram.",0],
+["Yanic Konan Niederhäuser","LAC","IL stash; top-70 run late.",0],
+["Jake LaRavia","LAL","Only if he starts; stocks + rebounds.",0],
+["Quentin Grimes","LAL","Near-certain starter; jumps if Reaves or Luka misses.",0],
+["Matisse Thybulle","LAL","Elite steal rate; steals streamer at worst.",0],
+["Zach Edey","MEM","Only if ESPN lets him slide to 120 — take in the 70s.",0],
+["Cedric Coward","MEM","Usage and minutes spike expected.",0],
+["Pelle Larsson","MIA","Draft if he starts.",0],
+["Davion Mitchell","MIA","7-assist upside.",0],
+["Kevin Porter Jr.","MIL","Was top 25 last year; crowded backcourt.",0],
+["Miles Turner","MIL","Fine at ~128.",0],
+["Jonathan Kuminga","MIN","Promised a start.",0],
+["Cason Wallace","OKC","Likely starter; steals.",0],
+["Jalen Suggs","ORL","Top 70 when healthy.",0],
+["Collin Gillespie","PHX","Starts if any of Green/Booker/Brooks gets hurt.",0],
+["Ja Morant","POR","Likely starter.",0],
+["Zach LaVine","SAC","Kings need wins.",0],
+["Jakob Poeltl","TOR","Top 70 if the back caused last year's block drop.",0],
+["RJ Barrett","TOR","30+ min starter.",0],
+["Kyshawn George","WAS","Likely starter, but 5th option.",0]];
+
+const PAIRS=[
+["Victor Wembanyama","AST, 3PM, STL",["LaMelo Ball","Stephen Curry","Alperen Şengün","Anthony Davis"],"Wemby alone doesn't win blocks; add guard stats by pick 25."],
+["Nikola Jokić","3PM, BLK, FT",["LaMelo Ball","Stephen Curry","Alperen Şengün","Amen Thompson"],"No real weakness; take best value."],
+["Luka Dončić","BLK, FG%, FT%",["LaMelo Ball","Alperen Şengün","Amen Thompson","Austin Reaves"],"Reaves is insurance if Luka goes down and boosts FT."],
+["Shai Gilgeous-Alexander","REB, BLK, 3PM",["LaMelo Ball","Alperen Şengün","Austin Reaves","Amen Thompson"],"Punting blocks drags rebounds and FG% with it."],
+["Cade Cunningham","FG%, REB, BLK (FT so-so)",["Josh Giddey","Austin Reaves","Amen Thompson","LaMelo Ball"],""],
+["Tyrese Maxey","FG%, REB, BLK",["Amen Thompson","Austin Reaves","LaMelo Ball","Jamal Murray"],"Josh wouldn't take Maxey here. If you do, round 3 has to be a big."],
+["Anthony Edwards","BLK",["Karl-Anthony Towns","Jamal Murray","Austin Reaves","Amen Thompson"],""],
+["Jayson Tatum","BLK, STL, FG%",["Kevin Durant","Austin Reaves","Jamal Murray","Amen Thompson"],"Grab KD if he's there."],
+["Giannis Antetokounmpo","FT (3PM easy to recover)",["Kevin Durant","Austin Reaves","Jamal Murray","Scottie Barnes"],"Don't chase bad-FT bigs. Take guards in 2 of the next 3 rounds."],
+["Jalen Johnson","FG%/FT%, STL, BLK",["Kevin Durant","Austin Reaves","Scottie Barnes","Cooper Flagg"],""],
+["Donovan Mitchell","BLK, FG%, REB",["Kevin Durant","Cooper Flagg","Scottie Barnes","Austin Reaves"],""],
+["Tyrese Haliburton","—",["Kevin Durant","Cooper Flagg","Austin Reaves","Scottie Barnes"],"Josh wouldn't take Haliburton at 12."]];
+const RULES=[
+"Punting means ignoring a category, not trying to lose it. Winning it by accident is fine.",
+"Your first 7-8 picks matter; the round 1-2 pair barely does. Josh calls pairing about 1% of the edge.",
+"If you punt a guard stat (e.g. FT with Giannis), draft guards in 2 of the next 3 rounds or you slide into a 4-5 category punt.",
+"If you punt a big-man stat, draft bigs early for the same reason.",
+"Correlations: blocks travel with rebounds and FG%; assists travel with turnovers. Punting assists also gives you turnovers for free.",
+"Points, assists and FT% get scarce after round 2. Get them early if you want them.",
+"Ignore turnovers in H2H — every high-usage player has them.",
+"FG% and FT% are the most volatile week to week, which makes them sensible punts in H2H.",
+"Last 3-4 rounds: upside flyers only. Ask whether he can beat his draft spot by 40-50.",
+"Punt rankings (\"he's 4th if you punt FG and 3s\") mislead because everyone else improves when you remove their worst category too."];
+
+// ranges: [round, player, FantraxADP, best, worst, type, note]
+const RANGES=[
+[1,"Nikola Jokić","1.5","1","3","Tight",""],[1,"Tyrese Haliburton","11.5","8","55","Wide","Achilles rust could cut usage and efficiency."],
+[2,"Kevin Durant","17","6","24","Tight",""],[2,"Trae Young","23","13","78","Wide",""],
+[3,"Kawhi Leonard","29","4","21","Tight","Per game only; injuries are the real risk."],[3,"Jalen Brunson","32","22","91","Wide",""],
+[4,"Domantas Sabonis","38.4","13","55","Tight",""],[4,"Kon Knueppel","45","25","110","Wide",""],
+[5,"Kyrie Irving","51.6","6","31","Tight",""],[5,"OG Anunoby","58","22","89","Wide","Mostly steals variance."],
+[6,"Rudy Gobert","71.3","59","116","Tight",""],[6,"Alex Sarr","64.2","62","134","Wide","Strong avoid."],
+[7,"Ausar Thompson","81.6","28","—","Upside",""],[7,"Payton Pritchard","80","—","171","Wide",""],
+[8,"Isaiah Hartenstein","98","40","93","Tight",""],[8,"Norman Powell","91.9","40","136","Wide","Fine in the 70s-80s for the upside."],
+[9,"Day'Ron Sharpe","101","58","122","Tight",""],[9,"AJ Dybantsa","101",">100","200+","Wide",""],
+[10,"Daryn Peterson","113","76","148","Tight",""],[10,"Reed Sheppard","118","61","150+","Wide",""]];
+
+const $=s=>document.querySelector(s);
+let current="top25";
+try{const h=location.hash.slice(1);if(TABS.some(t=>t[0]===h))current=h;else{const s=localStorage.getItem("jlTab");if(s&&TABS.some(t=>t[0]===s))current=s;}}catch(e){}
+let posFilter="ALL";
+let taken=[], hideTaken=false, resetArmed=false;
+try{taken=JSON.parse(localStorage.getItem("jlTaken")||"[]");if(!Array.isArray(taken))taken=[]}catch(e){taken=[]}
+try{hideTaken=localStorage.getItem("jlHide")==="1"}catch(e){}
+const isT=n=>taken.includes(n);
+const show=n=>!(hideTaken&&isT(n));
+function save(){try{localStorage.setItem("jlTaken",JSON.stringify(taken));localStorage.setItem("jlHide",hideTaken?"1":"0")}catch(e){}}
+function pn(n){const g=isT(n);return `<span class="p${g?" gone":""}" data-p="${esc(n)}" role="button" tabindex="0" aria-pressed="${g}" title="Tap for player card">${esc(n)}</span>`}
+function toggleTaken(n){taken=isT(n)?taken.filter(x=>x!==n):[...taken,n];save();render()}
+
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function q(){return $("#q").value.trim().toLowerCase()}
+function hit(...f){const t=q();return !t||f.join(" ").toLowerCase().includes(t)}
+function tierChip(n){return `<span class="tier" style="background:var(--t${n})">T${n}</span>`}
+
+function table(cols,rows,id){
+  if(!rows.length) return `<div class="tbl"><div class="empty">No players match that search.</div></div>`;
+  return `<div class="tbl"><table data-id="${id}"><thead><tr>${cols.map((c,i)=>`<th data-i="${i}" class="${c.sort===false?'nosort':''}">${c.h}</th>`).join("")}</tr></thead><tbody>${rows.map(r=>`<tr>${r.map((v,i)=>`<td class="${cols[i].cls||''}">${v}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+}
+function makeSortable(){
+  document.querySelectorAll("table").forEach(t=>{
+    t.querySelectorAll("th:not(.nosort)").forEach(th=>{
+      th.onclick=()=>{
+        const i=+th.dataset.i, body=t.tBodies[0], rows=[...body.rows];
+        const dir=th.dataset.dir==="asc"?"desc":"asc"; t.querySelectorAll("th").forEach(x=>delete x.dataset.dir); th.dataset.dir=dir;
+        const val=r=>{const s=r.cells[i].innerText.replace(/[~,]/g,"").trim();const n=parseFloat(s.replace(/^T/,""));return isNaN(n)?(s?s.toLowerCase():"￿"):n};
+        rows.sort((a,b)=>{const x=val(a),y=val(b);const c=(typeof x==="number"&&typeof y==="number")?x-y:String(x).localeCompare(String(y));return dir==="asc"?c:-c});
+        rows.forEach(r=>body.appendChild(r));
+      };
+    });
+  });
+}
+
+function render(){
+  const v=$("#view");let h="";
+  if(current==="top25"){
+    h+=`<h2>Top 25 — H2H 9-cat</h2><p class="lede">Recorded Sept 16. Josh says spots 5-8 are interchangeable and 11-19 could reshuffle any day.</p>`;
+    h+=table([{h:"#",cls:"num"},{h:"Player",cls:"name"},{h:"Roto 8-cat #",cls:"num"},{h:"Why",cls:"note",sort:false}],
+      TOP25.filter(r=>show(r[0])&&hit(r[0],r[2])).map(r=>{const ri=ROTO.indexOf(r[0]);return [r[1],pn(r[0]),ri>=0?ri+1:"—",esc(r[2])]}),"t25");
+    h+=`<h2>Roto 8-cat order</h2><p class="lede">${ROTO.filter(n=>show(n)&&hit(n)).map(n=>`${ROTO.indexOf(n)+1}. ${pn(n)}`).join(" · ")||"No match."}</p><p class="lede">${INJURY_ADJ}</p>`;
+  }
+  if(current==="tiers"){
+    h+=`<div class="bar" role="group" aria-label="Position">${["ALL","PG","SG","SF","PF","C"].map(p=>`<button class="chip" aria-pressed="${posFilter===p}" data-pos="${p}">${p==="ALL"?"All positions":p}</button>`).join("")}</div>`;
+    const positions=posFilter==="ALL"?Object.keys(TIERS):[posFilter];
+    if(posFilter==="ALL"){
+      // flat table: player, best tier, positions
+      const map={};
+      for(const p of Object.keys(TIERS))for(const [t,names] of TIERS[p])for(const n of names){(map[n]=map[n]||{tiers:{},best:9});map[n].tiers[p]=t;map[n].best=Math.min(map[n].best,t);}
+      const rows=Object.entries(map).filter(([n])=>show(n)&&hit(n,TIER_NOTES[n]||"")).sort((a,b)=>a[1].best-b[1].best||a[0].localeCompare(b[0]))
+        .map(([n,o])=>[tierChip(o.best),pn(n),["PG","SG","SF","PF","C"].map(p=>o.tiers[p]?`${p}${o.tiers[p]}`:"").filter(Boolean).join(" "),esc(TIER_NOTES[n]||"")]);
+      h+=`<p class="lede">Every player's best category tier across positions (Fantrax eligibility). Click a position for the full board. Within a tier, Josh listed names alphabetically — no order implied.</p>`;
+      h+=table([{h:"Best tier",cls:"num"},{h:"Player",cls:"name"},{h:"Tier by position",cls:"num"},{h:"Note",cls:"note",sort:false}],rows,"tall");
+    } else {
+      for(const p of positions){
+        h+=`<h2>${p} tiers</h2>`;
+        for(const [t,names] of TIERS[p]){const ns=names.filter(n=>show(n)&&hit(n,TIER_NOTES[n]||""));
+          const left=names.filter(n=>!isT(n)).length;
+          if(!ns.length){if(hideTaken&&!q())h+=`<div class="tiergroup"><h3>${tierChip(t)} Tier ${t} <span class="count">· all taken</span></h3></div>`;continue;}
+          h+=`<div class="tiergroup"><h3>${tierChip(t)} Tier ${t} <span class="count">· ${left} of ${names.length} left</span></h3><div class="names">${ns.map(n=>`<span class="pill${isT(n)?" gone":""}">${pn(n)}${TIER_NOTES[n]?` <small>· ${esc(TIER_NOTES[n])}</small>`:""}</span>`).join("")}</div></div>`;}
+      }
+      if(posFilter==="C") h+=`<p class="lede"><span class="tag bad">Don't draft</span> Mark Williams — torn labrum, ~6 months. Don't stash him either.</p>`;
+    }
+  }
+  if(current==="sleepers"){
+    h+=`<h2>Sleeper targets</h2><p class="lede">Players Josh thinks go too late in category leagues. "Target" is where he'd be happy taking them. Yahoo numbers are from early October where he gave them.</p>`;
+    h+=table([{h:"Player",cls:"name"},{h:"Yahoo rank",cls:"num"},{h:"Yahoo ADP",cls:"num"},{h:"Fantrax ADP",cls:"num"},{h:"Target",cls:"num"},{h:"Why",cls:"note",sort:false}],
+      SLEEPERS.filter(r=>show(r[0])&&hit(r[0],r[5])).map(r=>[pn(r[0]),r[1]||"—",r[2]||"—",r[3]||"—",esc(r[4]),esc(r[5])]),"sl");
+  }
+  if(current==="avoids"){
+    h+=`<h2>Avoid at current price</h2><p class="lede">Not "bad players" — just going earlier than Josh values them in cats. Most are fine at his price.</p>`;
+    h+=table([{h:"Player",cls:"name"},{h:"Yahoo rank",cls:"num"},{h:"Yahoo ADP",cls:"num"},{h:"Fantrax ADP",cls:"num"},{h:"Josh's price",cls:"num"},{h:"Why",cls:"note",sort:false}],
+      AVOIDS.filter(r=>show(r[0])&&hit(r[0],r[5])).map(r=>[pn(r[0]),r[1]||"—",r[2]||"—",r[3]||"—",esc(r[4]),esc(r[5])]),"av");
+  }
+  if(current==="flyers"){
+    h+=`<h2>Late-round flyers (round 10+)</h2><p class="lede">From the Oct 3 video. Josh uses round 10 onward for upside swings, since those slots get streamed anyway. The top 15 are outside the top 115 on at least 3 of 5 boards, roughly in his order of preference.</p>`;
+    h+=table([{h:"",cls:"num",sort:false},{h:"Player",cls:"name"},{h:"Team",cls:"num"},{h:"Why",cls:"note",sort:false}],
+      FLYERS.filter(r=>show(r[0])&&hit(r[0],r[1],r[2])).map(r=>[r[3]?'<span class="tag good">Top 15</span>':"",pn(r[0]),r[1],esc(r[2])]),"fl");
+  }
+  if(current==="pairing"){
+    h+=`<h2>Round 1 → round 2 pairings</h2><p class="lede">Based on Yahoo's top-12 order. Options are players ranked within about 2 spots of your round-2 pick in a 12-team league. Josh's point: any sensible pair works; what you do in rounds 3-8 decides it.</p>`;
+    const cards=PAIRS.filter(p=>hit(p[0],p[2].join(" "),p[3]));
+    h+=cards.length?`<div class="grid">${cards.map((p,i)=>`<div class="card"><h4>${PAIRS.indexOf(p)+1}. ${pn(p[0])}</h4><div class="weak">Weakest: ${esc(p[1])}</div><ul>${p[2].filter(show).map(n=>`<li>${pn(n)}</li>`).join("")||"<li>All options taken</li>"}</ul>${p[3]?`<p class="lede" style="margin:8px 0 0">${esc(p[3])}</p>`:""}</div>`).join("")}</div>`:`<div class="tbl"><div class="empty">No players match that search.</div></div>`;
+    h+=`<h2>Punting rules</h2><ul class="rules">${RULES.map(r=>`<li>${esc(r)}</li>`).join("")}</ul>`;
+  }
+  if(current==="ranges"){
+    h+=`<h2>Best/worst case by round</h2><p class="lede">Josh's model: middle 60% of per-game outcomes (20th–80th percentile), using Fantrax ADP. Injuries and minutes are not included.</p>`;
+    h+=table([{h:"Rd",cls:"num"},{h:"Player",cls:"name"},{h:"Fantrax ADP",cls:"num"},{h:"Best",cls:"num"},{h:"Worst",cls:"num"},{h:"Range",cls:"num"},{h:"Note",cls:"note",sort:false}],
+      RANGES.filter(r=>show(r[1])&&hit(r[1],r[6])).map(r=>[r[0],pn(r[1]),r[2],r[3],r[4],`<span class="tag ${r[5]==="Wide"?"bad":"good"}">${r[5]}</span>`,esc(r[6])]),"rg");
+  }
+  v.innerHTML=h;
+  $("#count").textContent=`${taken.length} taken`;
+  $("#showAll").setAttribute("aria-pressed",!hideTaken);$("#showLeft").setAttribute("aria-pressed",hideTaken);
+  $("#undo").disabled=!taken.length;
+  $("#reset").textContent=resetArmed?"Tap again to clear all":"Reset draft";$("#reset").classList.toggle("warn",resetArmed);
+  v.querySelectorAll("[data-pos]").forEach(b=>b.onclick=()=>{posFilter=b.dataset.pos;render()});
+  makeSortable();
+}
+function drawTabs(){
+  $("#tabs").innerHTML=TABS.map(([id,l])=>`<button class="tab" role="tab" id="tab-${id}" aria-selected="${id===current}" data-t="${id}">${l}</button>`).join("");
+  $("#tabs").querySelectorAll(".tab").forEach(b=>b.onclick=()=>{current=b.dataset.t;try{localStorage.setItem("jlTab",current)}catch(e){};drawTabs();render()});
+}
+$("#q").addEventListener("input",render);
+
+function profile(n){
+  const tiers=[];for(const p of ["PG","SG","SF","PF","C"])for(const [t,ns] of TIERS[p])if(ns.includes(n))tiers.push([p,t]);
+  const t25=TOP25.find(r=>r[0]===n), ro=ROTO.indexOf(n);
+  const sl=SLEEPERS.find(r=>r[0]===n), av=AVOIDS.find(r=>r[0]===n), fl=FLYERS.find(r=>r[0]===n), rg=RANGES.find(r=>r[1]===n);
+  const pairs=PAIRS.filter(p=>p[0]===n||p[2].includes(n));
+  return {tiers,t25,ro,sl,av,fl,rg,pairs};
+}
+let popFor=null, lastFocus=null;
+function openPop(n){
+  popFor=n; lastFocus=document.activeElement;
+  const P=profile(n), g=isT(n);
+  const tags=[];
+  if(P.sl)tags.push('<span class="tag good">Sleeper</span>');
+  if(P.av)tags.push('<span class="tag bad">Avoid at ADP</span>');
+  if(P.fl)tags.push(`<span class="tag flyer">${P.fl[3]?"Top-15 flyer":"Flyer"}</span>`);
+  if(P.t25)tags.push(`<span class="tag good">Top 25 · #${P.t25[1]}</span>`);
+  if(g)tags.push('<span class="tag bad">Taken</span>');
+  const best=P.tiers.length?Math.min(...P.tiers.map(x=>x[1])):null;
+  let d="";
+  d+=`<dt>Tiers</dt><dd>${P.tiers.length?P.tiers.map(([p,t])=>`${tierChip(t)} ${p}`).join(" &nbsp;"):"Not in his position tiers"}</dd>`;
+  if(P.t25||P.ro>=0)d+=`<dt>Rank</dt><dd>${P.t25?`H2H 9-cat #${P.t25[1]}`:""}${P.t25&&P.ro>=0?" · ":""}${P.ro>=0?`Roto 8-cat #${P.ro+1}`:""}${P.t25&&P.t25[2]?`<br><span style="color:var(--muted)">${esc(P.t25[2])}</span>`:""}</dd>`;
+  if(P.sl)d+=`<dt>Sleeper</dt><dd>Target: <b>${esc(P.sl[4])}</b>${P.sl[1]?` · Yahoo rank ${P.sl[1]}`:""}${P.sl[2]?` · Yahoo ADP ${P.sl[2]}`:""}${P.sl[3]?` · Fantrax ADP ${P.sl[3]}`:""}<br><span style="color:var(--muted)">${esc(P.sl[5])}</span></dd>`;
+  if(P.av)d+=`<dt>Avoid</dt><dd>Josh's price: <b>${esc(P.av[4])}</b>${P.av[1]?` · Yahoo rank ${P.av[1]}`:""}${P.av[2]?` · Yahoo ADP ${P.av[2]}`:""}${P.av[3]?` · Fantrax ADP ${P.av[3]}`:""}<br><span style="color:var(--muted)">${esc(P.av[5])}</span></dd>`;
+  if(P.fl)d+=`<dt>Flyer</dt><dd>${esc(P.fl[1])} · ${esc(P.fl[2])}</dd>`;
+  if(P.rg)d+=`<dt>Range</dt><dd>Round ${P.rg[0]} · best ${P.rg[3]}, worst ${P.rg[4]} (${P.rg[5].toLowerCase()})</dd>`;
+  if(P.pairs.length)d+=`<dt>Pairing</dt><dd>${P.pairs.map(p=>p[0]===n?`Round-1 anchor; pair with ${p[2].map(esc).join(", ")}`:`Round-2 option with ${esc(p[0])}`).join("<br>")}</dd>`;
+  if(TIER_NOTES[n]&&!(P.t25&&P.t25[2]))d+=`<dt>Note</dt><dd>${esc(TIER_NOTES[n])}</dd>`;
+  $("#pop").innerHTML=`<h3 id="popName">${best?tierChip(best)+" ":""}${esc(n)}</h3>${tags.length?`<div class="row">${tags.join("")}</div>`:""}<dl>${d}</dl>
+   <div class="acts"><button class="btn primary" id="popTake">${g?"Put back (not taken)":"Mark taken"}</button><button class="btn" id="popClose">Close</button></div>`;
+  $("#scrim").hidden=false;
+  $("#popTake").onclick=()=>{toggleTaken(n);closePop()};
+  $("#popClose").onclick=closePop;
+  $("#popTake").focus();
+}
+function closePop(){$("#scrim").hidden=true;popFor=null;if(lastFocus&&document.contains(lastFocus))lastFocus.focus()}
+$("#scrim").addEventListener("click",e=>{if(e.target.id==="scrim")closePop()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&popFor)closePop()});
+$("#view").addEventListener("click",e=>{const t=e.target.closest(".p");if(t)openPop(t.dataset.p)});
+$("#view").addEventListener("keydown",e=>{const t=e.target.closest(".p");if(t&&(e.key==="Enter"||e.key===" ")){e.preventDefault();openPop(t.dataset.p)}});
+$("#showAll").onclick=()=>{hideTaken=false;save();render()};
+$("#showLeft").onclick=()=>{hideTaken=true;save();render()};
+$("#undo").onclick=()=>{taken.pop();save();render()};
+$("#reset").onclick=()=>{if(!resetArmed){resetArmed=true;render();setTimeout(()=>{resetArmed=false;render()},4000);return}resetArmed=false;taken=[];save();render()};
+drawTabs();render();
+</script>
+
+</body>
+</html>
