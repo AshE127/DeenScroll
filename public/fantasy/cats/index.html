@@ -113,6 +113,10 @@ td.note{color:var(--muted);min-width:240px}
 .btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .btn.warn{color:var(--bad);border-color:var(--bad)}
 .hint{color:var(--muted);font-size:13px;margin:0 0 4px}
+.qx{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;margin-left:6px;vertical-align:middle;border:1px solid var(--line);border-radius:5px;background:var(--panel);color:var(--muted);font:700 12px var(--body);cursor:pointer;padding:0;line-height:1}
+.qx:hover{border-color:var(--bad);color:var(--bad)}
+.qx[aria-pressed="true"]{background:var(--bad);border-color:var(--bad);color:#fff}
+.qx:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .scrim{position:fixed;inset:0;background:rgba(10,14,20,.45);z-index:20;display:flex;align-items:center;justify-content:center;padding:16px}
 .pop{background:var(--panel);color:var(--fg);border:1px solid var(--line);border-radius:12px;width:min(440px,100%);max-height:85vh;overflow:auto;padding:16px 18px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 .pop h3{font:700 22px var(--display);margin:0 0 2px}
@@ -146,7 +150,7 @@ td.note{color:var(--muted);min-width:240px}
     <button class="btn" id="reset">Reset draft</button>
   </div>
 </div>
-<p class="hint">Tap any player name for his card: tiers, top-25 spot, sleeper / avoid / flyer tags, and a button to mark him taken. Marks stay in this browser.</p>
+<p class="hint">Tap a player name for his card (tiers, top-25 spot, sleeper / avoid / flyer tags). Tap ✕ next to a name to mark him taken instantly; ↺ puts him back. Marks stay in this browser.</p>
 <div class="scrim" id="scrim" hidden><div class="pop" id="pop" role="dialog" aria-modal="true" aria-labelledby="popName"></div></div>
 <main id="view"></main>
 
@@ -395,7 +399,7 @@ try{hideTaken=localStorage.getItem("jlHide")==="1"}catch(e){}
 const isT=n=>taken.includes(n);
 const show=n=>!(hideTaken&&isT(n));
 function save(){try{localStorage.setItem("jlTaken",JSON.stringify(taken));localStorage.setItem("jlHide",hideTaken?"1":"0")}catch(e){}}
-function pn(n){const g=isT(n);return `<span class="p${g?" gone":""}" data-p="${esc(n)}" role="button" tabindex="0" aria-pressed="${g}" title="Tap for player card">${esc(n)}</span>`}
+function pn(n){const g=isT(n);return `<span class="p${g?" gone":""}" data-p="${esc(n)}" role="button" tabindex="0" aria-pressed="${g}" title="Tap for player card">${esc(n)}</span><button class="qx" data-x="${esc(n)}" aria-pressed="${g}" aria-label="${g?"Put back":"Mark taken"}: ${esc(n)}" title="${g?"Put back":"Mark taken"}">${g?"↺":"✕"}</button>`}
 function toggleTaken(n){taken=isT(n)?taken.filter(x=>x!==n):[...taken,n];save();render()}
 
 function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
@@ -528,7 +532,7 @@ function openPop(n){
 function closePop(){$("#scrim").hidden=true;popFor=null;if(lastFocus&&document.contains(lastFocus))lastFocus.focus()}
 $("#scrim").addEventListener("click",e=>{if(e.target.id==="scrim")closePop()});
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&popFor)closePop()});
-$("#view").addEventListener("click",e=>{const t=e.target.closest(".p");if(t)openPop(t.dataset.p)});
+$("#view").addEventListener("click",e=>{const x=e.target.closest(".qx");if(x){toggleTaken(x.dataset.x);return}const t=e.target.closest(".p");if(t)openPop(t.dataset.p)});
 $("#view").addEventListener("keydown",e=>{const t=e.target.closest(".p");if(t&&(e.key==="Enter"||e.key===" ")){e.preventDefault();openPop(t.dataset.p)}});
 $("#showAll").onclick=()=>{hideTaken=false;save();render()};
 $("#showLeft").onclick=()=>{hideTaken=true;save();render()};
