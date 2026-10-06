@@ -430,7 +430,8 @@ function makeSortable(){
         const i=+th.dataset.i, body=t.tBodies[0], rows=[...body.rows];
         const dir=th.dataset.dir==="asc"?"desc":"asc"; t.querySelectorAll("th").forEach(x=>delete x.dataset.dir); th.dataset.dir=dir;
         const val=r=>{const s=r.cells[i].innerText.replace(/[~,]/g,"").trim();const n=parseFloat(s.replace(/^T/,""));return isNaN(n)?(s?s.toLowerCase():"￿"):n};
-        rows.sort((a,b)=>{const x=val(a),y=val(b);const c=(typeof x==="number"&&typeof y==="number")?x-y:String(x).localeCompare(String(y));return dir==="asc"?c:-c});
+        const blank=v=>v==="￿"||v==="—"||v==="-"||v==="–";
+        rows.sort((a,b)=>{const x=val(a),y=val(b);const bx=blank(x),by=blank(y);if(bx||by)return bx===by?0:(bx?1:-1);const c=(typeof x==="number"&&typeof y==="number")?x-y:String(x).localeCompare(String(y));return dir==="asc"?c:-c});
         rows.forEach(r=>body.appendChild(r));
       };
     });
